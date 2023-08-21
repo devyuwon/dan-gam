@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="allList"
+            android:id="@+id/allList"
             android:title="메뉴"
             android:icon="@drawable/ic_action_hamburger"
         />
     <item
-            android:id="alert"
+            android:id="@+id/alert"
             android:title="알람"
             android:icon="@drawable/alert"
         />
