@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DanGam</string>
+    <string name="img_symbol">Symbol</string>
+    <string name="img_logo">Logo</string>
 </resources>
