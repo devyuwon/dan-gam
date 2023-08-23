@@ -37,6 +37,9 @@
                 android:name=".advertising_delete"
                 android:exported="true" />
         <activity
+                android:name=".advertising_main_ilgam"
+                android:exported="true" />
+        <activity
                 android:name=".MainActivity"
                 android:exported="true">
             <intent-filter>
