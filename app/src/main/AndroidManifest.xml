@@ -13,6 +13,30 @@
             android:theme="@style/Theme.DanGam"
             tools:targetApi="31">
         <activity
+                android:name=".advertising_state_modify"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_nocolor"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_modify_toast"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_ilgun"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_ilgam"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_gps"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_delete_toast"
+                android:exported="true" />
+        <activity
+                android:name=".advertising_delete"
+                android:exported="true" />
+        <activity
                 android:name=".MainActivity"
                 android:exported="true">
             <intent-filter>

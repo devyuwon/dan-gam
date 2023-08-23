@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:animationCache="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="#FFEFDE">
+
+        <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:srcCompat="@drawable/more_vert"
+                android:id="@+id/imageButton4"
+                android:scaleType="fitXY"
+                android:background="#FFEFDE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="10dp" />
+
+        <TextView
+                android:text="일꾼  모집"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="716dp">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/scrollView2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ImageView
+
+                        android:layout_width="340dp"
+                        android:layout_height="262dp"
+                        android:id="@+id/imgPhoto"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:srcCompat="@drawable/round_btn"
+                        android:layout_marginTop="15dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                        android:layout_marginTop="5dp"
+                        tools:layout_editor_absoluteX="15dp"
+                        android:id="@+id/constraintLayout2">
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:id="@+id/view"
+                            android:background="#FF8000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginEnd="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginStart="20dp" />
+
+                    <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/ilgungam_04"
+                            android:id="@+id/imageView9"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp" />
+
+                    <TextView
+                            android:text="이삿짐 옮겨 주실 분 구합니다."
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView12"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@+id/imageView9"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                            android:text="2시간전"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView13"
+                            android:textColor="#8E9192"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView12"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="93dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                        android:id="@+id/constraintLayout3">
+
+                    <ImageView
+                            android:layout_width="93dp"
+                            android:layout_height="93dp"
+                            app:srcCompat="@drawable/profile"
+                            android:id="@+id/imageView10"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                            android:text="홍시가 될때까지"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView14"
+                            android:textColor="#2E3132"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView10"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="20dp" />
+
+                    <TextView
+                            android:text="전주시 덕진구 금암 2동"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView15"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/textView14"
+                            app:layout_constraintStart_toEndOf="@+id/imageView10"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginBottom="18dp"
+                            android:layout_marginStart="12dp"
+                            android:textSize="12sp"
+                            android:textColor="#747878"
+                            android:textStyle="bold" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="10dp">
+
+                    <TextView
+                            android:text="날짜 : 2023년 8월 4일 (금) 오후 2시  \n예상 수행 시간 : 2시간 \n필요 인원 : 3명 \n\n 큰 물건은 별로 없어요. 가까운 곳으로 이사 하는데 \n주변에 지인이 없어서 단감에 글 올립니다. \n평일에 이사를 꼭 해야 하는  상황입니다. \n\n죄송하지만 미성년자분은 지원 불가합니다.\n"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView16"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:textStyle="bold"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="340dp"
+                android:background="@drawable/round_nocolor_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="220dp"
+                android:backgroundTint="#FFE2E2">
+
+            <Button
+                    android:text="네"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/button5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="130dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/round_orange_btn"
+                    android:backgroundTintMode="src_atop"
+                    android:backgroundTint="#F47F2A"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:text="삭제한 글은 다시 복구할 수 없습니다.  \n 정말 삭제하시겠습니까?"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView11"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_marginTop="50dp"
+                    android:textStyle="bold" />
+
+            <Button
+                    android:text="아니요"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/button6"
+                    android:background="@drawable/round_orange_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="130dp"
+                    android:layout_marginStart="150dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textColor="#FF8000" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:id="@+id/view5"
+                android:background="#DBDBDB"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="75dp" />
+
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:id="@+id/view4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#DBDBDB" />
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:id="@+id/view3"
+                android:background="#DBDBDB"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+        <TextView
+                android:text="수행비 : 100,000원"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView17"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/mode_edit"
+                android:id="@+id/imageButton3"
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                android:scaleType="fitXY" />
+
+        <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                app:srcCompat="@drawable/delete"
+                android:id="@+id/imageButton2"
+                android:backgroundTint="#ffff"
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="15dp" />
+
+        <TextView
+                android:text="삭제"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
