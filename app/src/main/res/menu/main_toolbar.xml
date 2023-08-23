@@ -11,7 +11,4 @@
             android:id="@+id/menu"
             android:icon="@drawable/ic_action_hamburger"
             app:showAsAction="always" />
-
-
-
 </menu>
