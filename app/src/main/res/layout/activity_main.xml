@@ -8,6 +8,9 @@
 
 
 
+
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
             app:menu="@menu/bottom_navi_menu"
             android:layout_width="match_parent"
@@ -18,4 +21,59 @@
             app:itemIconSize="30dp"
 
             />
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/mainToolbar"
+            app:title="Dangam" />
+
+    <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/ic_location"
+            android:id="@+id/imageView"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/mainToolbar"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp" />
+
+    <TextView
+            android:text="전주시 노송동"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:id="@+id/textView"
+            android:layout_toEndOf="@+id/imageView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/mainToolbar" />
+
+    <ToggleButton
+            android:text="ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toggleButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="29dp"
+            android:layout_marginTop="60dp"
+            android:layout_below="@+id/mainToolbar"
+            android:textOff="일꾼"
+            android:textOn="일감" />
+
+    <TextView
+            android:text="이근처에 글 목록 올거임"
+            android:layout_width="290dp"
+            android:layout_height="363dp"
+            android:id="@+id/textView2"
+            android:layout_marginBottom="632dp"
+            android:layout_marginTop="138dp"
+            android:layout_below="@+id/mainToolbar"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="57dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="64dp" />
+
 </RelativeLayout>
