@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "690547928578",
+    "project_id": "dangam-6489e",
+    "storage_bucket": "dangam-6489e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690547928578:android:5960ce6fb894dbab32811b",
+        "android_client_info": {
+          "package_name": "com.jica.dangam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690547928578-uvf14sf33e7stnmedu3ldh47idk18od8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "3419fe2d96de122e6474f56fc2affea3cdf95c5a"
+          }
+        },
+        {
+          "client_id": "690547928578-hvm7pip24u3452jiftlhdfd4jrfudool.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ4ga9H2sq6YIijawLJj6BhIIYSP0FmtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690547928578-hvm7pip24u3452jiftlhdfd4jrfudool.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
