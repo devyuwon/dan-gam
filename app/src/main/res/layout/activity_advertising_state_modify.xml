@@ -11,17 +11,16 @@
             android:layout_height="57dp"
             android:background="#FFEFDE">
 
-        <ImageButton
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:srcCompat="@drawable/more_vert"
-                android:id="@+id/imageButton4"
-                android:scaleType="fitXY"
-                android:background="#FFEFDE"
-                app:layout_constraintEnd_toEndOf="parent"
+        <Button
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:id="@+id/button7"
+                android:background="@drawable/dots"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="10dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="해당 view에 대한 설명"
+                />
 
         <TextView
                 android:text="일꾼  모집"
@@ -33,7 +32,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black" />
+
+        <Button
+                android:layout_width="12dp"
+                android:layout_height="23dp"
+                android:id="@+id/button3"
+                android:background="@drawable/vector"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"
+                android:contentDescription="해당 view에 대한 설명"
+                />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,7 +116,8 @@
                             android:textSize="16sp"
                             app:layout_constraintStart_toEndOf="@+id/imageView9"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor="@color/black" />
 
                     <TextView
                             android:text="2시간전"
@@ -165,7 +178,8 @@
                             android:layout_marginStart="12dp"
                             android:textSize="12sp"
                             android:textColor="#747878"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColorHint="@color/black" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,12 +200,13 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_marginTop="10dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:textStyle="bold"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor="@color/black" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -206,15 +221,14 @@
                 android:backgroundTint="#F4E2E2"
                 android:paddingLeft="15dp">
 
-            <ImageView
-
-                    android:layout_width="60dp"
+            <Button
+                    android:layout_width="70dp"
                     android:layout_height="5dp"
-                    android:id="@+id/imageView12"
-                    app:srcCompat="@drawable/rectangle"
-                    android:scaleType="fitXY"
-                    android:layout_marginBottom="25dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:id="@+id/button9"
+                    android:background="@drawable/closebar"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="해당 view에 대한 설명"/>
 
             <RadioButton
                     android:text="  공고 진행전"
@@ -223,7 +237,6 @@
                     android:id="@+id/radioButton2"
                     android:textAlignment="textStart"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:theme="@style/CustomRadioTheme" />
 
@@ -232,16 +245,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:id="@+id/radioButton3"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
 
             <RadioButton
                     android:text="  공고 진행완료"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:id="@+id/radioButton4"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
 
 
         </RadioGroup>
@@ -293,19 +304,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:srcCompat="@drawable/mode_edit"
-                android:id="@+id/imageButton3"
-                android:backgroundTint="#FFFFFF"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view3"
-                android:scaleType="fitXY" />
+                android:textColor="@color/black" />
 
         <ImageButton
                 android:layout_width="55dp"
@@ -318,18 +318,46 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
-                android:layout_marginBottom="15dp" />
+                android:layout_marginBottom="15dp"
+                android:contentDescription="해당 view에 대한 설명"
+                />
 
         <TextView
                 android:text="삭제"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/view5" />
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                android:textColor="@color/black" />
+
+        <TextView
+                android:text="수정"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@+id/button8"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="3dp"
+                android:textColor="@color/black" />
+
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/button8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/modify"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                android:contentDescription="해당 view에 대한 설명"
+                />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

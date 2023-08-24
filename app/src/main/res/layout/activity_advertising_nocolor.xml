@@ -12,14 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="67dp">
 
-        <ImageView
-
-                android:layout_width="25dp"
+        <Button
+                android:layout_width="15dp"
                 android:layout_height="25dp"
-                android:id="@+id/imageView7"
-                app:srcCompat="@drawable/close"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp" />
+                android:id="@+id/button3"
+                android:background="@drawable/vector"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"
+                android:contentDescription="해당 view에 대한 설명"
+                android:layout_marginTop="17dp" />
 
         <TextView
                 android:text="글 작성하기"
