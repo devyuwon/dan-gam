@@ -17,6 +17,14 @@ public class PostProfile {
 		this.location="missing";
 	}
 
+	//test용 title, contents만 있는 생성자
+	public PostProfile(String title, String contents){
+		this.title=title;
+		this.contents=contents;
+		this.postNumber=0;
+		this.location="";
+	}
+
 	public PostProfile(int postNumber, String title, String contents, String location){
 		this.postNumber=postNumber;
 		this.title=title;

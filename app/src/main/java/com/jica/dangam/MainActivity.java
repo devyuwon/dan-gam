@@ -1,12 +1,17 @@
 package com.jica.dangam;
 
+import java.util.ArrayList;
+
 import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 		Toolbar tb = (Toolbar) findViewById(R.id.mainToolbar) ;
 		setSupportActionBar(tb) ;
+
 
 
 

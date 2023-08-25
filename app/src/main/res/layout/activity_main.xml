@@ -58,15 +58,13 @@
             app:layout_constraintTop_toTopOf="@+id/mainToolbar"
             android:layout_marginTop="88dp" />
 
-    <TextView
-            android:text="이근처에 글 목록 올거임"
-            android:layout_width="290dp"
-            android:layout_height="363dp"
-            android:id="@+id/textView2"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="68dp"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="520dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="164dp" />
+            android:layout_marginTop="144dp"
+            android:scrollbars="vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
