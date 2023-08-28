@@ -1,9 +1,17 @@
 package com.jica.dangam;
 
-import java.util.ArrayList;
+import static android.content.ContentValues.*;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import android.util.Log;
 import android.view.Menu;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -16,12 +24,14 @@ public class MainActivity extends AppCompatActivity {
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
 
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.main_list_liner);
 
 		Toolbar tb = (Toolbar) findViewById(R.id.mainToolbar) ;
 		setSupportActionBar(tb) ;
@@ -44,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
 		adapter.addItem(new PostProfile("제목6","내용6"));
 		adapter.addItem(new PostProfile("제목7","내용7"));
 		adapter.addItem(new PostProfile("제목8","내용8"));
+		adapter.addItem(new PostProfile("제목9","내용9"));
+		adapter.addItem(new PostProfile("제목10","내용10"));
+		adapter.addItem(new PostProfile("제목11","내용11"));
+
+
+
 
 		recyclerView.setAdapter(adapter);
 
