@@ -45,4 +45,7 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	public void addItem(PostProfile item) {
 		items.add(item);
 	}
+	public void addAll(ArrayList<PostProfile> list){
+		items.addAll(list);
+	}
 }
