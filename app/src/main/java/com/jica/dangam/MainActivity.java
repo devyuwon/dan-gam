@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.util.Log;
 import android.view.Menu;
@@ -57,6 +59,24 @@ public class MainActivity extends AppCompatActivity {
 		adapter.addItem(new PostProfile("제목9","내용9"));
 		adapter.addItem(new PostProfile("제목10","내용10"));
 		adapter.addItem(new PostProfile("제목11","내용11"));
+
+		db.collection("post_gam")
+			.get()
+			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+				@Override
+				public void onComplete(@NonNull Task<QuerySnapshot> task) {
+					if (task.isSuccessful()) {
+						for (QueryDocumentSnapshot document : task.getResult()) {
+							PostProfile profile = document.toObject(PostProfile.class);
+							adapter.addItem(profile);
+							Log.d("firestore", document.getId() + " => " + document.getData());
+							Log.d("object test",profile.getTitle()+" "+profile.getContents());
+						}
+					} else {
+						Log.d("firestore", "Error getting documents: ", task.getException());
+					}
+				}
+			});
 
 
 

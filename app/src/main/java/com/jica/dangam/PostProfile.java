@@ -1,73 +1,101 @@
 package com.jica.dangam;
 
+import java.util.Date;
+
 public class PostProfile {
+	private String title, contents, location, image1, image2, image3;
+	private Date pdate, sdate, edate;
 
-	private int postNumber;
-	private String title;
-	private String contents;
-	private String location;
-
-	//구현 예정
-	//private String image;
-
-	public PostProfile(){
-		this.postNumber=0;
-		this.title="No Title";
-		this.contents="No Contents";
-		this.location="missing";
+	public PostProfile(String title, String contents, String location, String image1, String image2, String immge3,
+		Date pdate, Date sdate, Date edate) {
+		this.title = title;
+		this.contents = contents;
+		this.location = location;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = immge3;
+		this.pdate = pdate;
+		this.sdate = sdate;
+		this.edate = edate;
 	}
 
-	//test용 title, contents만 있는 생성자
-	public PostProfile(String title, String contents){
-		this.title=title;
-		this.contents=contents;
-		this.postNumber=0;
-		this.location="";
+	public PostProfile() {
 	}
 
-	public PostProfile(int postNumber, String title, String contents, String location){
-		this.postNumber=postNumber;
-		this.title=title;
-		this.contents=contents;
-		this.location=location;
-		//this.image=image;
+	public PostProfile(String title, String contents) {
+		this.title = title;
+		this.contents = contents;
 	}
-	//getter
-	public int getPostNumber(){
-		return postNumber;
-	}
-	public String getTitle(){
+
+	public String getTitle() {
 		return title;
 	}
-	public String getContents(){
+
+	public String getContents() {
 		return contents;
 	}
-	public String getLocation(){
+
+	public String getLocation() {
 		return location;
 	}
 
-	//구현 예정
-	//public String getImage(){
-	//	return image;
-	//}
-
-	//setter
-
-	public void setPostNumber(int postNumber){
-		this.postNumber=postNumber;
-	}
-	public void setTitle(String title){
-		this.title=title;
-	}
-	public void  setContents(String contents){
-		this.contents=contents;
-	}
-	public void setLocation(String location){
-		this.location=location;
+	public String getImage1() {
+		return image1;
 	}
 
-	//구현 예정
-	//public void setImage(String image){
-	//	this.image=image;
-	//}
+	public String getImage2() {
+		return image2;
+	}
+
+	public String getImage3() {
+		return image3;
+	}
+
+	public Date getPdate() {
+		return pdate;
+	}
+
+	public Date getSdate() {
+		return sdate;
+	}
+
+	public Date getEdate() {
+		return edate;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public void setImage2(String image2) {
+		this.image2 = image2;
+	}
+
+	public void setImage3(String immge3) {
+		this.image3 = immge3;
+	}
+
+	public void setPdate(Date pdate) {
+		this.pdate = pdate;
+	}
+
+	public void setSdate(Date sdate) {
+		this.sdate = sdate;
+	}
+
+	public void setEdate(Date edate) {
+		this.edate = edate;
+	}
 }
