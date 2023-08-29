@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 							Log.d("firestore", document.getId() + " => " + document.getData());
 							Log.d("object test",profile.getTitle()+" "+profile.getContents());
 						}
+						adapter.notifyDataSetChanged();
 					} else {
 						Log.d("firestore", "Error getting documents: ", task.getException());
 					}
