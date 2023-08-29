@@ -1,18 +1,13 @@
 package com.jica.dangam;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import static android.content.ContentValues.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import android.util.Log;
 import android.view.Menu;
@@ -28,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
+
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
-	String sort = "pdate";
 
 
 
@@ -63,24 +58,11 @@ public class MainActivity extends AppCompatActivity {
 		adapter.addItem(new PostProfile("제목10","내용10"));
 		adapter.addItem(new PostProfile("제목11","내용11"));
 
-		adapter.addAll(getDbData());
 
 
 
 		recyclerView.setAdapter(adapter);
 
-		//db 추가코드 예제(정상작동)
-	/*	CollectionReference cities = db.collection("post_gam");
-
-		Map<String, Object> data1 = new HashMap<>();
-		data1.put("name", "San Francisco");
-		data1.put("state", "CA");
-		data1.put("country", "USA");
-		data1.put("capital", false);
-		data1.put("population", 860000);
-		data1.put("regions", Arrays.asList("west_coast", "norcal"));
-		cities.document("SF").set(data1);
-*/
 
 	}
 
@@ -88,26 +70,5 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_toolbar, menu) ;
 		return super.onCreateOptionsMenu(menu);
-	}
-
-	public ArrayList<PostProfile> getDbData(){
-		ArrayList<PostProfile> result = new ArrayList<>();
-		db.collection("post_gam")
-			.orderBy(sort, Query.Direction.DESCENDING).limit(1)
-			.get()
-			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-				@Override
-				public void onComplete(@NonNull Task<QuerySnapshot> task) {
-					if (task.isSuccessful()) {
-						for (QueryDocumentSnapshot document : task.getResult()) {
-							result.add(document.toObject(PostProfile.class));
-							Log.d("getFirestore","getting complete"+document.getId());
-						}
-					} else {
-						Log.d("getFirestore", "Error getting documents: ", task.getException());
-					}
-				}
-			});
-		return result;
 	}
 }
