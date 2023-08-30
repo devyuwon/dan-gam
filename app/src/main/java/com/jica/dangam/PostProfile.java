@@ -6,14 +6,14 @@ public class PostProfile {
 	private String title, contents, location, image1, image2, image3;
 	private Date pdate, sdate, edate;
 
-	public PostProfile(String title, String contents, String location, String image1, String image2, String immge3,
+	public PostProfile(String title, String contents, String location, String image1, String image2, String image3,
 		Date pdate, Date sdate, Date edate) {
 		this.title = title;
 		this.contents = contents;
 		this.location = location;
 		this.image1 = image1;
 		this.image2 = image2;
-		this.image3 = immge3;
+		this.image3 = image3;
 		this.pdate = pdate;
 		this.sdate = sdate;
 		this.edate = edate;
@@ -22,9 +22,18 @@ public class PostProfile {
 	public PostProfile() {
 	}
 
+	//test용
+
 	public PostProfile(String title, String contents) {
 		this.title = title;
 		this.contents = contents;
+		this.location = "";
+		this.image1 = "";
+		this.image2 = "";
+		this.image3 = "";
+		this.pdate = new Date();
+		this.sdate = new Date();
+		this.edate = new Date();
 	}
 
 	public String getTitle() {

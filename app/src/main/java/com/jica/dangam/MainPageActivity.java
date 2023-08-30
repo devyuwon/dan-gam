@@ -40,6 +40,14 @@ public class MainPageActivity extends AppCompatActivity {
 
 		adapter = new PostProfileAdapter();
 
+		//업로드 테스트 및 초기 문서 추가
+		/*for (int i=1;i<=10;i++){
+			String title = "init_title"+i;
+			String contents = "init_contents"+i;
+			PostProfile upload = new PostProfile(title,contents);
+			db.collection("post_gam").document(title).set(upload);
+		}*/
+
 
 
 		db.collection("post_gam")
