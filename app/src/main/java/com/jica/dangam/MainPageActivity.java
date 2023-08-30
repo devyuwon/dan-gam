@@ -1,12 +1,7 @@
 package com.jica.dangam;
 
-import static android.content.ContentValues.*;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -20,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainPageActivity extends AppCompatActivity {
 
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
@@ -46,19 +41,6 @@ public class MainActivity extends AppCompatActivity {
 		adapter = new PostProfileAdapter();
 
 
-		//test용 더미데이터
-
-		adapter.addItem(new PostProfile("제목1","내용1"));
-		adapter.addItem(new PostProfile("제목2","내용2"));
-		adapter.addItem(new PostProfile("제목3","내용3"));
-		adapter.addItem(new PostProfile("제목4","내용4"));
-		adapter.addItem(new PostProfile("제목5","내용5"));
-		adapter.addItem(new PostProfile("제목6","내용6"));
-		adapter.addItem(new PostProfile("제목7","내용7"));
-		adapter.addItem(new PostProfile("제목8","내용8"));
-		adapter.addItem(new PostProfile("제목9","내용9"));
-		adapter.addItem(new PostProfile("제목10","내용10"));
-		adapter.addItem(new PostProfile("제목11","내용11"));
 
 		db.collection("post_gam")
 			.get()
