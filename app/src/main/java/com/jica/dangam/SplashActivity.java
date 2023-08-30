@@ -12,9 +12,6 @@ public class SplashActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		startLoading();
-
-
-		// setContentView(R.layout.activity_splash);
 	}
 
 	private void startLoading() {

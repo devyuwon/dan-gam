@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".LoginActivity"
+        android:background="#FFFFFF">
 
     <ImageView
             android:layout_width="150dp"
@@ -28,11 +29,10 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="164dp"
-            android:layout_marginTop="47dp"
-            app:layout_constraintTop_toBottomOf="@+id/imgSymbol"
             android:layout_marginEnd="164dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/textView3" />
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgSymbol" />
 
     <TextView
             android:text="당장 급한 일도, 알바 대행도\n3일 안에 끝낼 수 있는 모든 일을\n동네에서 시작하세요."
@@ -55,9 +55,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="248dp"
-            android:layout_marginTop="61dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" >
+            android:layout_marginBottom="292dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
 
     </com.google.android.gms.common.SignInButton>
 
@@ -66,14 +66,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnGoogleLogout"
-            android:layout_marginTop="124dp"
-            app:layout_constraintTop_toBottomOf="@id/btnGoogleLogin"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="194dp"
-            app:layout_constraintVertical_bias="0.837"
+            android:layout_marginBottom="140dp"
             android:layout_marginEnd="158dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="160dp" />
+            android:layout_marginStart="160dp"
+            app:layout_constraintHorizontal_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
