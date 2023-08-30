@@ -9,7 +9,7 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -36,7 +36,9 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/mypage_profile_radius"
+                android:elevation="10dp">
 
             <ImageView
                     android:layout_width="120dp"
@@ -120,23 +122,26 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_height="99dp"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical">
 
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                 <ImageView
-                        android:layout_width="77dp"
-                        android:layout_height="77dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:id="@+id/imageView2"
                         app:srcCompat="@drawable/boy" />
 
                 <TextView
                         android:text="TextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView9" />
             </LinearLayout>
@@ -144,17 +149,19 @@
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                 <ImageView
-                        android:layout_width="77dp"
-                        android:layout_height="77dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:id="@+id/imageView3"
                         tools:srcCompat="@drawable/customer_service" />
 
                 <TextView
                         android:text="TextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView10" />
             </LinearLayout>
@@ -162,17 +169,19 @@
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                 <ImageView
-                        android:layout_width="77dp"
-                        android:layout_height="77dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:id="@+id/imageView4"
                         tools:srcCompat="@drawable/mail" />
 
                 <TextView
                         android:text="TextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView11" />
             </LinearLayout>
@@ -180,20 +189,33 @@
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                 <ImageView
-                        android:layout_width="77dp"
-                        android:layout_height="77dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:id="@+id/imageView5"
                         tools:srcCompat="@drawable/cabinet" />
 
                 <TextView
                         android:text="TextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView12" />
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
