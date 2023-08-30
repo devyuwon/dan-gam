@@ -10,51 +10,40 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchListFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
+
 public class SearchListFragment extends Fragment {
 
-	// TODO: Rename parameter arguments, choose names that match
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-	private static final String ARG_PARAM1 = "param1";
-	private static final String ARG_PARAM2 = "param2";
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-
-	// TODO: Rename and change types of parameters
-	private String mParam1;
-	private String mParam2;
-
 	public SearchListFragment() {
-		// Required empty public constructor
-	}
 
-	/**
-	 * Use this factory method to create a new instance of
-	 * this fragment using the provided parameters.
-	 *
-	 * @param param1 Parameter 1.
-	 * @param param2 Parameter 2.
-	 * @return A new instance of fragment SearchListFragment.
-	 */
-	// TODO: Rename and change types and number of parameters
-	public static SearchListFragment newInstance(String param1, String param2) {
-		SearchListFragment fragment = new SearchListFragment();
-
-		return fragment;
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
+		adapter = new PostProfileAdapter();
+		RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
+		recyclerView.setLayoutManager(manager);
+		//더미데이터
+		adapter.addItem(new PostProfile("제목1","내용1"));
+		adapter.addItem(new PostProfile("제목2","내용2"));
+		adapter.addItem(new PostProfile("제목3","내용3"));
+		adapter.addItem(new PostProfile("제목4","내용4"));
+		adapter.addItem(new PostProfile("제목5","내용5"));
+		adapter.addItem(new PostProfile("제목6","내용6"));
+		adapter.addItem(new PostProfile("제목7","내용7"));
+		adapter.addItem(new PostProfile("제목8","내용8"));
+		adapter.addItem(new PostProfile("제목9","내용9"));
+		adapter.addItem(new PostProfile("제목10","내용10"));
+		adapter.addItem(new PostProfile("제목11","내용11"));
+
+		recyclerView.setAdapter(adapter);
+
 	}
 
 
