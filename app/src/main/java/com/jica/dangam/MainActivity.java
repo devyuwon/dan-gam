@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainPageActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
