@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar" />
+
+    <SearchView
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/search">
+
+    </SearchView>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/container">
+        <!--
+        <fragment
+                android:name="com.jica.dangam.SearchHistoryFragment"
+                android:id="@+id/v_search_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        <fragment
+                android:name="com.jica.dangam.SearchListFragment"
+                android:id="@+id/v_search_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+         -->
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:menu="@menu/bottom_navi_menu"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="#fff"
+            app:itemIconSize="30dp"
+
+            />
+
+</LinearLayout>

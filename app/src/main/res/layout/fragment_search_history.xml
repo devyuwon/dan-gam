@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SearchHistoryFragment"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="최근 검색"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/search_history_title"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history_all"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/history1"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history1"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/history2"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history2"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/history3"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history3"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/history4"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history4"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/history5"
+                android:layout_weight="1" />
+
+        <Button
+                android:text="Button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete_history5"
+                android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+</LinearLayout>
