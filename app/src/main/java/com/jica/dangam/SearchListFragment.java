@@ -26,6 +26,11 @@ public class SearchListFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+
+		Bundle bundle = getArguments();
+		String searchWord;
+		searchWord = bundle.getString("SearchWord");
+
 		adapter = new PostProfileAdapter();
 		RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
 		recyclerView.setLayoutManager(manager);
@@ -52,6 +57,8 @@ public class SearchListFragment extends Fragment {
 		Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_search_list,container,false);
 		recyclerView = (RecyclerView) view.findViewById(R.id.rv_search_list);
+
+
 
 		// Inflate the layout for this fragment
 		return view;
