@@ -25,10 +25,11 @@ import android.os.Bundle;
 
 public class LoginActivity extends AppCompatActivity {
 	private SignInButton btnGoogleLogin;
-	private Button btnGoogleLogout;
+	// private Button btnGoogleLogout;
 	private GoogleSignInClient mGoogleSignInClient;
 	private FirebaseAuth mAuth;
-	private int RC_SIGN_IN = 9001;
+	private static final int RC_SIGN_IN = 9001;
+	private static final String TAG = "LoginActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 		mAuth = FirebaseAuth.getInstance();
 
+		btnGoogleLogin.setSize(1);
+
 		btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -52,16 +55,23 @@ public class LoginActivity extends AppCompatActivity {
 			}
 		});
 
-		btnGoogleLogout = findViewById(R.id.btnGoogleLogout);
-		btnGoogleLogout.setOnClickListener(view -> {
-			signOut();
-		});
+		// btnGoogleLogout = findViewById(R.id.btnGoogleLogout);
+		// btnGoogleLogout.setOnClickListener(view -> {
+		// 	signOut();
+		// });
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		FirebaseUser currentUser = mAuth.getCurrentUser();
+
+		if (currentUser != null) {
+			startActivity(new Intent(LoginActivity.this, MainActivity.class));
+			updateUI(currentUser);
+			Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 
 	@Override
@@ -73,59 +83,56 @@ public class LoginActivity extends AppCompatActivity {
 
 			try {
 				GoogleSignInAccount account = task.getResult(ApiException.class);
-				firebaseAuthWithGoogle(account);
+				Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+				firebaseAuthWithGoogle(account.getIdToken());
 			} catch (ApiException e) {
-				Log.w("LoginActivity", "Google Sign in failed", e);
+				Log.w(TAG, "Google Sign in failed", e);
 			}
 		}
 	}
 
-	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-		Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.getId());
-
-		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+	private void firebaseAuthWithGoogle(String idToken) {
+		AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
 		mAuth.signInWithCredential(credential)
 			.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 				@Override
 				public void onComplete(@NonNull Task<AuthResult> task) {
 					if (task.isSuccessful()) {
-						Log.d("LoginActivity", "signInWithCredential: Success");
+						Log.d(TAG, "signInWithCredential: Success");
 						FirebaseUser user = mAuth.getCurrentUser();
 
-						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-						startActivity(intent);
-						finish();
+						if (user != null) {
+							startActivity(new Intent(LoginActivity.this, MainActivity.class));
+							Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
+							updateUI(user);
+							finish();
+						}
 					} else {
-						Log.w("LoginActivity", "sighInWithCredential: Failure", task.getException());
+						Log.w(TAG, "signInWithCredential: Failure", task.getException());
+						updateUI(null);
 					}
 				}
 			});
 	}
+
 
 	private void signIn() {
 		Intent sighInIntent = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(sighInIntent, RC_SIGN_IN);
 	}
 
-	private void signOut() {
-		mAuth.signOut();
+	// private void signOut() {
+	// 	mAuth.signOut();
+	//
+	// 	mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+	// 		@Override
+	// 		public void onComplete(@NonNull Task<Void> task) {
+	// 			Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+	// 		}
+	// 	});
+	// }
 
-		mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-			@Override
-			public void onComplete(@NonNull Task<Void> task) {
-				Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-			}
-		});
-	}
+	private void updateUI(FirebaseUser user) {
 
-	private void revokeAccess() {
-		mAuth.signOut();
-
-		mGoogleSignInClient.revokeAccess().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-			@Override
-			public void onComplete(@NonNull Task<Void> task) {
-				Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-			}
-		});
 	}
 }
