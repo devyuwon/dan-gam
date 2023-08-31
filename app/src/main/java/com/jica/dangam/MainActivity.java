@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-		db.collection("post_gam")
+		db.collection("post_gam").orderBy("pdate")
 			.get()
 			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 				@Override

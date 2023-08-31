@@ -23,7 +23,6 @@ public class PostProfile {
 	}
 
 	//test용
-
 	public PostProfile(String title, String contents) {
 		this.title = title;
 		this.contents = contents;

@@ -1,8 +1,18 @@
 package com.jica.dangam;
 
+import java.util.ArrayList;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +26,7 @@ public class SearchListFragment extends Fragment {
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
-	FirebaseFirestore db = FirebaseFirestore.getInstance();
+	ArrayList<PostProfile> arrayList = new ArrayList<>();
 
 
 	public SearchListFragment() {
@@ -26,27 +36,32 @@ public class SearchListFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 		Bundle bundle = getArguments();
 		String searchWord;
 		searchWord = bundle.getString("SearchWord");
-
+		Log.d("searchWord",searchWord);
 		adapter = new PostProfileAdapter();
-		RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
-		recyclerView.setLayoutManager(manager);
-		//더미데이터
-		adapter.addItem(new PostProfile("제목1","내용1"));
-		adapter.addItem(new PostProfile("제목2","내용2"));
-		adapter.addItem(new PostProfile("제목3","내용3"));
-		adapter.addItem(new PostProfile("제목4","내용4"));
-		adapter.addItem(new PostProfile("제목5","내용5"));
-		adapter.addItem(new PostProfile("제목6","내용6"));
-		adapter.addItem(new PostProfile("제목7","내용7"));
-		adapter.addItem(new PostProfile("제목8","내용8"));
-		adapter.addItem(new PostProfile("제목9","내용9"));
-		adapter.addItem(new PostProfile("제목10","내용10"));
-		adapter.addItem(new PostProfile("제목11","내용11"));
 
+		db.collection("post_gam").orderBy("pdate")
+			.get()
+			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+				@Override
+				public void onComplete(@NonNull Task<QuerySnapshot> task) {
+					if (task.isSuccessful()) {
+						for (QueryDocumentSnapshot document : task.getResult()) {
+							PostProfile profile = document.toObject(PostProfile.class);
+							adapter.addItem(profile);
+							Log.d("firestore", document.getId() + " => " + document.getData());
+							Log.d("object test",profile.getTitle()+" "+profile.getContents());
+						}
+						adapter.notifyDataSetChanged();
+					} else {
+						Log.d("firestore", "Error getting documents: ", task.getException());
+					}
+				}
+			});
 		recyclerView.setAdapter(adapter);
 
 	}
@@ -60,7 +75,12 @@ public class SearchListFragment extends Fragment {
 
 
 
+
+
 		// Inflate the layout for this fragment
 		return view;
+	}
+	private boolean hasText(String data, String word){
+		return data.contains(word);
 	}
 }
