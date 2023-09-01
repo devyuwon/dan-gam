@@ -1,4 +1,5 @@
 package com.jica.dangam;
+
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -11,18 +12,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder>{
+public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder> {
 	private ArrayList<PostProfile> items = new ArrayList<>();
 	private Context context;
-	public PostProfileAdapter(ArrayList<PostProfile> items){
-		this.items=items;
+
+	public PostProfileAdapter(ArrayList<PostProfile> items) {
+		this.items = items;
 	}
-	public PostProfileAdapter(){
-	};
-	public PostProfileAdapter(Context context, ArrayList<PostProfile> list){
-		this.context=context;
+
+	public PostProfileAdapter() {
+	}
+
+	;
+
+	public PostProfileAdapter(Context context, ArrayList<PostProfile> list) {
+		this.context = context;
 		this.items = list;
 	}
+
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,17 +46,18 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	@Override
 	public int getItemCount() {
 		int size = items != null ? items.size() : 0;
-		Log.d("TAG", "PostProfileAdapter에서 현재 데이타의 갯수 :" + size );
+		Log.d("TAG", "PostProfileAdapter에서 현재 데이타의 갯수 :" + size);
 		return size;
 	}
 
-	static public class ViewHolder extends RecyclerView.ViewHolder{
+	static public class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView title;
 		public TextView content;
+
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
-			title = (TextView) itemView.findViewById(R.id.postTitle);
-			content = (TextView) itemView.findViewById(R.id.postContents);
+			title = (TextView)itemView.findViewById(R.id.postTitle);
+			content = (TextView)itemView.findViewById(R.id.postContents);
 		}
 
 		public void setItemOnView(PostProfile item) {

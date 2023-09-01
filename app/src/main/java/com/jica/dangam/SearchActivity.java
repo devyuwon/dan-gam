@@ -1,8 +1,12 @@
 package com.jica.dangam;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +16,7 @@ public class SearchActivity extends AppCompatActivity {
 	SearchView search;
 	SearchHistoryFragment searchHistoryFG;
 	SearchListFragment searchListFG;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +26,10 @@ public class SearchActivity extends AppCompatActivity {
 
 		//UI객체 찿기
 		search = findViewById(R.id.search);
+
+		Toolbar toolbar = (Toolbar)findViewById(R.id.searchToolbar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		//Fragment 생성
 		searchHistoryFG = new SearchHistoryFragment();
@@ -36,7 +45,7 @@ public class SearchActivity extends AppCompatActivity {
 
 		//처음에는 FrameLayout에 Fragement가 없으므로 Fragment를 추가한다.
 		//FragmentTrasaction객체에 CounterFragment를 추가한다.
-		transaction.add(R.id.container, searchHistoryFG,"History");
+		transaction.add(R.id.container, searchHistoryFG, "History");
 		//최종적으로 commit()메서드 적용하면 Fragment를 추가한다.
 		transaction.commit();
 
@@ -44,15 +53,15 @@ public class SearchActivity extends AppCompatActivity {
 		search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			@Override
 			public boolean onQueryTextSubmit(String s) {
-				if(s != null){
-				Bundle bundle = new Bundle(1);
-				bundle.putString("SearchWord",s);
-				searchListFG.setArguments(bundle);
-				FragmentTransaction transaction = manager.beginTransaction();
+				if (s != null) {
+					Bundle bundle = new Bundle(1);
+					bundle.putString("SearchWord", s);
+					searchListFG.setArguments(bundle);
+					FragmentTransaction transaction = manager.beginTransaction();
 
-				Log.d("TAG", "SearchListFG로 교체");
-				transaction.replace(R.id.container, searchListFG,"List");
-				transaction.commit();
+					Log.d("TAG", "SearchListFG로 교체");
+					transaction.replace(R.id.container, searchListFG, "List");
+					transaction.commit();
 				}
 
 				return false;
@@ -65,7 +74,14 @@ public class SearchActivity extends AppCompatActivity {
 		});
 
 
-	}
 
+	}
+	public boolean onOptionItemSelected(MenuItem item){
+		if (item.getItemId()==android.R.id.home){
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }
