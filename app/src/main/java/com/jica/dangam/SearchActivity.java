@@ -1,5 +1,6 @@
 package com.jica.dangam;
 
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,8 @@ public class SearchActivity extends AppCompatActivity {
 				bundle.putString("SearchWord",s);
 				searchListFG.setArguments(bundle);
 				FragmentTransaction transaction = manager.beginTransaction();
+
+				Log.d("TAG", "SearchListFG로 교체");
 				transaction.replace(R.id.container, searchListFG,"List");
 				transaction.commit();
 				}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -83,5 +84,6 @@ public class MainActivity extends AppCompatActivity {
 		getMenuInflater().inflate(R.menu.main_toolbar, menu) ;
 		return super.onCreateOptionsMenu(menu);
 	}
+
 
 }

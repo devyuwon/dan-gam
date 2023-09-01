@@ -2,6 +2,7 @@ package com.jica.dangam;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,9 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 
 	@Override
 	public int getItemCount() {
-		return (null != items ? items.size() : 0);
+		int size = items != null ? items.size() : 0;
+		Log.d("TAG", "PostProfileAdapter에서 현재 데이타의 갯수 :" + size );
+		return size;
 	}
 
 	static public class ViewHolder extends RecyclerView.ViewHolder{
