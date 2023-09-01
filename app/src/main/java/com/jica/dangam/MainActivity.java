@@ -2,15 +2,23 @@ package com.jica.dangam;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
 	ArrayList<PostProfile> list;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
+	// 테스트용 임시 로그아웃 버튼
+	private Button btnGoogleLogout;
+	private GoogleSignInClient mGoogleSignInClient;
+	private FirebaseAuth mAuth;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +88,37 @@ public class MainActivity extends AppCompatActivity {
 		recyclerView.setAdapter(adapter);
 
 
+		// 테스트용 임시 로그아웃
+		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+			.requestIdToken(getString(R.string.default_web_client_id))
+			.requestEmail()
+			.build();
+
+		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+		mAuth = FirebaseAuth.getInstance();
+
+		btnGoogleLogout = findViewById(R.id.btnGoogleLogout);
+		btnGoogleLogout.setOnClickListener(view -> {
+			signOut();
+		});
+
+	}
+
+	private void signOut() {
+		mAuth.signOut();
+
+		mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+			@Override
+			public void onComplete(@NonNull Task<Void> task) {
+				FirebaseUser user = mAuth.getCurrentUser();
+
+				if (user == null) {
+					startActivity(new Intent(MainActivity.this, LoginActivity.class));
+					Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
+					finish();
+				}
+			}
+		});
 	}
 
 	@Override
