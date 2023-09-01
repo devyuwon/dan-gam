@@ -1,5 +1,7 @@
 package com.jica.dangam;
 
+import java.util.ArrayList;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
-
+	ArrayList<PostProfile> list;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_list_liner);
+		setContentView(R.layout.activity_main);
 
 		Toolbar tb = (Toolbar) findViewById(R.id.mainToolbar) ;
 		setSupportActionBar(tb) ;
@@ -37,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
 		linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
 		recyclerView.setLayoutManager(linearLayoutManager);
-
-		adapter = new PostProfileAdapter();
+		list = new ArrayList<>();
+		adapter = new PostProfileAdapter(list);
 
 		//업로드 테스트 및 초기 문서 추가
 		/*for (int i=1;i<=10;i++){
@@ -81,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
 		getMenuInflater().inflate(R.menu.main_toolbar, menu) ;
 		return super.onCreateOptionsMenu(menu);
 	}
+
 }

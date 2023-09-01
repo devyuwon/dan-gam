@@ -1,5 +1,8 @@
 package com.jica.dangam;
 import java.util.ArrayList;
+
+import android.content.Context;
+import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder>{
-	ArrayList<PostProfile> items = new ArrayList<>();
+	private ArrayList<PostProfile> items = new ArrayList<>();
+	private Context context;
+	public PostProfileAdapter(ArrayList<PostProfile> items){
+		this.items=items;
+	}
+	public PostProfileAdapter(){
+	};
+	public PostProfileAdapter(Context context, ArrayList<PostProfile> list){
+		this.context=context;
+		this.items = list;
+	}
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -19,7 +32,7 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		PostProfile item = items.get(position);
-		holder.setItem(item);
+		holder.setItemOnView(item);
 	}
 
 	@Override
@@ -36,7 +49,7 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 			content = (TextView) itemView.findViewById(R.id.postContents);
 		}
 
-		public void setItem(PostProfile item) {
+		public void setItemOnView(PostProfile item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
 		}

@@ -28,18 +28,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/container">
-        <!--
-        <fragment
-                android:name="com.jica.dangam.SearchHistoryFragment"
-                android:id="@+id/v_search_history"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        <fragment
-                android:name="com.jica.dangam.SearchListFragment"
-                android:id="@+id/v_search_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-         -->
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,18 +1,16 @@
 package com.jica.dangam;
 
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class SearchActivity extends AppCompatActivity {
 	SearchView search;
-	SearchHistoryFragment searchHistory;
-	SearchListFragment searchList;
+	SearchHistoryFragment searchHistoryFG;
+	SearchListFragment searchListFG;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +22,8 @@ public class SearchActivity extends AppCompatActivity {
 		search = findViewById(R.id.search);
 
 		//Fragment 생성
-		searchHistory = new SearchHistoryFragment();
-		searchList = new SearchListFragment();
+		searchHistoryFG = new SearchHistoryFragment();
+		searchListFG = new SearchListFragment();
 		FrameLayout layoutContainer = findViewById(R.id.container);
 
 		//FragmentManager,FragmentTransatcion객체 생성
@@ -37,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
 
 		//처음에는 FrameLayout에 Fragement가 없으므로 Fragment를 추가한다.
 		//FragmentTrasaction객체에 CounterFragment를 추가한다.
-		transaction.add(R.id.container, searchHistory,"History");
+		transaction.add(R.id.container, searchHistoryFG,"History");
 		//최종적으로 commit()메서드 적용하면 Fragment를 추가한다.
 		transaction.commit();
 
@@ -46,12 +44,11 @@ public class SearchActivity extends AppCompatActivity {
 			@Override
 			public boolean onQueryTextSubmit(String s) {
 				if(s != null){
-					layoutContainer.setVisibility(View.VISIBLE);
 				Bundle bundle = new Bundle(1);
 				bundle.putString("SearchWord",s);
-				searchList.setArguments(bundle);
+				searchListFG.setArguments(bundle);
 				FragmentTransaction transaction = manager.beginTransaction();
-				transaction.replace(R.id.container, searchList,"List");
+				transaction.replace(R.id.container, searchListFG,"List");
 				transaction.commit();
 				}
 
@@ -60,12 +57,6 @@ public class SearchActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onQueryTextChange(String s) {
-				if(s != null){
-					layoutContainer.setVisibility(View.INVISIBLE);
-				}else {
-					layoutContainer.setVisibility(View.VISIBLE);
-				}
-
 				return false;
 			}
 		});

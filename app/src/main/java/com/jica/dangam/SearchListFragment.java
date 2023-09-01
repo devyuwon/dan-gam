@@ -42,26 +42,27 @@ public class SearchListFragment extends Fragment {
 		String searchWord;
 		searchWord = bundle.getString("SearchWord");
 		Log.d("searchWord",searchWord);
-		adapter = new PostProfileAdapter();
 
-		db.collection("post_gam").orderBy("pdate")
-			.get()
-			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-				@Override
-				public void onComplete(@NonNull Task<QuerySnapshot> task) {
-					if (task.isSuccessful()) {
-						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
-							adapter.addItem(profile);
-							Log.d("firestore", document.getId() + " => " + document.getData());
-							Log.d("object test",profile.getTitle()+" "+profile.getContents());
-						}
-						adapter.notifyDataSetChanged();
-					} else {
-						Log.d("firestore", "Error getting documents: ", task.getException());
-					}
-				}
-			});
+
+
+		//더미데이터 영역
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+		adapter.addItem(new PostProfile("더미제목1","더미제목2"));
+
+
+		adapter.notifyDataSetChanged();
+
+
+
 		recyclerView.setAdapter(adapter);
 
 	}
@@ -70,6 +71,8 @@ public class SearchListFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
+		adapter = new PostProfileAdapter(getActivity(),arrayList);
+		linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
 		View view = inflater.inflate(R.layout.fragment_search_list,container,false);
 		recyclerView = (RecyclerView) view.findViewById(R.id.rv_search_list);
 
