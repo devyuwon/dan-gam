@@ -2,10 +2,12 @@ package com.jica.dangam;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,19 @@ public class SearchActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar)findViewById(R.id.searchToolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		BottomNavigationView btNavi = findViewById(R.id.bottomNavigationView_search);
+
+		btNavi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				if (item.getItemId() == R.id.menuHome) {
+					finish();
+					return true;
+				}
+				return false;
+			}
+		});
 
 		//Fragment 생성
 		searchHistoryFG = new SearchHistoryFragment();
