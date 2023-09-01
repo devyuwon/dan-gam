@@ -2,4 +2,7 @@
     <string name="app_name">DanGam</string>
     <string name="img_symbol">Symbol</string>
     <string name="img_logo">Logo</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
