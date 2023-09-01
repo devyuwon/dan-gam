@@ -1,0 +1,84 @@
+package com.jica.dangam;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import androidx.appcompat.content.res.AppCompatResources;
+
+public class PostModifyActivity extends AppCompatActivity {
+
+	Button btn_post_back;
+	Button btn_ilgam,btn_ilgun;
+	Button btn_plus_gps;
+	Button btn_post_complete;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_post_modify);
+
+		btn_post_back = findViewById(R.id.btn_post_back);
+
+		btn_ilgam = findViewById(R.id.btn_ilgam);
+		btn_ilgun = findViewById(R.id.btn_ilgun);
+
+		btn_plus_gps = findViewById(R.id.btn_plus_gps);
+		btn_post_complete = findViewById(R.id.btn_post_complete);
+
+		//뒤로가기 버튼
+		btn_post_back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				Intent intent = new Intent(PostModifyActivity.this, PostActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		//유형 선택시 색상 변경
+		//일감 선택
+		btn_ilgam.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				btn_ilgam.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.secondary));
+				btn_ilgun.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.grey));
+			}
+		});
+
+		//일꾼 선택
+		btn_ilgun.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				btn_ilgam.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.grey));
+				btn_ilgun.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.ligthgreen));
+
+
+			}
+		});
+
+		//위치추가 버튼
+		btn_plus_gps.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(PostModifyActivity.this, PostGpsActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		//작성완료 버튼
+		btn_post_complete.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(PostModifyActivity.this, PostActivity.class);
+				startActivity(intent);
+			}
+		});
+
+
+
+	}
+}

@@ -4,7 +4,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:elevation="20dp"
+        android:id="@+id/lo_main"
+        android:background="#00000000">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:visibility="gone"
+            android:id="@+id/lo_post_main">
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -14,13 +26,12 @@
         <Button
                 android:layout_width="60dp"
                 android:layout_height="80dp"
-                android:id="@+id/button7"
+                android:id="@+id/btn_post_menu"
                 android:background="@drawable/dots"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="해당 view에 대한 설명"
-                />
+                android:contentDescription="해당 view에 대한 설명" />
 
         <TextView
                 android:text="일꾼  모집"
@@ -38,14 +49,13 @@
         <Button
                 android:layout_width="12dp"
                 android:layout_height="23dp"
-                android:id="@+id/button3"
+                android:id="@+id/btn_post_back"
                 android:background="@drawable/vector"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="20dp"
-                android:contentDescription="해당 view에 대한 설명"
-                />
+                android:contentDescription="해당 view에 대한 설명" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,9 +72,69 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.0">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="340dp"
+                        android:background="@drawable/round_nocolor_btn"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_height="220dp"
+                        android:visibility="gone"
+                        android:elevation="20dp"
+                        android:id="@+id/delete_popup">
+
+                    <Button
+                            android:text="네"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:id="@+id/btn_delete_yes"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="130dp"
+                            android:layout_marginStart="20dp"
+                            android:background="@drawable/round_orange_btn"
+                            android:backgroundTintMode="src_atop"
+                            android:backgroundTint="#F47F2A"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:text="삭제한 글은 다시 복구할 수 없습니다.  \n 정말 삭제하시겠습니까?"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView11"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:layout_marginTop="50dp"
+                            android:textStyle="bold" />
+
+                    <Button
+                            android:text="아니요"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:id="@+id/btn_delete_no"
+                            android:background="@drawable/round_orange_btn"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="130dp"
+                            android:layout_marginStart="150dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textColor="#FF8000" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
 
@@ -117,7 +187,8 @@
                             app:layout_constraintStart_toEndOf="@+id/imageView9"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:layout_marginTop="15dp" />
 
                     <TextView
                             android:text="2시간전"
@@ -130,7 +201,23 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginStart="15dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp" />
+
+                    <TextView
+                            android:text="모집중"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:id="@+id/textView18"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/imageView9"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            android:background="@drawable/round_orange_btn"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="center" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -218,17 +305,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@drawable/half_round_btn"
-                android:backgroundTint="#F4E2E2"
-                android:paddingLeft="15dp">
+                android:paddingLeft="15dp"
+                android:elevation="30dp"
+                android:visibility="visible"
+                android:id="@+id/rg_post_state_modify">
 
             <Button
                     android:layout_width="70dp"
                     android:layout_height="5dp"
-                    android:id="@+id/button9"
+                    android:id="@+id/rg_post_close"
                     android:background="@drawable/closebar"
                     android:layout_marginLeft="150dp"
                     android:layout_marginBottom="20dp"
-                    android:contentDescription="해당 view에 대한 설명"/>
+                    android:contentDescription="해당 view에 대한 설명" />
 
             <RadioButton
                     android:text="  공고 진행전"
@@ -311,7 +400,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 app:srcCompat="@drawable/delete"
-                android:id="@+id/imageButton2"
+                android:id="@+id/btn_post_delete"
                 android:backgroundTint="#ffff"
                 app:layout_constraintStart_toEndOf="@+id/view5"
                 app:layout_constraintTop_toBottomOf="@+id/view4"
@@ -319,8 +408,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
                 android:layout_marginBottom="15dp"
-                android:contentDescription="해당 view에 대한 설명"
-                />
+                android:contentDescription="해당 view에 대한 설명" />
 
         <TextView
                 android:text="삭제"
@@ -340,7 +428,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"
                 android:textSize="13sp"
-                app:layout_constraintTop_toBottomOf="@+id/button8"
+                app:layout_constraintTop_toBottomOf="@+id/btn_post_modify"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="3dp"
@@ -349,15 +437,14 @@
         <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/button8"
+                android:id="@+id/btn_post_modify"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@drawable/modify"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
-                android:contentDescription="해당 view에 대한 설명"
-                />
+                android:contentDescription="해당 view에 대한 설명" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

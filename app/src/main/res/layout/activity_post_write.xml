@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity"
+        tools:context=".PostWriteActivity"
         android:orientation="vertical">
 
     <LinearLayout
@@ -15,7 +15,7 @@
         <Button
                 android:layout_width="15dp"
                 android:layout_height="25dp"
-                android:id="@+id/button3"
+                android:id="@+id/btn_post_back"
                 android:background="@drawable/vector"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,11 +47,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 android:paddingBottom="10dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -62,10 +61,10 @@
                         android:text="일감"
                         android:layout_width="104dp"
                         android:layout_height="58dp"
-                        android:id="@+id/button15"
+                        android:id="@+id/btn_ilgam"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
-                        android:backgroundTint="#FFAC61"
+                        android:backgroundTint="#EBEBEB"
                         android:textSize="20sp"
                         android:textColor="#191C1D"
                         android:textStyle="bold"
@@ -77,16 +76,16 @@
                         android:text="일꾼"
                         android:layout_width="104dp"
                         android:layout_height="58dp"
-                        android:id="@+id/button17"
-                        app:layout_constraintBottom_toBottomOf="@+id/button15"
+                        android:id="@+id/btn_ilgun"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_ilgam"
                         app:layout_constraintVertical_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/button15"
+                        app:layout_constraintStart_toEndOf="@+id/btn_ilgam"
                         android:layout_marginStart="20dp"
                         android:backgroundTint="#EBEBEB"
                         android:textColor="#191C1D"
                         android:textStyle="bold"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toTopOf="@+id/button15"
+                        app:layout_constraintTop_toTopOf="@+id/btn_ilgam"
                         android:background="@drawable/round_100dp_btn" />
 
                 <TextView
@@ -107,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
-                        app:layout_constraintTop_toBottomOf="@+id/button15"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_ilgam"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
                         android:textSize="20sp"
@@ -129,7 +128,7 @@
                         android:layout_marginStart="20dp" />
 
                 <TextView
-                        android:text="거래 희망 장소"
+                        android:text="모집 희망 장소"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView"
@@ -138,10 +137,10 @@
                         android:textStyle="bold"
                         android:textColor="#404040"
                         android:layout_marginStart="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextText3"
-                        android:layout_marginTop="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="100dp" />
+                        android:layout_marginBottom="100dp"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextText3"
+                        android:layout_marginTop="15dp" />
 
                 <TextView
                         android:text="제목"
@@ -222,7 +221,7 @@
                 <EditText
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:inputType="textMultiLine"
+                        android:inputType="text"
                         android:ems="10"
                         android:id="@+id/editTextText3"
                         android:hint="\n ex.  \n -업무 내용 : \n -경력 여부 : \n -나이제한 : \n -자격요건 : \n -모집인원 :\n\n"
@@ -231,17 +230,19 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/round_btn"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         app:layout_constraintHorizontal_bias="0.0"
                         android:layout_marginTop="10dp"
                         app:layout_constraintTop_toBottomOf="@+id/textView10"
-                        android:gravity="top"
-                        android:padding="20dp" />
+                        android:gravity="start"
+                        android:paddingTop="10dp" />
 
                 <Button
                         android:text="위치 추가"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/button2"
+                        android:id="@+id/btn_plus_gps"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -272,7 +273,7 @@
                 android:text="작성완료"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/button18"
+                android:id="@+id/btn_post_complete"
                 app:cornerRadius="8dp"
                 android:backgroundTint="#FF8000"
                 android:textStyle="bold"
