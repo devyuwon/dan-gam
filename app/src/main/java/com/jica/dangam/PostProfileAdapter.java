@@ -3,11 +3,14 @@ package com.jica.dangam;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.util.Log;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,18 +54,25 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	}
 
 	static public class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView title;
-		public TextView content;
+		private TextView title;
+		private TextView content;
+		private ImageView image;
+
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			title = (TextView)itemView.findViewById(R.id.postTitle);
 			content = (TextView)itemView.findViewById(R.id.postContents);
+			image = (ImageView)itemView.findViewById(R.id.postImage);
 		}
 
 		public void setItemOnView(PostProfile item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
+		}
+
+		public void setImage(Bitmap image) {
+			this.image.setImageBitmap(image);
 		}
 	}
 
