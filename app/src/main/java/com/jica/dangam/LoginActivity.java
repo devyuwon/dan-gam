@@ -17,7 +17,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +24,6 @@ import android.os.Bundle;
 
 public class LoginActivity extends AppCompatActivity {
 	private SignInButton btnGoogleLogin;
-	// private Button btnGoogleLogout;
 	private GoogleSignInClient mGoogleSignInClient;
 	private FirebaseAuth mAuth;
 	private static final int RC_SIGN_IN = 9001;
@@ -54,11 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 				signIn();
 			}
 		});
-
-		// btnGoogleLogout = findViewById(R.id.btnGoogleLogout);
-		// btnGoogleLogout.setOnClickListener(view -> {
-		// 	signOut();
-		// });
 	}
 
 	@Override
@@ -121,18 +114,9 @@ public class LoginActivity extends AppCompatActivity {
 		startActivityForResult(sighInIntent, RC_SIGN_IN);
 	}
 
-	// private void signOut() {
-	// 	mAuth.signOut();
-	//
-	// 	mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-	// 		@Override
-	// 		public void onComplete(@NonNull Task<Void> task) {
-	// 			Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
-	// 		}
-	// 	});
-	// }
 
 	private void updateUI(FirebaseUser user) {
 
 	}
+
 }
