@@ -168,35 +168,28 @@
                             android:layout_height="wrap_content"
                             tools:ignore="SpeakableTextPresentCheck">
 
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btn_post_picture"
+                                android:background="@drawable/picture"
+                                android:layout_marginLeft="10dp" />
+
                         <ImageView
                                 android:contentDescription="하고 싶은 설명"
                                 android:layout_height="98dp"
-                                android:id="@+id/imageView4"
+                                android:id="@+id/iv_post_picture"
                                 android:layout_width="98dp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:background="@drawable/round_btn"
                                 app:srcCompat="@drawable/round_btn" />
 
-                        <ImageView
-                                android:layout_width="98dp"
-                                android:layout_height="98dp"
-                                android:id="@+id/imageView3"
-                                app:srcCompat="@drawable/circle_btn" />
-
-                        <ImageView
-                                android:layout_width="98dp"
-                                android:layout_height="98dp"
-                                android:id="@+id/imageView5"
-                                app:srcCompat="@drawable/circle_btn"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp" />
-
-                        <ImageView
-                                android:layout_width="98dp"
-                                android:layout_height="98dp"
-                                android:id="@+id/imageView6"
-                                app:srcCompat="@drawable/circle_btn" />
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:id="@+id/rv_post_image" />
 
                     </LinearLayout>
                 </ScrollView>
