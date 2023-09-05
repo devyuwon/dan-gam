@@ -2,9 +2,16 @@ package com.jica.dangam;
 
 import java.util.Date;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 public class PostProfile {
 	private String title, contents, location, image1, image2, image3;
 	private Date pdate, sdate, edate;
+	FirebaseStorage storage = FirebaseStorage.getInstance();
+	StorageReference gsReference1 = storage.getReferenceFromUrl(image1);
+	StorageReference gsReference2 = storage.getReferenceFromUrl(image2);
+	StorageReference gsReference3 = storage.getReferenceFromUrl(image3);
 
 	public PostProfile(String title, String contents, String location, String image1, String image2, String image3,
 		Date pdate, Date sdate, Date edate) {

@@ -78,6 +78,5 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	public void addItem(PostProfile item) {
 		items.add(item);
 	}
-	public ImageView getImageView(){
-		return image;}
+
 }

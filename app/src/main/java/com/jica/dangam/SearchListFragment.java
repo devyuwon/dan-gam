@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchListFragment extends Fragment {
-	Context context = getActivity().getApplicationContext();
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
@@ -74,7 +73,6 @@ public class SearchListFragment extends Fragment {
 							PostProfile profile = document.toObject(PostProfile.class);
 							if (hasText(profile.getContents(), searchWord)) {
 								adapter.addItem(profile);
-								dbImage.setImageOnView(context,adapter.getImageView());
 
 								Log.d("TAG", "adapter에 데이터 추가됨");
 							}

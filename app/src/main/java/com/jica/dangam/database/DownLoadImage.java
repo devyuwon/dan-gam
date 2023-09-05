@@ -29,9 +29,5 @@ public class DownLoadImage {
 	public StorageReference getReference(){
 		return this.gsReference;
 	}
-
-	public void setImageOnView(Context context, ImageView view){
-		Glide.with(context).load(gsReference).into(view);
-	}
 }
 
