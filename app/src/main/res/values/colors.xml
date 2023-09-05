@@ -5,4 +5,11 @@
     <color name="orange_primary">#FF8000</color>
     <color name="orange_secondary">#FFAC61</color>
     <color name="orange_30">#FFEFDE</color>
+    <color name="green_light">#A6CB5D</color>
+    <color name="green_point">#749A33</color>
+    <color name="grey_500">#7C7C7C</color>
+    <color name="grey_200">#C4C7C7</color>
+    <color name="grey_100">#DBDBDB</color>
+    <color name="grey_50">#DFE2E4</color>
+    <color name="grey_10">#F5F5F5</color>
 </resources>
