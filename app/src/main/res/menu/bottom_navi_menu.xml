@@ -2,22 +2,22 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/menuHome"
+            android:id="@+id/menu_home"
             android:title="홈"
             android:icon="@drawable/home_symbol"
             app:showAsAction="always" />
     <item
-            android:id="@+id/menuSearch"
+            android:id="@+id/menu_search"
             android:title="검색"
             android:icon="@drawable/search"
             app:showAsAction="always" />
     <item
-            android:id="@+id/menuWrite"
+            android:id="@+id/menu_write"
             android:title="글작성"
             android:icon="@drawable/write_symbol"
             app:showAsAction="always" />
     <item
-            android:id="@+id/menuMyPage"
+            android:id="@+id/menu_my_page"
             android:title="내정보"
             android:icon="@drawable/mypage_symbol"
             app:showAsAction="always" />

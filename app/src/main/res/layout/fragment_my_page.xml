@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".MyPageFragment">
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/mainToolbar"
+            app:title="Dangam" />
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:theme="?attr/actionBarTheme"
-                android:minHeight="?attr/actionBarSize"
-                android:id="@+id/toolbar" />
+            android:layout_height="755dp">
 
         <TextView
                 android:text="내 정보"
@@ -33,7 +35,7 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -120,241 +122,249 @@
 
         </LinearLayout>
 
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView2"
-                        app:srcCompat="@drawable/icon_list01"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="일꾼 수행 내역"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView8"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView3"
-                        app:srcCompat="@drawable/icon_list02"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="일감 수행 내역"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView9"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView4"
-                        app:srcCompat="@drawable/icon_location"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="내 위치 인증하기"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView10"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView5"
-                        app:srcCompat="@drawable/icon_setting"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="설정"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView11"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:id="@+id/view"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#C4C4C4" />
-
-        <LinearLayout
-                android:orientation="vertical"
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginTop="20dp">
 
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView6"
-                        app:srcCompat="@drawable/icon_notice"
-                        android:layout_marginRight="20dp" />
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp">
 
-                <TextView
-                        android:text="공지사항"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView12"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView2"
+                            app:srcCompat="@drawable/icon_list01"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="일꾼 수행 내역"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView8"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView3"
+                            app:srcCompat="@drawable/icon_list02"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="일감 수행 내역"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView9"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView4"
+                            app:srcCompat="@drawable/icon_location"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="내 위치 인증하기"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView10"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView5"
+                            app:srcCompat="@drawable/icon_setting"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="설정"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView11"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:id="@+id/view"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#C4C4C4" />
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView6"
+                            app:srcCompat="@drawable/icon_notice"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="공지사항"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView12"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView7"
+                            app:srcCompat="@drawable/icon_logout"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="로그아웃"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView13"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView8"
+                            app:srcCompat="@drawable/icon_delete"
+                            android:layout_marginRight="20dp"
+                            android:scaleType="fitEnd" />
+
+                    <TextView
+                            android:text="회원 탈퇴"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView14"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginBottom="20dp">
+
+                    <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageView9"
+                            app:srcCompat="@drawable/icon_developer"
+                            android:layout_marginRight="20dp" />
+
+                    <TextView
+                            android:text="개발진"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView15"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp" />
+
             </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView7"
-                        app:srcCompat="@drawable/icon_logout"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="로그아웃"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView13"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView8"
-                        app:srcCompat="@drawable/icon_delete"
-                        android:layout_marginRight="20dp"
-                        android:scaleType="fitEnd" />
-
-                <TextView
-                        android:text="회원 탈퇴"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView14"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="20dp">
-
-                <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imageView9"
-                        app:srcCompat="@drawable/icon_developer"
-                        android:layout_marginRight="20dp" />
-
-                <TextView
-                        android:text="개발진"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView15"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:menu="@menu/bottom_navi_menu"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="#fff"
+            app:itemIconSize="25dp"
+            android:id="@+id/bottomNavigationView" />
+</LinearLayout>
