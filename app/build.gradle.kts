@@ -55,7 +55,7 @@ dependencies {
     //db에서 이미지 가져오기 테스트용 의존성 추가
     implementation("com.google.firebase:firebase-storage")
     implementation("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor("com.github.bumptech.glide.compiler:4.11.0");
+    implementation ("com.firebaseui:firebase-ui-storage:7.2.0")
 
     modules {
         module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {

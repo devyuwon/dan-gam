@@ -2,6 +2,9 @@ package com.jica.dangam;
 
 import java.util.ArrayList;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.StorageReference;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
@@ -70,13 +73,11 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
 		}
-
-		public void setImage(Bitmap image) {
-			this.image.setImageBitmap(image);
-		}
 	}
 
 	public void addItem(PostProfile item) {
 		items.add(item);
 	}
+	public ImageView getImageView(){
+		return image;}
 }

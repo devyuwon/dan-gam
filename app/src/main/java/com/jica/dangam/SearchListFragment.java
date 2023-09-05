@@ -7,7 +7,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.jica.dangam.database.DownLoadImage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchListFragment extends Fragment {
-
+	Context context = getActivity().getApplicationContext();
 	RecyclerView recyclerView;
 	PostProfileAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
@@ -60,7 +62,7 @@ public class SearchListFragment extends Fragment {
 		String searchWord;
 		searchWord = bundle.getString("SearchWord");
 		Log.d("TAG", searchWord);
-
+		DownLoadImage dbImage = new DownLoadImage();
 		db.collection("post_gam").orderBy("pdate")
 			.get()
 			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -72,6 +74,8 @@ public class SearchListFragment extends Fragment {
 							PostProfile profile = document.toObject(PostProfile.class);
 							if (hasText(profile.getContents(), searchWord)) {
 								adapter.addItem(profile);
+								dbImage.setImageOnView(context,adapter.getImageView());
+
 								Log.d("TAG", "adapter에 데이터 추가됨");
 							}
 							Log.d("TAG", document.getId() + " => " + document.getData());
