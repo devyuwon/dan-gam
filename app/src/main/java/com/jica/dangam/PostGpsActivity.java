@@ -15,7 +15,7 @@ public class PostGpsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_gps);
 
-		btn_back = findViewById(R.id.btn_post_back);
+		btn_back = findViewById(R.id.btnPostBack);
 		btn_completion = findViewById(R.id.btnGpsCompletion);
 
 		Intent intent = getIntent();

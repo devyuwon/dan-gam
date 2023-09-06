@@ -2,6 +2,8 @@ package com.jica.dangam;
 
 import java.util.ArrayList;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -28,27 +31,33 @@ public class PostWriteActivity extends AppCompatActivity {
 	Button btn_post_complete;
 	ImageView iv_post_picture;
 	Button btn_post_picture;
+
+	EditText title;
+	EditText contents;
 	Uri uri;
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rv_post_image; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_write);
 
-		btn_ilgam = findViewById(R.id.btn_ilgam);
-		btn_ilgun = findViewById(R.id.btn_ilgun);
+		btn_ilgam = findViewById(R.id.btnIlgam);
+		btn_ilgun = findViewById(R.id.btnIlgun);
 
-		btn_plus_gps = findViewById(R.id.btn_plus_gps);
+		btn_plus_gps = findViewById(R.id.btnPlusGps);
 
-		btn_post_complete = findViewById(R.id.btn_post_complete);
+		btn_post_complete = findViewById(R.id.btnPostComplete);
 
-		iv_post_picture = findViewById(R.id.iv_post_picture);
-		btn_post_picture = findViewById(R.id.btn_post_picture);
+		iv_post_picture = findViewById(R.id.ivPostPicture);
+		btn_post_picture = findViewById(R.id.btnPostPicture);
 
-		rv_post_image = findViewById(R.id.rv_post_image);
+		rv_post_image = findViewById(R.id.rvPostImage);
+		title = findViewById(R.id.etPostTitle);
+		contents = findViewById(R.id.etPostContent);
 
 		// 유형 선택시 색상 변경
 		btn_ilgam.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +97,7 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
+
 				state = "모집전";
 				radioButton.isChecked();
 			}
@@ -107,7 +117,8 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-				intent.putExtra("푸바오", "안녕하세요");
+				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+				db.collection("post_gam").document(post.getTitle()).set(post);
 				startActivity(intent);
 			}
 		});

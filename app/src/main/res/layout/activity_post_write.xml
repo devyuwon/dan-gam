@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="15dp"
                 android:layout_height="25dp"
-                android:id="@+id/btn_post_back"
+                android:id="@+id/btnPostBack"
                 android:background="@drawable/vector"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -168,21 +168,11 @@
                             tools:ignore="SpeakableTextPresentCheck">
 
                         <androidx.appcompat.widget.AppCompatButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:id="@+id/btnPostPicture"
                                 android:background="@drawable/picture"
-                                android:layout_marginLeft="10dp" />
-
-                        <ImageView
-                                android:contentDescription="하고 싶은 설명"
-                                android:layout_height="98dp"
-                                android:id="@+id/ivPostPicture"
-                                android:layout_width="98dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:background="@drawable/round_btn"
-                                app:srcCompat="@drawable/round_btn" />
+                                android:layout_marginLeft="20dp" />
 
                         <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"

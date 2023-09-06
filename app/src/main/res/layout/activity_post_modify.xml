@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="15dp"
                 android:layout_height="25dp"
-                android:id="@+id/btn_post_back"
+                android:id="@+id/btnPostBack"
                 android:background="@drawable/vector"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

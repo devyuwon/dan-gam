@@ -19,7 +19,7 @@ public class PostModifyActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_modify);
 
-		btn_post_back = findViewById(R.id.btn_post_back);
+		btn_post_back = findViewById(R.id.btnPostBack);
 
 		btn_ilgam = findViewById(R.id.btnIlgam);
 		btn_ilgun = findViewById(R.id.btnIlgun);
