@@ -2,15 +2,11 @@ package com.jica.dangam;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.jica.dangam.database.DownloadProfile;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -41,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
 		linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 		recyclerView.setLayoutManager(linearLayoutManager);
-		list = new ArrayList<>();
-		adapter = new PostProfileAdapter(list);
 
 		//업로드 테스트 및 초기 문서 추가
 		/*for (int i=1;i<=10;i++){
@@ -63,27 +57,11 @@ public class MainActivity extends AppCompatActivity {
 				return false;
 			}
 		});
+		list = new ArrayList<PostProfile>();
+		adapter = new PostProfileAdapter(this,list);
 
-		db.collection("post_gam").orderBy("pdate")
-			.get()
-			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-				@Override
-				public void onComplete(@NonNull Task<QuerySnapshot> task) {
-					if (task.isSuccessful()) {
-						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
-							adapter.addItem(profile);
-							Log.d("firestore", document.getId() + " => " + document.getData());
-							Log.d("object test", profile.getTitle() + " " + profile.getContents());
-						}
-						adapter.notifyDataSetChanged();
-					} else {
-						Log.d("firestore", "Error getting documents: ", task.getException());
-					}
-				}
-			});
-
-
+		DownloadProfile dbDownload = new DownloadProfile(adapter);
+		dbDownload.downloadDB();
 
 		recyclerView.setAdapter(adapter);
 

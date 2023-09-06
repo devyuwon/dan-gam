@@ -1,15 +1,12 @@
 package com.jica.dangam;
 
 import java.util.ArrayList;
-
 import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.util.Log;
-import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder> {
 	private ArrayList<PostProfile> items = new ArrayList<>();
 	private Context context;
-
-	public PostProfileAdapter(ArrayList<PostProfile> items) {
-		this.items = items;
-	}
-
-	public PostProfileAdapter() {
-	}
+	StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
 	;
 
@@ -39,8 +30,14 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_layout, parent, false);
+		View view = LayoutInflater.from(context).inflate(R.layout.post_layout, parent, false);
 		return new ViewHolder(view);
+	}
+
+	@Override
+	public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+		super.onAttachedToRecyclerView(recyclerView);
+		context = recyclerView.getContext();
 	}
 
 	@Override
@@ -61,7 +58,6 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 		private TextView content;
 		private ImageView image;
 
-
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			title = (TextView)itemView.findViewById(R.id.postTitle);
@@ -72,11 +68,18 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
 		public void setItemOnView(PostProfile item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
+			if(item.getImage1() != null){
+				Glide.with(itemView).load(item.getImage1()).into(image);
+				Log.d("TAG","Glide 작동");
+			}
 		}
 	}
 
 	public void addItem(PostProfile item) {
 		items.add(item);
+	}
+	public PostProfile getItem(int index){
+		return this.items.get(index);
 	}
 
 }
