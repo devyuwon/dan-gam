@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="67dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="15dp"
                 android:layout_height="25dp"
                 android:id="@+id/btn_post_back"
@@ -57,7 +57,7 @@
                     android:layout_height="500dp"
                     android:visibility="visible">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                         android:text="일감"
                         android:layout_width="104dp"
                         android:layout_height="58dp"
@@ -72,7 +72,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
                         android:background="@drawable/round_100dp_btn" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                         android:text="일꾼"
                         android:layout_width="104dp"
                         android:layout_height="58dp"
@@ -251,7 +251,7 @@
                         android:gravity="start"
                         android:paddingTop="10dp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                         android:text="위치 추가"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -276,6 +276,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView21"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        android:theme="@style/CustomRadioButton"
                         android:id="@+id/radioGroup"
                         android:orientation="horizontal"
                         android:gravity="center">
@@ -316,7 +317,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:text="작성완료"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -28,7 +28,7 @@
                 app:srcCompat="@drawable/fubao"
                 android:scaleType="fitXY" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="15dp"
                 android:layout_height="25dp"
                 android:id="@+id/btn_post_back"
@@ -39,7 +39,7 @@
                 android:contentDescription="해당 view에 대한 설명"
                 android:layout_marginTop="25dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="70dp"
                 android:layout_height="5dp"
                 android:id="@+id/rg_post_close"
@@ -97,7 +97,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="30dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                     android:text="도로명"
                     android:layout_width="57dp"
                     android:layout_height="21dp"
@@ -126,7 +126,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:text="확인"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

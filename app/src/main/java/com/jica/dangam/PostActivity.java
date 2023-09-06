@@ -78,10 +78,12 @@ public class PostActivity extends AppCompatActivity {
 			}
 		});
 
+
+		/*
 		//삭제버튼
 		btn_post_delete.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {
+
 
 				//삭제 팝업 띄우기
 				delete_popup.setVisibility(view.VISIBLE);
@@ -99,7 +101,17 @@ public class PostActivity extends AppCompatActivity {
 				//	lo_post_main.setVisibility(view.VISIBLE);
 
 			}
-		});
+
+		*/
 
 	}
+
+	;
+
+	//activity_main.xml 에서 show_dialog_btn 의 onclick 메소드
+	public void show_default_dialog(View v) {
+		//클릭시 defaultDialog 를 띄워준다
+		CustomDialog.getInstance(this).showDefaultDialog();
+	}
+
 }

@@ -10,7 +10,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 public class PostModifyActivity extends AppCompatActivity {
 
 	Button btn_post_back;
-	Button btn_ilgam,btn_ilgun;
+	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
 	Button btn_post_complete;
 
@@ -43,8 +43,10 @@ public class PostModifyActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
-				btn_ilgam.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.secondary));
-				btn_ilgun.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.grey));
+				btn_ilgam.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
+				btn_ilgun.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
 
@@ -53,9 +55,10 @@ public class PostModifyActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
-				btn_ilgam.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.grey));
-				btn_ilgun.setBackgroundTintList(AppCompatResources.getColorStateList(getApplicationContext(),R.color.ligthgreen));
-
+				btn_ilgam.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
+				btn_ilgun.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
 
 			}
 		});
@@ -77,8 +80,6 @@ public class PostModifyActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-
-
 
 	}
 }

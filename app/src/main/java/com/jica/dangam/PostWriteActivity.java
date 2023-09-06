@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import android.widget.RadioGroup;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,9 +65,9 @@ public class PostWriteActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				btn_ilgam.setBackgroundTintList(
-					AppCompatResources.getColorStateList(getApplicationContext(), R.color.secondary));
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
 				btn_ilgun.setBackgroundTintList(
-					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey));
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
 
@@ -73,23 +75,34 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				btn_ilgun.setBackgroundTintList(
-					AppCompatResources.getColorStateList(getApplicationContext(), R.color.ligthgreen));
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
 				btn_ilgam.setBackgroundTintList(
-					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey));
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
-
-		//앨범으로 이동하는 버튼
+		// Registers a photo picker activity launcher in multi-select mode.
+		// In this example, the app lets the user select up to 5 media files.
+		ActivityResultLauncher<PickVisualMediaRequest> pickMultipleMedia =
+			registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(5), uris -> {
+				// Callback is invoked after the user selects media items or closes the
+				// photo picker.
+				if (!uris.isEmpty()) {
+					Log.d("PhotoPicker", "Number of items selected: " + uris.size());
+				} else {
+					Log.d("PhotoPicker", "No media selected");
+				}
+			});
+		/*
 		btn_post_picture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(Intent.ACTION_PICK);
-				intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-				intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-				intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				startActivityForResult(intent, 2222);
+				pickMultipleMedia.launch(PickVisualMediaRequest());
+
 			}
 		});
+		*/
+
+
 
 /*
 		//갤러리에서 이미지 불러오기 - 객체선언
