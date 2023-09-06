@@ -1,16 +1,9 @@
 package com.jica.dangam;
 
-// import com.bumptech.glide.Glide;
-// import com.bumptech.glide.annotation.GlideModule;
-// import com.bumptech.glide.request.target.CustomTarget;
-// import com.bumptech.glide.request.transition.Transition;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
+import android.content.ClipData;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,17 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostWriteActivity extends AppCompatActivity {
+	final int PICTURE_REQUEST_CODE = 100;
 	String state;
 	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
@@ -38,9 +29,9 @@ public class PostWriteActivity extends AppCompatActivity {
 	ImageView iv_post_picture;
 	Button btn_post_picture;
 	Uri uri;
-
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rv_post_image; // 이미지를 보여줄 리사이클러뷰
+	ImageAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,71 +71,17 @@ public class PostWriteActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
-		// Registers a photo picker activity launcher in multi-select mode.
-		// In this example, the app lets the user select up to 5 media files.
-		ActivityResultLauncher<PickVisualMediaRequest> pickMultipleMedia =
-			registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(5), uris -> {
-				// Callback is invoked after the user selects media items or closes the
-				// photo picker.
-				if (!uris.isEmpty()) {
-					Log.d("PhotoPicker", "Number of items selected: " + uris.size());
-				} else {
-					Log.d("PhotoPicker", "No media selected");
-				}
-			});
-		/*
-		btn_post_picture.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				pickMultipleMedia.launch(PickVisualMediaRequest());
 
-			}
-		});
-		*/
-
-
-
-/*
-		//갤러리에서 이미지 불러오기 - 객체선언
-		ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
-			new ActivityResultContracts.StartActivityForResult(),
-			new ActivityResultCallback<ActivityResult>() {
-				@Override
-				public void onActivityResult(ActivityResult result) {
-					if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-
-						uri = result.getData().getData();
-
-						try {
-							Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-							iv_post_picture.setImageBitmap(bitmap);
-
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-
-				}
-			}
-		);
-
-		//사진불러오기
 		btn_post_picture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(Intent.ACTION_PICK);
-				intent.setType("image/*");
-				startActivityResult.launch(intent);
-
+				intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+				intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+				intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(intent, PICTURE_REQUEST_CODE);
 			}
 		});
-
-
-
-*/
-
 
 	/*	//모집 상태
 		radioButton.setOnClickListener(new View.OnClickListener() {
@@ -177,4 +114,45 @@ public class PostWriteActivity extends AppCompatActivity {
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (data == null) {
+			Toast.makeText(getApplicationContext(), "첨부할 사진을 선택해주세요.", Toast.LENGTH_SHORT).show();
+		} else {
+			if (data.getClipData() == null) {
+				Log.e("Single Choice: ", String.valueOf(data.getData()));
+				Uri imageUri = data.getData();
+				uriList.add(imageUri);
+
+				adapter = new ImageAdapter(uriList, getApplicationContext());
+				rv_post_image.setAdapter(adapter);
+				rv_post_image.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+			} else {
+				ClipData clipData = data.getClipData();
+				Log.e("clipData", String.valueOf(clipData.getItemCount()));
+
+				if (clipData.getItemCount() > 4) {
+					Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				} else {
+					Log.e("PostWriteActivity", "Multiple Choice");
+
+					for (int i = 0; i < clipData.getItemCount(); i++) {
+						Uri imgUri = clipData.getItemAt(i).getUri();
+
+						try {
+							uriList.add(imgUri);
+						} catch (Exception e) {
+							Log.e("PostWriteActivity", "Image Select Error", e);
+						}
+					}
+
+					adapter = new ImageAdapter(uriList, getApplicationContext());
+					rv_post_image.setAdapter(adapter);
+					rv_post_image.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+				}
+			}
+		}
+	}
 }
