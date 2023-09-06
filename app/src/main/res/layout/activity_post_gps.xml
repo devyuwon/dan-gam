@@ -42,7 +42,7 @@
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="70dp"
                 android:layout_height="5dp"
-                android:id="@+id/rg_post_close"
+                android:id="@+id/rgPostClose"
                 android:background="@drawable/closebar"
                 android:contentDescription="해당 view에 대한 설명"
                 app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +60,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rg_post_close"
+                app:layout_constraintTop_toBottomOf="@+id/rgPostClose"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="2dp" />
 
@@ -130,7 +130,7 @@
                 android:text="확인"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_gps_completion"
+                android:id="@+id/btnGpsCompletion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"

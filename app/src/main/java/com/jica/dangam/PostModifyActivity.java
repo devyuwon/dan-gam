@@ -21,11 +21,11 @@ public class PostModifyActivity extends AppCompatActivity {
 
 		btn_post_back = findViewById(R.id.btn_post_back);
 
-		btn_ilgam = findViewById(R.id.btn_ilgam);
-		btn_ilgun = findViewById(R.id.btn_ilgun);
+		btn_ilgam = findViewById(R.id.btnIlgam);
+		btn_ilgun = findViewById(R.id.btnIlgun);
 
-		btn_plus_gps = findViewById(R.id.btn_plus_gps);
-		btn_post_complete = findViewById(R.id.btn_post_complete);
+		btn_plus_gps = findViewById(R.id.btnPlusGps);
+		btn_post_complete = findViewById(R.id.btnPostComplete);
 
 		//뒤로가기 버튼
 		btn_post_back.setOnClickListener(new View.OnClickListener() {

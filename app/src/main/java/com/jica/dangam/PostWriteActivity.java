@@ -14,23 +14,21 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostWriteActivity extends AppCompatActivity {
-	String state;
+	String title, content;
 	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
 	RadioGroup rg_post_state_modify;
@@ -38,6 +36,9 @@ public class PostWriteActivity extends AppCompatActivity {
 	ImageView iv_post_picture;
 	Button btn_post_picture;
 	Uri uri;
+
+	EditText editTextText;
+	EditText et_post_title, et_post_content;
 
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rv_post_image; // 이미지를 보여줄 리사이클러뷰
@@ -47,17 +48,20 @@ public class PostWriteActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_write);
 
-		btn_ilgam = findViewById(R.id.btn_ilgam);
-		btn_ilgun = findViewById(R.id.btn_ilgun);
+		btn_ilgam = findViewById(R.id.btnIlgam);
+		btn_ilgun = findViewById(R.id.btnIlgun);
 
-		btn_plus_gps = findViewById(R.id.btn_plus_gps);
+		btn_plus_gps = findViewById(R.id.btnPlusGps);
 
-		btn_post_complete = findViewById(R.id.btn_post_complete);
+		btn_post_complete = findViewById(R.id.btnPostComplete);
 
-		iv_post_picture = findViewById(R.id.iv_post_picture);
-		btn_post_picture = findViewById(R.id.btn_post_picture);
+		iv_post_picture = findViewById(R.id.ivPostPicture);
+		btn_post_picture = findViewById(R.id.btnPostPicture);
 
-		rv_post_image = findViewById(R.id.rv_post_image);
+		rv_post_image = findViewById(R.id.rvPostImage);
+
+		//연습
+		editTextText = findViewById(R.id.etPostTitle);
 
 		// 유형 선택시 색상 변경
 		btn_ilgam.setOnClickListener(new View.OnClickListener() {
@@ -80,31 +84,7 @@ public class PostWriteActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
-		// Registers a photo picker activity launcher in multi-select mode.
-		// In this example, the app lets the user select up to 5 media files.
-		ActivityResultLauncher<PickVisualMediaRequest> pickMultipleMedia =
-			registerForActivityResult(new ActivityResultContracts.PickMultipleVisualMedia(5), uris -> {
-				// Callback is invoked after the user selects media items or closes the
-				// photo picker.
-				if (!uris.isEmpty()) {
-					Log.d("PhotoPicker", "Number of items selected: " + uris.size());
-				} else {
-					Log.d("PhotoPicker", "No media selected");
-				}
-			});
-		/*
-		btn_post_picture.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				pickMultipleMedia.launch(PickVisualMediaRequest());
 
-			}
-		});
-		*/
-
-
-
-/*
 		//갤러리에서 이미지 불러오기 - 객체선언
 		ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
 			new ActivityResultContracts.StartActivityForResult(),
@@ -143,7 +123,7 @@ public class PostWriteActivity extends AppCompatActivity {
 
 
 
-*/
+
 
 
 	/*	//모집 상태
@@ -161,6 +141,7 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(PostWriteActivity.this, PostGpsActivity.class);
+				intent.putExtra("Text", editTextText.getText().toString());
 				startActivity(intent);
 			}
 		});
@@ -170,7 +151,11 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-				intent.putExtra("푸바오", "안녕하세요");
+
+				//연습
+				intent.putExtra("title", title);
+				intent.putExtra("content", content);
+				startActivityForResult(intent, 1);
 				startActivity(intent);
 			}
 		});

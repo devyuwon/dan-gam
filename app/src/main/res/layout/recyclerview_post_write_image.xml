@@ -10,7 +10,7 @@
             android:padding="2dp"
             android:scaleType="fitXY"
 
-            android:id="@+id/post_write_recyclerview_image"
+            android:id="@+id/ivRecyclerviewImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"

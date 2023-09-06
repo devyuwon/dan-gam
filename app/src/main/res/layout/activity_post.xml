@@ -6,17 +6,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:elevation="20dp"
-        android:id="@+id/lo_main"
+        android:id="@+id/layoutMain"
         android:background="#00000000">
-
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#80000000"
-            android:visibility="gone"
-            android:id="@+id/lo_post_main">
-
-    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -77,70 +68,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="340dp"
-                        android:background="@drawable/round_nocolor_btn"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_height="220dp"
-                        android:visibility="gone"
-                        android:elevation="20dp"
-                        android:id="@+id/delete_popup">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                            android:text="네"
-                            android:layout_width="120dp"
-                            android:layout_height="48dp"
-                            android:id="@+id/btn_delete_yes"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginTop="130dp"
-                            android:layout_marginStart="20dp"
-                            android:background="@drawable/round_orange_btn"
-                            android:backgroundTintMode="src_atop"
-                            android:backgroundTint="#F47F2A"
-                            android:textAlignment="center"
-                            android:textSize="16sp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
-
-                    <TextView
-                            android:text="삭제한 글은 다시 복구할 수 없습니다.  \n 정말 삭제하시겠습니까?"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView11"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:textSize="16sp"
-                            android:textAlignment="center"
-                            android:layout_marginTop="50dp"
-                            android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                            android:text="아니요"
-                            android:layout_width="120dp"
-                            android:layout_height="48dp"
-                            android:id="@+id/btn_delete_no"
-                            android:background="@drawable/round_orange_btn"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginTop="130dp"
-                            android:layout_marginStart="150dp"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            android:textColor="#FF8000" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <ImageView
 
                         android:layout_width="340dp"
                         android:layout_height="262dp"
-                        android:id="@+id/imgPhoto"
+                        android:id="@+id/ivPhoto"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +84,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:layout_constraintTop_toBottomOf="@+id/imgPhoto"
+                        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
                         android:layout_marginTop="5dp"
                         tools:layout_editor_absoluteX="15dp"
                         android:id="@+id/constraintLayout2">
@@ -181,7 +113,7 @@
                             android:text="이삿짐 옮겨 주실 분 구합니다."
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_post_title"
+                            android:id="@+id/tvPostTitle"
                             android:textStyle="bold"
                             android:textSize="16sp"
                             app:layout_constraintStart_toEndOf="@+id/imageView9"
@@ -197,7 +129,7 @@
                             android:id="@+id/textView13"
                             android:textColor="#8E9192"
                             android:textSize="12sp"
-                            app:layout_constraintStart_toEndOf="@+id/tv_post_title"
+                            app:layout_constraintStart_toEndOf="@+id/tvPostTitle"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginStart="15dp"
@@ -283,7 +215,7 @@
                             android:text="날짜 : 2023년 8월 4일 (금) 오후 2시  \n예상 수행 시간 : 2시간 \n필요 인원 : 3명 \n\n 큰 물건은 별로 없어요. 가까운 곳으로 이사 하는데 \n주변에 지인이 없어서 단감에 글 올립니다. \n평일에 이사를 꼭 해야 하는  상황입니다. \n\n죄송하지만 미성년자분은 지원 불가합니다.\n"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView16"
+                            android:id="@+id/tv_post_content"
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_marginTop="10dp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -308,12 +240,12 @@
                 android:paddingLeft="15dp"
                 android:elevation="50dp"
                 android:visibility="gone"
-                android:id="@+id/rg_post_state_modify">
+                android:id="@+id/rgPostStateModify">
 
             <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="70dp"
                     android:layout_height="5dp"
-                    android:id="@+id/rg_post_close"
+                    android:id="@+id/rgPostClose"
                     android:background="@drawable/closebar"
                     android:layout_marginLeft="150dp"
                     android:layout_marginBottom="20dp"
@@ -400,7 +332,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 app:srcCompat="@drawable/delete"
-                android:id="@+id/btn_post_delete"
+                android:id="@+id/btnPostDelete"
                 android:backgroundTint="#ffff"
                 app:layout_constraintStart_toEndOf="@+id/view5"
                 app:layout_constraintTop_toBottomOf="@+id/view4"
@@ -429,7 +361,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"
                 android:textSize="13sp"
-                app:layout_constraintTop_toBottomOf="@+id/btn_post_modify"
+                app:layout_constraintTop_toBottomOf="@+id/btnPostModify"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="3dp"
@@ -438,7 +370,7 @@
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/btn_post_modify"
+                android:id="@+id/btnPostModify"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

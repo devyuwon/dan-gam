@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class PostGpsActivity extends AppCompatActivity {
 
-	Button btn_completion,btn_back;
+	Button btn_completion, btn_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +16,18 @@ public class PostGpsActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_post_gps);
 
 		btn_back = findViewById(R.id.btn_post_back);
-		btn_completion = findViewById(R.id.btn_gps_completion);
+		btn_completion = findViewById(R.id.btnGpsCompletion);
+
+		Intent intent = getIntent();
 
 		//뒤로가기 버튼 클릭시
 		btn_back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(PostGpsActivity.this, PostWriteActivity.class);
-				startActivity(intent);
+				finish();
+				//Intent intent = new Intent(PostGpsActivity.this, PostWriteActivity.class);
+
+				//startActivity(intent);
 			}
 		});
 
@@ -31,8 +35,9 @@ public class PostGpsActivity extends AppCompatActivity {
 		btn_completion.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(PostGpsActivity.this, PostWriteActivity.class);
-				startActivity(intent);
+				finish();
+				//Intent intent = new Intent(PostGpsActivity.this, PostWriteActivity.class);
+				//startActivity(intent);
 			}
 		});
 
