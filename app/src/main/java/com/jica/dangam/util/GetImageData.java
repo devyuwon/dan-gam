@@ -1,16 +1,16 @@
-package com.jica.dangam.database;
+package com.jica.dangam.util;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class DownloadImage {
+public class GetImageData {
 	String imageURL;
 
-	public DownloadImage() {
+	public GetImageData() {
 		this.imageURL = "gs://dangam-6489e.appspot.com/KakaoTalk_20230904_132634484.jpg";
 	}
 
-	public DownloadImage(String imageURL) {
+	public GetImageData(String imageURL) {
 		this.imageURL = imageURL;
 	}
 

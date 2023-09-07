@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.search;
+
+import com.jica.dangam.R;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class SearchFragment extends Fragment {
 	SearchView searchView;
 	SearchHistoryFragment searchHistoryFragment;
-	SearchListFragment searchListFragment;
+	SearchResultFragment searchResultFragment;
 
 	@Nullable
 	@Override
@@ -27,7 +29,7 @@ public class SearchFragment extends Fragment {
 		searchView = view.findViewById(R.id.search);
 
 		searchHistoryFragment = new SearchHistoryFragment();
-		searchListFragment = new SearchListFragment();
+		searchResultFragment = new SearchResultFragment();
 		FrameLayout layout = view.findViewById(R.id.container);
 
 		FragmentManager manager = getChildFragmentManager();
@@ -42,11 +44,11 @@ public class SearchFragment extends Fragment {
 				if (s != null) {
 					Bundle bundle = new Bundle(1);
 					bundle.putString("SearchWord", s);
-					searchListFragment.setArguments(bundle);
+					searchResultFragment.setArguments(bundle);
 					FragmentTransaction transaction = manager.beginTransaction();
 
 					Log.d("TAG", "Convert to SearchListFragment");
-					transaction.replace(R.id.container, searchListFragment, "List");
+					transaction.replace(R.id.container, searchResultFragment, "List");
 					transaction.commit();
 				}
 				return false;

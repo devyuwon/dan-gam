@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MyPageFragment">
+        tools:context=".mypage.MyPageFragment">
 
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -40,14 +40,14 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/mypage_profile_radius"
+                android:background="@drawable/custom_mypage_profile_radius"
                 android:elevation="10dp">
 
             <ImageView
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:id="@+id/imageView"
-                    app:srcCompat="@drawable/profile"
+                    app:srcCompat="@drawable/img_profile_sample"
                     android:padding="20dp" />
 
             <LinearLayout
@@ -361,7 +361,7 @@
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            app:menu="@menu/bottom_navi_menu"
+            app:menu="@menu/common_bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:background="#fff"

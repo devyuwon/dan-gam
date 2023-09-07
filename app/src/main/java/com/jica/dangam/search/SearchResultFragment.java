@@ -1,4 +1,4 @@
-package com.jica.dangam;
+package com.jica.dangam.search;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.jica.dangam.R;
+import com.jica.dangam.list.ListModel;
+import com.jica.dangam.list.ListAdapter;
+
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -17,13 +21,13 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SearchListFragment extends Fragment {
+public class SearchResultFragment extends Fragment {
 	RecyclerView recyclerView;
-	PostProfileAdapter adapter;
+	ListAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
-	ArrayList<PostProfile> list = new ArrayList<>();
+	ArrayList<ListModel> list = new ArrayList<>();
 
-	public SearchListFragment() {
+	public SearchResultFragment() {
 		Log.d("TAG", "SearchListFragment()...");
 	}
 
@@ -40,7 +44,7 @@ public class SearchListFragment extends Fragment {
 		recyclerView.setLayoutManager(linearLayoutManager);
 
 		// 어탭터 생성
-		adapter = new PostProfileAdapter(getActivity(), list);  //list는 데이타가 없다.
+		adapter = new ListAdapter(getActivity(), list);  //list는 데이타가 없다.
 
 		recyclerView.setAdapter(adapter);
 
@@ -66,7 +70,7 @@ public class SearchListFragment extends Fragment {
 					if (task.isSuccessful()) {
 						Log.d("TAG", "Success getting documents: ");
 						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
+							ListModel profile = document.toObject(ListModel.class);
 							if (hasText(profile.getContents(), searchWord)) {
 								adapter.addItem(profile);
 

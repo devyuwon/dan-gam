@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.mypage;
+
+import com.jica.dangam.R;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

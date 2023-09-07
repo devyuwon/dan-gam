@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.search;
+
+import com.jica.dangam.R;
 
 import android.os.Bundle;
 import android.util.Log;

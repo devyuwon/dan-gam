@@ -1,15 +1,15 @@
-package com.jica.dangam.database;
+package com.jica.dangam.util;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class UploadImage {
+public class ImageUploadData {
 	private String url;
 	public String fileName;
 	FirebaseStorage storage = FirebaseStorage.getInstance();
 	StorageReference storageRef = storage.getReference();
 
-	public UploadImage(String fileName) {
+	public ImageUploadData(String fileName) {
 		this.fileName = fileName+".jpg";
 	}
 	StorageReference imageRef = storageRef.child(fileName);

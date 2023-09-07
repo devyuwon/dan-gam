@@ -4,7 +4,7 @@
     <item
             android:title="알림"
             android:id="@+id/alerToolBar"
-            android:icon="@drawable/alert"
+            android:icon="@drawable/icon_alert"
             app:showAsAction="always" />
     <item
             android:title="메뉴"

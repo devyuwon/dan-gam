@@ -16,7 +16,7 @@
                 android:layout_height="80dp"
                 android:id="@+id/postImage"
                 android:layout_weight="0"
-                app:srcCompat="@drawable/symbol"
+                app:srcCompat="@drawable/img_symbol02"
                 tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

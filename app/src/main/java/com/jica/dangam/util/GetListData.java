@@ -1,4 +1,4 @@
-package com.jica.dangam.database;
+package com.jica.dangam.util;
 
 import java.util.ArrayList;
 
@@ -7,18 +7,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.jica.dangam.PostProfile;
-import com.jica.dangam.PostProfileAdapter;
+import com.jica.dangam.list.ListModel;
+import com.jica.dangam.list.ListAdapter;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
-public class DownloadProfile {
-	private PostProfileAdapter adapter;
-	public DownloadProfile(PostProfileAdapter adapter) {
+public class GetListData {
+	private ListAdapter adapter;
+	public GetListData(ListAdapter adapter) {
 		this.adapter=adapter;
 	}
 
-	private ArrayList<PostProfile> list;
+	private ArrayList<ListModel> list;
 
 	public void downloadDB() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -29,7 +29,7 @@ public class DownloadProfile {
 				public void onComplete(@NonNull Task<QuerySnapshot> task) {
 					if (task.isSuccessful()) {
 						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
+							ListModel profile = document.toObject(ListModel.class);
 							adapter.addItem(profile);
 						}
 						adapter.notifyDataSetChanged();
@@ -50,7 +50,7 @@ public class DownloadProfile {
 					if (task.isSuccessful()) {
 						Log.d("TAG","search complete");
 						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
+							ListModel profile = document.toObject(ListModel.class);
 							switch (mode){
 								case 0:
 									if(hasText(profile.getTitle(),keyWord)){

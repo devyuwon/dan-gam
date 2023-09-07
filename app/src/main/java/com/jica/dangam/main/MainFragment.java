@@ -1,4 +1,4 @@
-package com.jica.dangam;
+package com.jica.dangam.main;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.jica.dangam.mypage.MyPageFragment;
+import com.jica.dangam.list.ListModel;
+import com.jica.dangam.list.ListAdapter;
+import com.jica.dangam.R;
+import com.jica.dangam.login.LoginActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,9 +40,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainFragment extends Fragment {
 	RecyclerView recyclerView;
-	PostProfileAdapter adapter;
+	ListAdapter adapter;
 	LinearLayoutManager linearLayoutManager;
-	ArrayList<PostProfile> list;
+	ArrayList<ListModel> list;
+	Context context;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 	// 테스트용 임시 로그아웃 버튼
@@ -60,7 +67,7 @@ public class MainFragment extends Fragment {
 		linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 		recyclerView.setLayoutManager(linearLayoutManager);
 		list = new ArrayList<>();
-		adapter = new PostProfileAdapter(list);
+		adapter = new ListAdapter(context, list);
 
 		db.collection("post_gam").orderBy("pdate")
 			.get()
@@ -69,7 +76,7 @@ public class MainFragment extends Fragment {
 				public void onComplete(@NonNull Task<QuerySnapshot> task) {
 					if (task.isSuccessful()) {
 						for (QueryDocumentSnapshot document : task.getResult()) {
-							PostProfile profile = document.toObject(PostProfile.class);
+							ListModel profile = document.toObject(ListModel.class);
 							adapter.addItem(profile);
 							Log.d("firestore", document.getId() + " => " + document.getData());
 							Log.d("object test", profile.getTitle() + " " + profile.getContents());
@@ -119,7 +126,7 @@ public class MainFragment extends Fragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.main_toolbar, menu);
+		inflater.inflate(R.menu.common_toolbar, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 }
