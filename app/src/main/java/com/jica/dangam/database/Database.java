@@ -2,26 +2,48 @@ package com.jica.dangam.database;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.PostProfile;
 import com.jica.dangam.PostProfileAdapter;
+
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
-public class DownloadProfile {
+public class Database {
 	private PostProfileAdapter adapter;
-	public DownloadProfile(PostProfileAdapter adapter) {
+	public Database(PostProfileAdapter adapter) {
 		this.adapter=adapter;
 	}
 
 	private ArrayList<PostProfile> list;
+	FirebaseStorage storage = FirebaseStorage.getInstance();
+	StorageReference storageRef = storage.getReference();
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
+	UploadTask uploadTask;
+
+
+	public void uploadImage(Uri uri){
+		uploadTask = storageRef.child(uri.getLastPathSegment()).putFile(uri);
+		uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+			@Override
+			public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+			}
+		});
+	}
 
 	public void downloadDB() {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		db.collection("post_gam").orderBy("pdate")
 			.get()
 			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -40,7 +62,6 @@ public class DownloadProfile {
 			});
 	}
 	public void searchDB(String keyWord,int mode) {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		Log.d("TAG","searchDB start... keyword : "+keyWord);
 		db.collection("post_gam").orderBy("pdate")
 			.get()

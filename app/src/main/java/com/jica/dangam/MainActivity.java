@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.jica.dangam.database.DownloadProfile;
+import com.jica.dangam.database.Database;
 
 import android.content.Intent;
 import android.view.Menu;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 		list = new ArrayList<PostProfile>();
 		adapter = new PostProfileAdapter(this,list);
 
-		DownloadProfile dbDownload = new DownloadProfile(adapter);
+		Database dbDownload = new Database(adapter);
 		dbDownload.downloadDB();
 
 		recyclerView.setAdapter(adapter);
