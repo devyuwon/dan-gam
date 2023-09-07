@@ -167,6 +167,13 @@
                             android:layout_height="match_parent"
                             tools:ignore="SpeakableTextPresentCheck">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:orientation="horizontal"
+                                android:id="@+id/rvPostImage"
+                                tools:itemCount="3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="100dp" />
+
                         <androidx.appcompat.widget.AppCompatButton
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
@@ -175,13 +182,6 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="10dp"
                                 android:visibility="visible" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                                android:orientation="horizontal"
-                                android:id="@+id/rvPostImage"
-                                tools:itemCount="3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dp" />
 
                     </LinearLayout>
                 </ScrollView>

@@ -72,4 +72,5 @@ dependencies {
             replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
         }
     }
+    implementation("com.google.firebase:firebase-storage")
 }

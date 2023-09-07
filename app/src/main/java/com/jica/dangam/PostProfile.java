@@ -36,6 +36,7 @@ public class PostProfile {
 		this.edate = new Date();
 	}
 
+
 	public String getTitle() {
 		return title;
 	}

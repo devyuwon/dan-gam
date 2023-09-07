@@ -1,8 +1,17 @@
 package com.jica.dangam;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -16,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -39,6 +49,8 @@ public class PostWriteActivity extends AppCompatActivity {
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
+	FirebaseStorage storage = FirebaseStorage.getInstance();
+	StorageReference storageRef = storage.getReference();
 
 	String TAG = "postTest";
 
@@ -122,6 +134,23 @@ public class PostWriteActivity extends AppCompatActivity {
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
 				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+				int i = 0;
+				for(Uri uri:uriList){
+					UploadTask uploadTask = storageRef.child(uri.getLastPathSegment()).putFile(uri);
+					uploadTask.addOnFailureListener(new OnFailureListener() {
+						@Override
+						public void onFailure(@NonNull Exception exception) {
+							// Handle unsuccessful uploads
+						}
+					}).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+						@Override
+						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+						}
+					});
+
+				}
+
 				db.collection("post_gam").document(post.getTitle()).set(post);
 				startActivity(intent);
 			}
