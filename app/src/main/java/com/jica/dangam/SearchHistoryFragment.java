@@ -14,8 +14,6 @@ public class SearchHistoryFragment extends Fragment {
 		Log.d("TAG", "SearchHistoryFragment()...");
 	}
 
-
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
