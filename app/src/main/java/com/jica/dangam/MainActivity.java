@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class MainActivity extends AppCompatActivity {
 	private FragmentManager fragmentManager = getSupportFragmentManager();
 	private MainFragment mainFragment = new MainFragment();
+	private SearchFragment searchFragment = new SearchFragment();
 	private MyPageFragment myPageFragment = new MyPageFragment();
 
 	@Override
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 			int itemId = item.getItemId();
 			if (itemId == R.id.menu_home) {
 				transaction.replace(R.id.menuFrameLayout, mainFragment).commitAllowingStateLoss();
+			} else if (itemId == R.id.menu_search) {
+				transaction.replace(R.id.menuFrameLayout, searchFragment).commitAllowingStateLoss();
 			} else if (itemId == R.id.menu_my_page) {
 				transaction.replace(R.id.menuFrameLayout, myPageFragment).commitAllowingStateLoss();
 			}
