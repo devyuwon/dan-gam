@@ -17,8 +17,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/round_btn">
+            android:background="@drawable/round_nocolor_btn">
 
     </ImageView>
+
+    <ImageView
+
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/ivRecyclerviewImageDelete"
+            app:srcCompat="@drawable/imagedelete"
+            app:layout_constraintEnd_toEndOf="@+id/ivRecyclerviewImage"
+            app:layout_constraintTop_toTopOf="@+id/ivRecyclerviewImage"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

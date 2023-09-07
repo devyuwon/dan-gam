@@ -23,10 +23,7 @@ public class PostActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 
-		String test = getIntent().getStringExtra("푸바오");
-
 		btn_post_modify = findViewById(R.id.btnPostModify);
-		//btn_post_modify.setText(test);
 		btn_post_delete = findViewById(R.id.btnPostDelete);
 
 		btn_post_menu = findViewById(R.id.btn_post_menu);

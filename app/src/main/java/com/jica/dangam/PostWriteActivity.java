@@ -25,63 +25,65 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PostWriteActivity extends AppCompatActivity {
 	final int PICTURE_REQUEST_CODE = 100;
 	String state;
-	Button btn_ilgam, btn_ilgun;
-	Button btn_plus_gps;
+	Button btnIlgam, btnIlgun;
+	Button btnPlusGps;
 	RadioGroup rg_post_state_modify;
-	Button btn_post_complete;
-	ImageView iv_post_picture;
-	Button btn_post_picture;
+	Button btnPostComplete;
+	ImageView ivPostPicture;
+	Button btnPostPicture;
 
 	EditText title;
 	EditText contents;
 	Uri uri;
 	ArrayList<Uri> uriList = new ArrayList<>();
-	RecyclerView rv_post_image; // 이미지를 보여줄 리사이클러뷰
+	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+	String TAG = "postTest";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_write);
 
-		btn_ilgam = findViewById(R.id.btnIlgam);
-		btn_ilgun = findViewById(R.id.btnIlgun);
+		btnIlgam = findViewById(R.id.btnIlgam);
+		btnIlgun = findViewById(R.id.btnIlgun);
 
-		btn_plus_gps = findViewById(R.id.btnPlusGps);
+		btnPlusGps = findViewById(R.id.btnPlusGps);
 
-		btn_post_complete = findViewById(R.id.btnPostComplete);
+		btnPostComplete = findViewById(R.id.btnPostComplete);
 
-		iv_post_picture = findViewById(R.id.ivPostPicture);
-		btn_post_picture = findViewById(R.id.btnPostPicture);
+		ivPostPicture = findViewById(R.id.ivPostPicture);
+		btnPostPicture = findViewById(R.id.btnPostPicture);
 
-		rv_post_image = findViewById(R.id.rvPostImage);
+		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostTitle);
 		contents = findViewById(R.id.etPostContent);
 
 		// 유형 선택시 색상 변경
-		btn_ilgam.setOnClickListener(new View.OnClickListener() {
+		btnIlgam.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
-				btn_ilgam.setBackgroundTintList(
+				btnIlgam.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
-				btn_ilgun.setBackgroundTintList(
+				btnIlgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
 
-		btn_ilgun.setOnClickListener(new View.OnClickListener() {
+		btnIlgun.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				btn_ilgun.setBackgroundTintList(
+				btnIlgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-				btn_ilgam.setBackgroundTintList(
+				btnIlgam.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
 
-		btn_post_picture.setOnClickListener(new View.OnClickListener() {
+		btnPostPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(Intent.ACTION_PICK);
@@ -89,6 +91,8 @@ public class PostWriteActivity extends AppCompatActivity {
 				intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 				intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, PICTURE_REQUEST_CODE);
+				// btnPostPicture.setVisibility(view.INVISIBLE);
+				rvPostImage.setVisibility(view.VISIBLE);
 			}
 		});
 
@@ -104,7 +108,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		});*/
 
 		//모집 희망 장소
-		btn_plus_gps.setOnClickListener(new View.OnClickListener() {
+		btnPlusGps.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(PostWriteActivity.this, PostGpsActivity.class);
@@ -113,7 +117,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		});
 
 		//작성완료
-		btn_post_complete.setOnClickListener(new View.OnClickListener() {
+		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
@@ -125,45 +129,52 @@ public class PostWriteActivity extends AppCompatActivity {
 
 	}
 
+	//사진 불러오기(최대 3장)
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (data == null) {
 			Toast.makeText(getApplicationContext(), "첨부할 사진을 선택해주세요.", Toast.LENGTH_SHORT).show();
+			return; // 바로 여기에서 반환합니다.
+		}
+
+		if (data.getClipData() == null) {
+			if (uriList.size() >= 3) {
+				Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			Log.e("Single Choice: ", String.valueOf(data.getData()));
+			Uri imageUri = data.getData();
+			uriList.add(imageUri);
+
 		} else {
-			if (data.getClipData() == null) {
-				Log.e("Single Choice: ", String.valueOf(data.getData()));
-				Uri imageUri = data.getData();
-				uriList.add(imageUri);
+			ClipData clipData = data.getClipData();
+			Log.e("clipData", String.valueOf(clipData.getItemCount()));
 
-				adapter = new ImageAdapter(uriList, getApplicationContext());
-				rv_post_image.setAdapter(adapter);
-				rv_post_image.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+			if (clipData.getItemCount() + uriList.size() > 3) { // 이미 리스트에 있는 이미지 수를 고려하여 확인
+				Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				return;
 			} else {
-				ClipData clipData = data.getClipData();
-				Log.e("clipData", String.valueOf(clipData.getItemCount()));
+				Log.e("PostWriteActivity", "Multiple Choice");
 
-				if (clipData.getItemCount() > 4) {
-					Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
-				} else {
-					Log.e("PostWriteActivity", "Multiple Choice");
+				for (int i = 0; i < clipData.getItemCount(); i++) {
+					Uri imgUri = clipData.getItemAt(i).getUri();
 
-					for (int i = 0; i < clipData.getItemCount(); i++) {
-						Uri imgUri = clipData.getItemAt(i).getUri();
-
-						try {
-							uriList.add(imgUri);
-						} catch (Exception e) {
-							Log.e("PostWriteActivity", "Image Select Error", e);
+					try {
+						uriList.add(imgUri);
+						if (uriList.size() >= 3) {
+							btnPostPicture.setVisibility(View.GONE);
 						}
+					} catch (Exception e) {
+						Log.e("PostWriteActivity", "Image Select Error", e);
 					}
-
-					adapter = new ImageAdapter(uriList, getApplicationContext());
-					rv_post_image.setAdapter(adapter);
-					rv_post_image.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 				}
 			}
 		}
+
+		adapter = new ImageAdapter(uriList, getApplicationContext());
+		rvPostImage.setAdapter(adapter);
+		rvPostImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 	}
 }
