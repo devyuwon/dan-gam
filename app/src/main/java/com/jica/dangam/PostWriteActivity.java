@@ -13,6 +13,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +55,9 @@ public class PostWriteActivity extends AppCompatActivity {
 	StorageReference storageRef = storage.getReference();
 
 	String TAG = "postTest";
+	int loadCount = 0;
+	int count = 0;
+	ProgressDialog progressDialog = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,27 +137,75 @@ public class PostWriteActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+
 				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-				int i = 0;
-				for(Uri uri:uriList){
+
+				//업로드할 이미지 화일의 갯수 구하기
+				count = uriList.size();
+				//업로드된 화일의 갯수
+				loadCount = 0;
+
+				for(Uri uri : uriList){
 					UploadTask uploadTask = storageRef.child(uri.getLastPathSegment()).putFile(uri);
 					uploadTask.addOnFailureListener(new OnFailureListener() {
 						@Override
 						public void onFailure(@NonNull Exception exception) {
 							// Handle unsuccessful uploads
+							loadCount++;
+							if(loadCount == count){
+								Log.d("TAG", "결과: 실패!  업로드할 갯수:" + count +" 현재완료된 갯수:" + loadCount);
+								//대화상자를 보이지 않게한다.
+								progressDialog.dismiss();
+								//글제목과 이미지경로 저장
+								//db.collection("post_gam").document(post.getTitle()).set(post);
+								//액티비티 이동
+								Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+								startActivity(intent);
+							}
 						}
 					}).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 						@Override
 						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+							loadCount++;
+							//업로드된 화일의 uri를 구해온다.
+							Log.d("TAG", taskSnapshot.getMetadata().getReference().toString());
+							post.setImageUrl1(taskSnapshot.getMetadata().getReference().toString());
+							if(loadCount == count){
+								Log.d("TAG", "결과 성공!! 업로드할 갯수:" + count +" 현재완료된 갯수:" + loadCount);
+								//대화상자를 보이지 않게한다.
+								progressDialog.dismiss();
+								//글제목과 이미지경로 저장
+								db.collection("post_gam")
+									.document(post.getTitle())
+									.set(post)
+									.addOnSuccessListener(new OnSuccessListener<Void>() {
+										@Override
+										public void onSuccess(Void unused) {
+											Log.d("TAG", "post내용 업로드 성공!");
+										}
+									}).addOnFailureListener(new OnFailureListener() {
+										@Override
+										public void onFailure(@NonNull Exception e) {
+											Log.d("TAG", "post내용 업로드 실패");
+										}
+									});
 
+								//액티비티 이동
+								Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+								startActivity(intent);
+							}
 						}
 					});
 
 				}
+				//위의 업로드 기능이 완료된 이후에 아래의 기능이 작동해야 한다.
+				progressDialog = new ProgressDialog(PostWriteActivity.this);
+				progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL); //진행율
+				//                              ProgressDialog.STYLE_SPINNER      //빙글빙글
+				progressDialog.setMessage("이미지를 업로드 하는 ..");
+				progressDialog.show();
 
-				db.collection("post_gam").document(post.getTitle()).set(post);
-				startActivity(intent);
+
 			}
 		});
 
