@@ -2,19 +2,14 @@ package com.jica.dangam.search;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.jica.dangam.R;
 import com.jica.dangam.list.ListModel;
 import com.jica.dangam.list.ListAdapter;
-import com.jica.dangam.util.GetListData;
+import com.jica.dangam.util.DatabaseData;
 
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +58,7 @@ public class SearchResultFragment extends Fragment {
 		String searchWord;
 		searchWord = bundle.getString("SearchWord");
 		Log.d("TAG", searchWord);
-		GetListData database = new GetListData(adapter);
+		DatabaseData database = new DatabaseData(adapter);
 		database.searchDB(searchWord,1);
 
 	}

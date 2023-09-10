@@ -10,19 +10,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.jica.dangam.mypage.MyPageFragment;
 import com.jica.dangam.list.ListModel;
 import com.jica.dangam.list.ListAdapter;
 import com.jica.dangam.R;
 import com.jica.dangam.login.LoginActivity;
-import com.jica.dangam.util.GetListData;
+import com.jica.dangam.util.DatabaseData;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,7 +67,7 @@ public class MainFragment extends Fragment {
 		list = new ArrayList<>();
 		adapter = new ListAdapter(context, list);
 
-		GetListData database = new GetListData(adapter);
+		DatabaseData database = new DatabaseData(adapter);
 		database.downloadDB();
 		recyclerView.setAdapter(adapter);
 
