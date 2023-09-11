@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "690547928578-17e1h5c44aqhtdqsrcu5s3gdpt09fl7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "147bed3c27c124a85ff881eb940d76af3420e659"
+          }
+        },
+        {
           "client_id": "690547928578-uvf14sf33e7stnmedu3ldh47idk18od8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

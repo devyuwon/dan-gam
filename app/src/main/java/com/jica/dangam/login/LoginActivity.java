@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class LoginActivity extends AppCompatActivity {
-	private SignInButton btnGoogleLogin;
 	private GoogleSignInClient mGoogleSignInClient;
 	private FirebaseAuth mAuth;
 	private static final int RC_SIGN_IN = 9001;
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
+		SignInButton btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
 
 		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestIdToken(getString(R.string.default_web_client_id))
