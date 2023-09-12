@@ -10,12 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
-/*
-직접 커스텀한 다이얼로그들을 띄워주고 다이얼로그 안에서의 동작을 정의하는 클래스 (싱글톤)
- */
 public class CustomDialog extends Dialog {
 
 	private static CustomDialog customDialog;
@@ -41,7 +37,6 @@ public class CustomDialog extends Dialog {
 		btn_delete_yes3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 			}
 		});
 		Button btn_delete_no2 = customDialog.findViewById(R.id.btnDeleteNo);
@@ -67,22 +62,13 @@ public class CustomDialog extends Dialog {
 			(ViewGroup)findViewById(R.id.toast_layout));
 
 		TextView text11 = layout.findViewById(R.id.tvToast);
-
 		Toast toast = new Toast(getContext());
-
 		text11.setText("아니요를 눌렀습니다");
-
 		text11.setTextSize(15);
-
 		text11.setTextColor(Color.WHITE);
-
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
-
 		toast.setDuration(Toast.LENGTH_SHORT);
-
 		toast.setView(layout);
-
 		toast.show();
 	}
-
 }

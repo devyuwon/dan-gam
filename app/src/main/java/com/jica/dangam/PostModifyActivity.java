@@ -19,11 +19,10 @@ public class PostModifyActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_modify);
 
+		//UI객체찾기
 		btn_post_back = findViewById(R.id.btnPostBack);
-
 		btn_ilgam = findViewById(R.id.btnIlgam);
 		btn_ilgun = findViewById(R.id.btnIlgun);
-
 		btn_plus_gps = findViewById(R.id.btnPlusGps);
 		btn_post_complete = findViewById(R.id.btnPostComplete);
 
@@ -37,8 +36,7 @@ public class PostModifyActivity extends AppCompatActivity {
 			}
 		});
 
-		//유형 선택시 색상 변경
-		//일감 선택
+		//유형 선택 - 일감
 		btn_ilgam.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -50,7 +48,7 @@ public class PostModifyActivity extends AppCompatActivity {
 			}
 		});
 
-		//일꾼 선택
+		//유형 선택 - 일꾼
 		btn_ilgun.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -59,7 +57,6 @@ public class PostModifyActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 				btn_ilgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-
 			}
 		});
 
@@ -80,6 +77,5 @@ public class PostModifyActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-
 	}
 }

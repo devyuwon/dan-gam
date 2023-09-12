@@ -23,13 +23,12 @@ public class PostActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 
+		//UI객체 찾기
 		btn_post_modify = findViewById(R.id.btnPostModify);
 		btn_post_delete = findViewById(R.id.btnPostDelete);
-
 		btn_post_menu = findViewById(R.id.btn_post_menu);
 		rg_post_state_modify = findViewById(R.id.rgPostStateModify);
 		rg_post_close = findViewById(R.id.rgPostClose);
-
 		tv_post_title = findViewById(R.id.tvPostTitle);
 
 		//메뉴버튼
@@ -55,17 +54,13 @@ public class PostActivity extends AppCompatActivity {
 				//글 수정하기 화면 전환
 				Intent intent = new Intent(PostActivity.this, PostModifyActivity.class);
 				startActivity(intent);
-
 			}
 		});
 	}
 
-	;
-
-	//activity_main.xml 에서 show_dialog_btn 의 onclick 메소드
+	//activity_post.xml 에서 show_dialog_btn 의 onclick 메소드
 	public void show_default_dialog(View v) {
 		//클릭시 defaultDialog 를 띄워준다
 		CustomDialog.getInstance(this).showDefaultDialog();
 	}
-
 }

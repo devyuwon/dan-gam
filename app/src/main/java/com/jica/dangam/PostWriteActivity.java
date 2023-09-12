@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,39 +28,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostWriteActivity extends AppCompatActivity {
 	final int PICTURE_REQUEST_CODE = 100;
-	String state;
 	Button btnIlgam, btnIlgun;
 	Button btnPlusGps;
 	RadioGroup rg_post_state_modify;
 	Button btnPostComplete;
 	Button btnPostPicture;
-
-	EditText title;
-	EditText contents;
-	Uri uri;
+	EditText title, contents;
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-	String TAG = "postTest";
-
-	ImageButton ivRecyclerviewImageDelete;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_write);
 
+		//UI객체 찾기
 		btnIlgam = findViewById(R.id.btnIlgam);
 		btnIlgun = findViewById(R.id.btnIlgun);
-
 		btnPlusGps = findViewById(R.id.btnPlusGps);
-
 		btnPostComplete = findViewById(R.id.btnPostComplete);
-
 		btnPostPicture = findViewById(R.id.btnPostPicture);
-
 		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostTitle);
 		contents = findViewById(R.id.etPostContent);
@@ -71,7 +58,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		rvPostImage.setAdapter(adapter);
 		rvPostImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 
-		// 유형 선택시 색상 변경
+		// 유형 선택 - 일감
 		btnIlgam.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -82,7 +69,7 @@ public class PostWriteActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 			}
 		});
-
+		// 유형 선택 - 일꾼
 		btnIlgun.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -93,6 +80,7 @@ public class PostWriteActivity extends AppCompatActivity {
 			}
 		});
 
+		//사진첨부
 		btnPostPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -102,9 +90,7 @@ public class PostWriteActivity extends AppCompatActivity {
 				intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, PICTURE_REQUEST_CODE);
 				rvPostImage.setVisibility(view.VISIBLE);
-
 			}
-
 		});
 
 		//모집 희망 장소
@@ -126,7 +112,6 @@ public class PostWriteActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-
 	}
 
 	//사진 불러오기(최대 3장)
@@ -182,6 +167,7 @@ public class PostWriteActivity extends AppCompatActivity {
 
 	}
 
+	//커스텀 토스트 - 사진 갯수 제한 안내
 	public void onBtn_delete_no2Clicked(View view) {
 		LayoutInflater inflater = getLayoutInflater();
 
@@ -190,22 +176,13 @@ public class PostWriteActivity extends AppCompatActivity {
 			(ViewGroup)findViewById(R.id.toast_layout));
 
 		TextView text11 = layout.findViewById(R.id.tvToast);
-
 		Toast toast = new Toast(getApplicationContext());
-
 		text11.setText("사진은 3장까지 첨부할 수 있습니다.");
-
 		text11.setTextSize(15);
-
 		text11.setTextColor(Color.WHITE);
-
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
-
 		toast.setDuration(Toast.LENGTH_SHORT);
-
 		toast.setView(layout);
-
 		toast.show();
 	}
-
 }
