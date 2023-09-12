@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
-    <!-- 저장 파일에 접근하기 위한 퍼미션 설정 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
             android:allowBackup="true"
@@ -28,13 +25,8 @@
                 android:name=".PostGpsActivity"
                 android:exported="false" />
         <activity
-                android:name=".hi.MainActivity3"
-                android:exported="false" />
-        <activity
-                android:name=".hi.MainActivity2"
-                android:exported="false" />
-        <activity
-                android:name=".MainActivity"
+                android:name=".main.SplashActivity"
+                android:theme="@style/SplashActivityTheme"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +34,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+                android:name=".login.LoginActivity"
+                android:exported="false" />
+        <activity
+                android:name=".main.MainActivity"
+                android:exported="true" />
     </application>
 
 </manifest>

@@ -2,8 +2,14 @@ package com.jica.dangam;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,6 +26,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -39,6 +46,12 @@ public class PostWriteActivity extends AppCompatActivity {
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
+	FirebaseStorage storage = FirebaseStorage.getInstance();
+	StorageReference storageRef = storage.getReference();
+	int completeCount = 0;
+	int uploadCount = 0;
+	int i =0;
+	ProgressDialog progressDialog = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,15 +124,88 @@ public class PostWriteActivity extends AppCompatActivity {
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
 				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-				if (postKind) {
-					db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post",post);
-					startActivity(intent);
-				} else {
-					db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post",post);
-					startActivity(intent);
+				uploadCount = uriList.size();
+
+				while (i<uriList.size()){
+					UploadTask uploadTask = storageRef.child(post.getUid()+post.getPdate().toString()+i).putFile(uriList.get(i));
+					uploadTask.addOnFailureListener(new OnFailureListener() {
+						@Override
+						public void onFailure(@NonNull Exception exception) {
+							// Handle unsuccessful uploads
+							completeCount++;
+							if(completeCount == uploadCount){
+								Log.d("TAG", "결과: 실패!  업로드할 갯수:" + uploadCount +" 현재완료된 갯수:" + completeCount);
+								//대화상자를 보이지 않게한다.
+								progressDialog.dismiss();
+							}
+						}
+					}).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+						@Override
+						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+							completeCount++;
+							//업로드된 화일의 uri를 구해온다.
+							Log.d("TAG", taskSnapshot.getMetadata().getReference().toString());
+							Log.d("TAG","현재 completeCount = "+completeCount);
+							if (completeCount==1){
+								post.setImageUrl1(taskSnapshot.getMetadata().getReference().toString());
+							}else if (completeCount==2){
+								post.setImageUrl2(taskSnapshot.getMetadata().getReference().toString());
+							}else if (completeCount==3){
+								post.setImageUrl3(taskSnapshot.getMetadata().getReference().toString());
+							}
+							if(completeCount == uploadCount){
+								Log.d("TAG", "결과 성공!! 업로드할 갯수:" + uploadCount +" 현재완료된 갯수:" + completeCount);
+								//대화상자를 보이지 않게한다.
+
+								//글제목과 이미지경로 저장
+								if(postKind){
+									db.collection("post_gam")
+										.document(post.getUid()+post.getPdate().toString())
+										.set(post)
+										.addOnSuccessListener(new OnSuccessListener<Void>() {
+											@Override
+											public void onSuccess(Void unused) {
+												Log.d("TAG", "post내용 업로드 성공!");
+											}
+										}).addOnFailureListener(new OnFailureListener() {
+											@Override
+											public void onFailure(@NonNull Exception e) {
+												Log.d("TAG", "post내용 업로드 실패");
+											}
+										});
+								}else {
+									db.collection("post_ggun")
+										.document(post.getUid()+post.getPdate().toString())
+										.set(post)
+										.addOnSuccessListener(new OnSuccessListener<Void>() {
+											@Override
+											public void onSuccess(Void unused) {
+												Log.d("TAG", "post내용 업로드 성공!");
+											}
+										}).addOnFailureListener(new OnFailureListener() {
+											@Override
+											public void onFailure(@NonNull Exception e) {
+												Log.d("TAG", "post내용 업로드 실패");
+											}
+										});
+								}
+								progressDialog.dismiss();
+
+								//액티비티 이동
+								Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+								intent.putExtra("post",post); //인텐스에 객체 정보 저장
+								startActivity(intent);
+							}
+						}
+					});
+					i++;
 				}
+				//위의 업로드 기능이 완료된 이후에 아래의 기능이 작동해야 한다.
+				progressDialog = new ProgressDialog(PostWriteActivity.this);
+				progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); //진행율
+				//                                    //빙글빙글
+				progressDialog.setMessage("이미지를 업로드 하는 ..");
+				progressDialog.show();
 
 			}
 		});
