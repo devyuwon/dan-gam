@@ -31,7 +31,6 @@ public class PostWriteActivity extends AppCompatActivity {
 	boolean postKind = true;
 	Button btnIlgam, btnIlgun;
 	Button btnPlusGps;
-	RadioGroup rg_post_state_modify;
 	Button btnPostComplete;
 	Button btnPostPicture;
 	EditText title, contents;
@@ -113,11 +112,11 @@ public class PostWriteActivity extends AppCompatActivity {
 				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
 				if (postKind) {
 					db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post",post);
+					intent.putExtra("post", post);
 					startActivity(intent);
 				} else {
 					db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post",post);
+					intent.putExtra("post", post);
 					startActivity(intent);
 				}
 
