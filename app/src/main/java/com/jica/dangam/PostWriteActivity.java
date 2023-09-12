@@ -113,9 +113,11 @@ public class PostWriteActivity extends AppCompatActivity {
 				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
 				if (postKind) {
 					db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
+					intent.putExtra("post",post);
 					startActivity(intent);
 				} else {
 					db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
+					intent.putExtra("post",post);
 					startActivity(intent);
 				}
 

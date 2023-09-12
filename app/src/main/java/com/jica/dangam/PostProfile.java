@@ -1,8 +1,9 @@
 package com.jica.dangam;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PostProfile {
+public class PostProfile implements Serializable {
 	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid;
 	private Date pdate;
 	private boolean state;

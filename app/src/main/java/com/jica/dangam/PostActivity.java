@@ -17,11 +17,14 @@ public class PostActivity extends AppCompatActivity {
 	RadioGroup rg_post_state_modify;
 	Button rg_post_close;
 	TextView tv_post_title;
+	TextView tv_post_content;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
+		Intent intent = getIntent();
+		PostProfile post = (PostProfile) intent.getSerializableExtra("post");
 
 		//UI객체 찾기
 		btn_post_modify = findViewById(R.id.btnPostModify);
@@ -30,6 +33,11 @@ public class PostActivity extends AppCompatActivity {
 		rg_post_state_modify = findViewById(R.id.rgPostStateModify);
 		rg_post_close = findViewById(R.id.rgPostClose);
 		tv_post_title = findViewById(R.id.tvPostTitle);
+		tv_post_content = findViewById(R.id.tv_post_content);
+
+		//글정보 뿌려주기
+		tv_post_title.setText(post.getTitle());
+		tv_post_content.setText(post.getContents());
 
 		//메뉴버튼
 		btn_post_menu.setOnClickListener(new View.OnClickListener() {
