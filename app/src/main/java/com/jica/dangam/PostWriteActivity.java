@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -34,6 +33,7 @@ public class PostWriteActivity extends AppCompatActivity {
 	Button btnPostComplete;
 	Button btnPostPicture;
 	EditText title, contents;
+	EditText etPostTitle, etPostContent;
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
@@ -53,6 +53,8 @@ public class PostWriteActivity extends AppCompatActivity {
 		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostTitle);
 		contents = findViewById(R.id.etPostContent);
+		etPostTitle = findViewById(R.id.etPostTitle);
+		etPostContent = findViewById(R.id.etPostContent);
 
 		adapter = new ImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
@@ -108,18 +110,23 @@ public class PostWriteActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-				if (postKind) {
-					db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post", post);
-					startActivity(intent);
+				if (String.valueOf(etPostTitle.getText()).equals("")) {
+					warning_notitle(contents);    //제목 미입력시 안내 토스트
+				} else if (String.valueOf(etPostContent.getText()).equals("")) {
+					warning_nocontents(contents);    //내용 미입력시 안내 토스트
 				} else {
-					db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
-					intent.putExtra("post", post);
-					startActivity(intent);
+					Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+					PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+					if (postKind) {
+						db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
+						intent.putExtra("post", post);
+						startActivity(intent);
+					} else {
+						db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
+						intent.putExtra("post", post);
+						startActivity(intent);
+					}
 				}
-
 			}
 		});
 	}
@@ -136,7 +143,8 @@ public class PostWriteActivity extends AppCompatActivity {
 
 		if (data.getClipData() == null) {
 			if (uriList.size() >= 3) {
-				Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				onBtn_delete_no2Clicked(contents);
 				return;
 			}
 			Log.e("Single Choice: ", String.valueOf(data.getData()));
@@ -195,4 +203,43 @@ public class PostWriteActivity extends AppCompatActivity {
 		toast.setView(layout);
 		toast.show();
 	}
+
+	//커스텀 토스트 - 제목 미입력시 안내
+	public void warning_notitle(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("제목을 입력해주세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 내용 미입력시 안내
+	public void warning_nocontents(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("내용을 입력해주세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
 }
