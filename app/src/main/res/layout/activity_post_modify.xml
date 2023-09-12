@@ -189,16 +189,6 @@
                                 android:contentDescription="설명"
                                 android:layout_marginLeft="10dp" />
 
-                        <ImageView
-                                android:contentDescription="하고 싶은 설명"
-                                android:layout_height="98dp"
-                                android:id="@+id/ivPostPicture"
-                                android:layout_width="98dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:background="@drawable/custom_round_btn"
-                                app:srcCompat="@drawable/custom_round_btn" />
-
                         <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -276,19 +266,11 @@
                         android:gravity="center">
 
                     <RadioButton
-                            android:text="모집전"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/radioButton"
-                            android:layout_marginRight="10dp"
-                            android:textSize="18sp" />
-
-                    <RadioButton
                             android:text="모집중"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/radioButton5"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="30dp"
                             android:textSize="18sp" />
 
                     <RadioButton

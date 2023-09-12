@@ -68,23 +68,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <ImageView
+                <androidx.viewpager2.widget.ViewPager2
 
                         android:layout_width="340dp"
                         android:layout_height="262dp"
-                        android:id="@+id/ivPhoto"
+                        android:id="@+id/vpPhoto"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         app:srcCompat="@drawable/custom_round_btn"
-                        android:layout_marginTop="15dp" />
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/custom_round_btn" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
+                        app:layout_constraintTop_toBottomOf="@+id/vpPhoto"
                         android:layout_marginTop="5dp"
                         tools:layout_editor_absoluteX="15dp"
                         android:id="@+id/constraintLayout2">
@@ -232,7 +233,7 @@
 
         <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="150dp"
                 android:theme="@style/CustomRadioButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -251,15 +252,6 @@
                     android:layout_marginBottom="20dp"
                     android:contentDescription="해당 view에 대한 설명"
                     android:layout_marginTop="20dp" />
-
-            <RadioButton
-                    android:text="  공고 진행전"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/radioButton2"
-                    android:textAlignment="textStart"
-                    android:textSize="16sp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <RadioButton
                     android:text="  공고 진행중"

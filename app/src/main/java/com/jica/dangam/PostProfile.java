@@ -3,12 +3,14 @@ package com.jica.dangam;
 import java.util.Date;
 
 public class PostProfile {
-	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3;
-	private Date pdate, sdate, edate;
+	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid;
+	private Date pdate;
+	private boolean state;
 
-	public PostProfile(String title, String contents, String location, String imageUrl1, String imageUrl2,
+	public PostProfile(String uid, String title, String contents, String location, String imageUrl1, String imageUrl2,
 		String imageUrl3,
-		Date pdate, Date sdate, Date edate) {
+		Date pdate, boolean state) {
+		this.uid = uid;
 		this.title = title;
 		this.contents = contents;
 		this.location = location;
@@ -16,8 +18,7 @@ public class PostProfile {
 		this.imageUrl2 = imageUrl2;
 		this.imageUrl3 = imageUrl3;
 		this.pdate = pdate;
-		this.sdate = sdate;
-		this.edate = edate;
+		this.state = state;
 	}
 
 	public PostProfile() {
@@ -32,10 +33,9 @@ public class PostProfile {
 		this.imageUrl2 = "";
 		this.imageUrl3 = "";
 		this.pdate = new Date();
-		this.sdate = new Date();
-		this.edate = new Date();
+		this.uid = "00000000";
+		this.state = true;
 	}
-
 
 	public String getTitle() {
 		return title;
@@ -63,14 +63,6 @@ public class PostProfile {
 
 	public Date getPdate() {
 		return pdate;
-	}
-
-	public Date getSdate() {
-		return sdate;
-	}
-
-	public Date getEdate() {
-		return edate;
 	}
 
 	public void setTitle(String title) {
@@ -101,12 +93,19 @@ public class PostProfile {
 		this.pdate = pdate;
 	}
 
-	public void setSdate(Date sdate) {
-		this.sdate = sdate;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setEdate(Date edate) {
-		this.edate = edate;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
+	public boolean getState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
 }

@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostWriteActivity extends AppCompatActivity {
 	final int PICTURE_REQUEST_CODE = 100;
+	boolean postKind = true;
 	Button btnIlgam, btnIlgun;
 	Button btnPlusGps;
 	RadioGroup rg_post_state_modify;
@@ -67,6 +68,7 @@ public class PostWriteActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
 				btnIlgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
+				postKind = true;
 			}
 		});
 		// 유형 선택 - 일꾼
@@ -77,6 +79,7 @@ public class PostWriteActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
 				btnIlgam.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
+				postKind = false;
 			}
 		});
 
@@ -107,9 +110,15 @@ public class PostWriteActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-				//PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-				//db.collection("post_gam").document(post.getTitle()).set(post);
-				startActivity(intent);
+				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+				if (postKind) {
+					db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
+					startActivity(intent);
+				} else {
+					db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
+					startActivity(intent);
+				}
+
 			}
 		});
 	}
