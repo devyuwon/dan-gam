@@ -146,6 +146,8 @@ public class PostWriteActivity extends AppCompatActivity {
 							//업로드된 화일의 uri를 구해온다.
 							Log.d("TAG", taskSnapshot.getMetadata().getReference().toString());
 							Log.d("TAG","현재 completeCount = "+completeCount);
+							Log.d("TAG",storageRef.getDownloadUrl().toString());
+
 							if (completeCount==1){
 								post.setImageUrl1(taskSnapshot.getMetadata().getReference().toString());
 							}else if (completeCount==2){
