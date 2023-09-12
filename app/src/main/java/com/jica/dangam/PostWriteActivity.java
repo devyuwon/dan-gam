@@ -6,16 +6,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -148,7 +153,8 @@ public class PostWriteActivity extends AppCompatActivity {
 			Log.e("clipData", String.valueOf(clipData.getItemCount()));
 
 			if (clipData.getItemCount() + uriList.size() > 3) { // 이미 리스트에 있는 이미지 수를 고려하여 확인
-				Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				onBtn_delete_no2Clicked(contents);
 				return;
 			} else {
 				Log.e("PostWriteActivity", "Multiple Choice");
@@ -174,6 +180,32 @@ public class PostWriteActivity extends AppCompatActivity {
 			}
 		}
 
+	}
+
+	public void onBtn_delete_no2Clicked(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+
+		Toast toast = new Toast(getApplicationContext());
+
+		text11.setText("사진은 3장까지 첨부할 수 있습니다.");
+
+		text11.setTextSize(15);
+
+		text11.setTextColor(Color.WHITE);
+
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+
+		toast.setDuration(Toast.LENGTH_SHORT);
+
+		toast.setView(layout);
+
+		toast.show();
 	}
 
 }
