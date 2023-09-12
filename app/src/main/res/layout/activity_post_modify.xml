@@ -16,7 +16,7 @@
                 android:layout_width="15dp"
                 android:layout_height="25dp"
                 android:id="@+id/btnPostBack"
-                android:background="@drawable/vector"
+                android:background="@drawable/icon_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="5dp"
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
-                        android:background="@drawable/round_100dp_btn" />
+                        android:background="@drawable/custom_round_100dp_btn" />
 
                 <androidx.appcompat.widget.AppCompatButton
                         android:text="일꾼"
@@ -86,7 +86,7 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         app:layout_constraintTop_toTopOf="@+id/btnIlgam"
-                        android:background="@drawable/round_100dp_btn" />
+                        android:background="@drawable/custom_round_100dp_btn" />
 
                 <TextView
                         android:text="유형"
@@ -185,7 +185,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/btnPostPicture"
-                                android:background="@drawable/picture"
+                                android:background="@drawable/icon_add_picture"
+                                android:contentDescription="설명"
                                 android:layout_marginLeft="10dp" />
 
                         <ImageView
@@ -195,8 +196,8 @@
                                 android:layout_width="98dp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
-                                android:background="@drawable/round_btn"
-                                app:srcCompat="@drawable/round_btn" />
+                                android:background="@drawable/custom_round_btn"
+                                app:srcCompat="@drawable/custom_round_btn" />
 
                         <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
@@ -220,7 +221,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/round_btn"
+                        android:background="@drawable/custom_round_btn"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp" />
 
@@ -235,7 +236,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/round_btn"
+                        android:background="@drawable/custom_round_btn"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -261,7 +262,7 @@
                         android:textAllCaps="false"
                         android:textAlignment="center"
                         android:backgroundTint="#FFAC61"
-                        android:background="@drawable/round_100dp_btn" />
+                        android:background="@drawable/custom_round_100dp_btn" />
 
                 <RadioGroup
                         android:layout_width="0dp"
@@ -320,7 +321,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_gravity="bottom|center"
-                android:background="@drawable/round_nocolor_btn" />
+                android:background="@drawable/custom_round_nocolor_btn" />
     </LinearLayout>
 
 </LinearLayout>

@@ -18,7 +18,7 @@
                 android:layout_width="60dp"
                 android:layout_height="80dp"
                 android:id="@+id/btn_post_menu"
-                android:background="@drawable/dots"
+                android:background="@drawable/icon_dots"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_width="12dp"
                 android:layout_height="23dp"
                 android:id="@+id/btnPostBack"
-                android:background="@drawable/vector"
+                android:background="@drawable/icon_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +78,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        app:srcCompat="@drawable/round_btn"
+                        app:srcCompat="@drawable/custom_round_btn"
                         android:layout_marginTop="15dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,7 +103,7 @@
                     <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            app:srcCompat="@drawable/ilgungam_04"
+                            app:srcCompat="@drawable/icon_ilgungam"
                             android:id="@+id/imageView9"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +147,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintVertical_bias="0.0"
-                            android:background="@drawable/round_orange_btn"
+                            android:background="@drawable/custom_round_orange_btn"
                             android:layout_marginTop="5dp"
                             android:textAlignment="center" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -163,7 +163,7 @@
                     <ImageView
                             android:layout_width="93dp"
                             android:layout_height="93dp"
-                            app:srcCompat="@drawable/profile"
+                            app:srcCompat="@drawable/icon_profile"
                             android:id="@+id/imageView10"
                             app:layout_constraintStart_toStartOf="parent"
                             android:layout_marginStart="30dp"
@@ -236,7 +236,7 @@
                 android:theme="@style/CustomRadioButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/half_round_btn"
+                android:background="@drawable/custom_half_round_btn"
                 android:paddingLeft="15dp"
                 android:elevation="50dp"
                 android:visibility="gone"
@@ -246,7 +246,7 @@
                     android:layout_width="70dp"
                     android:layout_height="5dp"
                     android:id="@+id/rgPostClose"
-                    android:background="@drawable/closebar"
+                    android:background="@drawable/icon_closebar"
                     android:layout_marginLeft="150dp"
                     android:layout_marginBottom="20dp"
                     android:contentDescription="해당 view에 대한 설명"
@@ -331,7 +331,7 @@
         <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                app:srcCompat="@drawable/delete"
+                app:srcCompat="@drawable/icon_delete"
                 android:id="@+id/btnPostDelete"
                 android:backgroundTint="#ffff"
                 app:layout_constraintStart_toEndOf="@+id/view5"
@@ -374,7 +374,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@drawable/modify"
+                android:background="@drawable/icon_modify"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
                 android:contentDescription="해당 view에 대한 설명" />

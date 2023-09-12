@@ -54,7 +54,6 @@ public class CustomDialog extends Dialog {
 		@Override
 		public void onClick(View v) {
 			onBtn_delete_no2Clicked(v);
-			//Toast.makeText(getContext(), "취소 버튼을 눌렀습니다.", Toast.LENGTH_SHORT).show();
 			customDialog.dismiss();
 		}
 	};

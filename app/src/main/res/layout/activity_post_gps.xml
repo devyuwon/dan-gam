@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/half_round_btn"
+            android:background="@drawable/custom_half_round_btn"
             android:layout_marginTop="30dp">
 
         <ImageView
@@ -25,14 +25,14 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/fubao"
+                app:srcCompat="@drawable/icon_fubao"
                 android:scaleType="fitXY" />
 
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="15dp"
                 android:layout_height="25dp"
                 android:id="@+id/btnPostBack"
-                android:background="@drawable/vector"
+                android:background="@drawable/icon_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="20dp"
@@ -43,7 +43,7 @@
                 android:layout_width="70dp"
                 android:layout_height="5dp"
                 android:id="@+id/rgPostClose"
-                android:background="@drawable/closebar"
+                android:background="@drawable/icon_closebar"
                 android:contentDescription="해당 view에 대한 설명"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:circularflow_radiusInDP="0dp"
                     android:layout_marginStart="30dp"
-                    android:background="@drawable/round_100dp_btn"
+                    android:background="@drawable/custom_round_100dp_btn"
                     android:backgroundTint="#DBDBDB"
                     android:textSize="10sp"
                     android:layout_marginTop="32dp" />
@@ -135,7 +135,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/round_nocolor_btn"
+                android:background="@drawable/custom_round_nocolor_btn"
                 android:backgroundTint="#FF8000"
                 android:textStyle="bold"
                 android:textSize="20sp"

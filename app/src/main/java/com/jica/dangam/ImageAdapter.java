@@ -5,19 +5,26 @@ import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 	private ArrayList<Uri> mData = null;
-	private Context mContext = null;
+	//private Context mContext = null;
+	private PostWriteActivity mContext;
 
-	ImageAdapter(ArrayList<Uri> list, Context context) {
+	ImageAdapter(ArrayList<Uri> list, PostWriteActivity context) {
 		mData = list;
 		mContext = context;
 	}
@@ -39,6 +46,25 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 		Glide.with(mContext)
 			.load(img_uri)
 			.into(holder.image);
+
+		//이미지 삭제
+		holder.btnRecyclerviewImageDelete.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				int positionToRemove = mData.indexOf(img_uri);
+				if (positionToRemove != -1) {
+					mData.remove(positionToRemove);
+					notifyItemRemoved(positionToRemove);
+					if (mData.size() < 3) {
+						mContext.btnPostPicture.setVisibility(View.VISIBLE);
+					}
+				}
+				//Toast.makeText(mContext.getApplicationContext(), "사진이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+			}
+		});
+
 	}
 
 	@Override
@@ -48,10 +74,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
 		ImageView image;
+		ImageButton btnRecyclerviewImageDelete;
+		Button btnPostPicture;
 
 		ViewHolder(View itemView) {
 			super(itemView);
 			image = itemView.findViewById(R.id.ivRecyclerviewImage);
+			btnRecyclerviewImageDelete = itemView.findViewById(R.id.btnRecyclerviewImageDelete);
+			btnPostPicture = itemView.findViewById(R.id.btnPostPicture);
+
 		}
 	}
+
 }
