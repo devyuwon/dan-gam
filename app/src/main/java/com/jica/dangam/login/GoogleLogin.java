@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import es.dmoral.toasty.Toasty;
 
 public class GoogleLogin extends Activity {
 	private static final int RC_SIGN_IN = 9001;
@@ -62,6 +63,12 @@ public class GoogleLogin extends Activity {
 			startActivity(intent);
 			finish();
 		}
+
+		Toasty.Config.getInstance()
+			.tintIcon(true)
+			.setTextSize(14)
+			.allowQueue(true)
+			.apply();
 	}
 
 	@Override
@@ -75,8 +82,8 @@ public class GoogleLogin extends Activity {
 				GoogleSignInAccount account = result.getSignInAccount();
 				firebaseAuthWithGoogle(account);
 			} else {
-				Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GoogleLogin.this, LoginActivity.class);
+				Toasty.error(this, "로그인 실패", Toast.LENGTH_SHORT, true).show();
 				startActivity(intent);
 				finish();
 			}
@@ -103,13 +110,12 @@ public class GoogleLogin extends Activity {
 
 							GoogleAccountHelper.setGoogleUserLoginInfo(userInfo);
 							Intent intent = new Intent(GoogleLogin.this, MainActivity.class);
+							Toasty.success(getApplicationContext(), "어서오세요 단감입니다!", Toast.LENGTH_SHORT, true).show();
 							startActivity(intent);
-							Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
 							finish();
 						}
 					} else {
-						Toast.makeText(getApplicationContext(), "Google Authentication Failed", Toast.LENGTH_SHORT)
-							.show();
+						Toasty.error(getApplicationContext(), "Google Authentication Failed", Toast.LENGTH_SHORT, true).show();
 					}
 				}
 			});
