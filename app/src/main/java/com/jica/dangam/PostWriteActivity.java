@@ -1,14 +1,22 @@
 package com.jica.dangam;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -38,6 +47,7 @@ public class PostWriteActivity extends AppCompatActivity {
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
+	String documentUid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,20 +125,74 @@ public class PostWriteActivity extends AppCompatActivity {
 				} else if (String.valueOf(etPostContent.getText()).equals("")) {
 					warning_nocontents(contents);    //내용 미입력시 안내 토스트
 				} else {
-					Intent intent = new Intent(getApplicationContext(), PostActivity.class);
 					PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-					if (postKind) {
-						db.collection("post_gam").document(post.getUid() + post.getPdate().toString()).set(post);
-						intent.putExtra("post", post);
-						startActivity(intent);
-					} else {
-						db.collection("post_ggun").document(post.getUid() + post.getPdate().toString()).set(post);
-						intent.putExtra("post", post);
-						startActivity(intent);
-					}
+					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
+					post.setTitle(String.valueOf(etPostTitle.getText()));
+					post.setContents(String.valueOf(etPostContent.getText()));
+					//장소 일단 패스
+					//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
+					Date now = new Date();
+					post.setPdate(now);
+					//모집상태 패스
+					post.setUid("000000");//default userid
+					//이미지 uri 얻으러 갑시다.
+					documentUid = post.getUid() + now.getTime();
+					getImgUri(post, documentUid);
+
 				}
 			}
 		});
+	}
+
+	private void getImgUri(PostProfile post, String documentUid) {
+		for (int i = 0; i < uriList.size(); i++) {
+			if ((String.valueOf(uriList.get(i)).equals("null"))) {
+				//이미지 없으면 바로 db에 저장해보시죠
+				postdatas(post, documentUid);
+			} else {
+				StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+				StorageReference uploadRef = storageReference.child(documentUid);
+				UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
+				uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+					@Override
+					public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+						if (!task.isSuccessful()) {
+							throw task.getException();
+						}
+						return uploadRef.getDownloadUrl();
+					}
+				}).addOnCompleteListener(new OnCompleteListener<Uri>() {
+					@Override
+					public void onComplete(@NonNull Task<Uri> task) {
+						if (task.isSuccessful()) {
+							Uri uri = task.getResult();
+							if (String.valueOf(post.getImageUrl1()).equals("null")) {
+								post.setImageUrl1(task.getResult().toString());
+							} else if (String.valueOf(post.getImageUrl2()).equals("null")) {
+								post.setImageUrl2(task.getResult().toString());
+							} else {
+								post.setImageUrl3(task.getResult().toString());
+							}
+							postdatas(post, documentUid);
+						}
+					}
+				});
+			}
+		}
+	}
+
+	private void postdatas(PostProfile post, String documentUid) {
+		if (postKind) {
+			db.collection("post_gam").document(documentUid).set(post);
+			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+		} else {
+			db.collection("post_ggun").document(documentUid).set(post);
+			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+		}
 	}
 
 	//사진 불러오기(최대 3장)
