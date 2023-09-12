@@ -10,7 +10,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.jica.dangam.R;
 import com.jica.dangam.list.ListAdapter;
 import com.jica.dangam.list.ListModel;
-import com.jica.dangam.mypage.MyPageFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -36,9 +35,6 @@ public class MainFragment extends Fragment {
 	ArrayList<ListModel> list;
 	Context context;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-	// MyPageFragment
-	private MyPageFragment myPageFragment;
 	private FragmentManager fragmentManager;
 
 	@Nullable

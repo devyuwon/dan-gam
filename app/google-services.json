@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "690547928578-k6tumc4p8co0fpoldm5t7plavtb3u4vj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "4972e352666cc6c22c96d5121dc99d92c8cb88c3"
+          }
+        },
+        {
           "client_id": "690547928578-uvf14sf33e7stnmedu3ldh47idk18od8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

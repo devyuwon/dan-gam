@@ -1,12 +1,15 @@
 package com.jica.dangam.main;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.jica.dangam.mypage.MyPageFragment;
 import com.jica.dangam.R;
+import com.jica.dangam.login.LoginActivity;
+import com.jica.dangam.mypage.MyPageFragment;
 import com.jica.dangam.search.SearchFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -28,6 +31,34 @@ public class MainActivity extends AppCompatActivity {
 
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 		bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListner());
+	}
+
+	public void logoutToLoginActivity(Boolean result) {
+		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+		if (result) {
+			Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+		}
+		intent.addFlags(
+			Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(intent);
+		finish();
+	}
+
+	public void deleteToLoginActivity(Boolean result) {
+		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+		if (result) {
+			Toast.makeText(getApplicationContext(), "회원 탈퇴가 정상 처리되었습니다. 나중에 다시 찾아주세요!", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+		}
+		intent.addFlags(
+			Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(intent);
+		finish();
 	}
 
 	class ItemSelectedListner implements BottomNavigationView.OnNavigationItemSelectedListener {
