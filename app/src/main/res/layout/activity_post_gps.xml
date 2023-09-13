@@ -25,7 +25,7 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/icon_fubao"
+                app:srcCompat="@drawable/img_fubao"
                 android:scaleType="fitXY" />
 
         <androidx.appcompat.widget.AppCompatButton

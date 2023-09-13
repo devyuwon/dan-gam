@@ -20,7 +20,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/imageView8"
-                app:srcCompat="@drawable/icon_ilgungam"
+                app:srcCompat="@drawable/img_ilgungam"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

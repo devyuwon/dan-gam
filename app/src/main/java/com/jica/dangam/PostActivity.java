@@ -108,7 +108,7 @@ public class PostActivity extends AppCompatActivity {
 
 		for (int i = 0; i < indicators.length; i++) {
 			indicators[i] = new ImageView(this);
-			indicators[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.bg_indicator_inactive));
+			indicators[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.custom_bg_indicator_inactive));
 			indicators[i].setLayoutParams(params);
 			layoutIndicator.addView(indicators[i]);
 		}
@@ -121,9 +121,9 @@ public class PostActivity extends AppCompatActivity {
 		for (int i = 0; i < childCount; i++) {
 			ImageView imageView = (ImageView)layoutIndicator.getChildAt(i);
 			if (i == position) {
-				imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.bg_indicator_active));
+				imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.custom_bg_indicator_active));
 			} else {
-				imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.bg_indicator_inactive));
+				imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.custom_bg_indicator_inactive));
 			}
 		}
 	}
@@ -131,6 +131,6 @@ public class PostActivity extends AppCompatActivity {
 	//activity_post.xml 에서 show_dialog_btn 의 onclick 메소드
 	public void show_default_dialog(View v) {
 		//클릭시 defaultDialog 를 띄워준다
-		CustomDialog.getInstance(this).showDefaultDialog();
+		PostDeleteDialog.getInstance(this).showDefaultDialog();
 	}
 }

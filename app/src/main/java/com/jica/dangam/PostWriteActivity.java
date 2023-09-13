@@ -1,9 +1,13 @@
 package com.jica.dangam;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -15,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -42,6 +47,7 @@ public class PostWriteActivity extends AppCompatActivity {
 	Button btnPostComplete;
 	Button btnPostPicture;
 	EditText title, contents;
+	EditText etPostTitle, etPostContent;
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	ImageAdapter adapter;
@@ -52,6 +58,7 @@ public class PostWriteActivity extends AppCompatActivity {
 	int uploadCount = 0;
 	int i =0;
 	ProgressDialog progressDialog = null;
+	String documentUid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,8 @@ public class PostWriteActivity extends AppCompatActivity {
 		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostTitle);
 		contents = findViewById(R.id.etPostContent);
+		etPostTitle = findViewById(R.id.etPostTitle);
+		etPostContent = findViewById(R.id.etPostContent);
 
 		adapter = new ImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
@@ -122,95 +131,81 @@ public class PostWriteActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-				PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
-				uploadCount = uriList.size();
+				if (String.valueOf(etPostTitle.getText()).equals("")) {
+					warning_notitle(contents);    //제목 미입력시 안내 토스트
+				} else if (String.valueOf(etPostContent.getText()).equals("")) {
+					warning_nocontents(contents);    //내용 미입력시 안내 토스트
+				} else {
+					PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
+					post.setTitle(String.valueOf(etPostTitle.getText()));
+					post.setContents(String.valueOf(etPostContent.getText()));
+					//장소 일단 패스
+					//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
+					Date now = new Date();
+					post.setPdate(now);
+					//모집상태 패스
+					post.setUid("000000");//default userid
+					//이미지 uri 얻으러 갑시다.
+					documentUid = post.getUid() + now.getTime();
+					getImgUri(post, documentUid, 0);
 
-				while (i<uriList.size()){
-					UploadTask uploadTask = storageRef.child(post.getUid()+post.getPdate().toString()+i).putFile(uriList.get(i));
-					uploadTask.addOnFailureListener(new OnFailureListener() {
-						@Override
-						public void onFailure(@NonNull Exception exception) {
-							// Handle unsuccessful uploads
-							completeCount++;
-							if(completeCount == uploadCount){
-								Log.d("TAG", "결과: 실패!  업로드할 갯수:" + uploadCount +" 현재완료된 갯수:" + completeCount);
-								//대화상자를 보이지 않게한다.
-								progressDialog.dismiss();
-							}
-						}
-					}).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-						@Override
-						public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-							completeCount++;
-							//업로드된 화일의 uri를 구해온다.
-							Log.d("TAG", taskSnapshot.getMetadata().getReference().toString());
-							Log.d("TAG","현재 completeCount = "+completeCount);
-							Log.d("TAG",storageRef.getDownloadUrl().toString());
-
-							if (completeCount==1){
-								post.setImageUrl1(taskSnapshot.getMetadata().getReference().toString());
-							}else if (completeCount==2){
-								post.setImageUrl2(taskSnapshot.getMetadata().getReference().toString());
-							}else if (completeCount==3){
-								post.setImageUrl3(taskSnapshot.getMetadata().getReference().toString());
-							}
-							if(completeCount == uploadCount){
-								Log.d("TAG", "결과 성공!! 업로드할 갯수:" + uploadCount +" 현재완료된 갯수:" + completeCount);
-								//대화상자를 보이지 않게한다.
-
-								//글제목과 이미지경로 저장
-								if(postKind){
-									db.collection("post_gam")
-										.document(post.getUid()+post.getPdate().toString())
-										.set(post)
-										.addOnSuccessListener(new OnSuccessListener<Void>() {
-											@Override
-											public void onSuccess(Void unused) {
-												Log.d("TAG", "post내용 업로드 성공!");
-											}
-										}).addOnFailureListener(new OnFailureListener() {
-											@Override
-											public void onFailure(@NonNull Exception e) {
-												Log.d("TAG", "post내용 업로드 실패");
-											}
-										});
-								}else {
-									db.collection("post_ggun")
-										.document(post.getUid()+post.getPdate().toString())
-										.set(post)
-										.addOnSuccessListener(new OnSuccessListener<Void>() {
-											@Override
-											public void onSuccess(Void unused) {
-												Log.d("TAG", "post내용 업로드 성공!");
-											}
-										}).addOnFailureListener(new OnFailureListener() {
-											@Override
-											public void onFailure(@NonNull Exception e) {
-												Log.d("TAG", "post내용 업로드 실패");
-											}
-										});
-								}
-								progressDialog.dismiss();
-
-								//액티비티 이동
-								Intent intent = new Intent(getApplicationContext(), PostActivity.class);
-								intent.putExtra("post",post); //인텐스에 객체 정보 저장
-								startActivity(intent);
-							}
-						}
-					});
-					i++;
 				}
-				//위의 업로드 기능이 완료된 이후에 아래의 기능이 작동해야 한다.
-				progressDialog = new ProgressDialog(PostWriteActivity.this);
-				progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); //진행율
-				//                                    //빙글빙글
-				progressDialog.setMessage("이미지를 업로드 하는 ..");
-				progressDialog.show();
-
 			}
 		});
+	}
+
+	private void getImgUri(PostProfile post, String documentUid, Integer i) {
+		if (uriList.size() == 0) {
+			//이미지 없으면 바로 db에 저장해보시죠
+			postdatas(post, documentUid);
+		} else {
+			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+			StorageReference uploadRef = storageReference.child(documentUid);
+			UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
+			uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+				@Override
+				public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+					if (!task.isSuccessful()) {
+						throw task.getException();
+					}
+					return uploadRef.getDownloadUrl();
+				}
+			}).addOnCompleteListener(new OnCompleteListener<Uri>() {
+				@Override
+				public void onComplete(@NonNull Task<Uri> task) {
+					if (task.isSuccessful()) {
+						Uri uri = task.getResult();
+						if (i == 0) {
+							post.setImageUrl1(task.getResult().toString());
+						} else if (i == 1) {
+							post.setImageUrl2(task.getResult().toString());
+						} else if (i == 2) {
+							post.setImageUrl3(task.getResult().toString());
+						}
+						if (i + 1 < uriList.size()) {
+							getImgUri(post, documentUid, i + 1);
+						} else {
+							postdatas(post, documentUid);
+						}
+					}
+				}
+			});
+		}
+	}
+
+	private void postdatas(PostProfile post, String documentUid) {
+		if (postKind) {
+			db.collection("post_gam").document(documentUid).set(post);
+			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+		} else {
+			db.collection("post_ggun").document(documentUid).set(post);
+			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+		}
 	}
 
 	//사진 불러오기(최대 3장)
@@ -225,7 +220,9 @@ public class PostWriteActivity extends AppCompatActivity {
 
 		if (data.getClipData() == null) {
 			if (uriList.size() >= 3) {
-				Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+
+				onBtn_delete_no2Clicked(contents);
 				return;
 			}
 			Log.e("Single Choice: ", String.valueOf(data.getData()));
@@ -284,4 +281,43 @@ public class PostWriteActivity extends AppCompatActivity {
 		toast.setView(layout);
 		toast.show();
 	}
+
+	//커스텀 토스트 - 제목 미입력시 안내
+	public void warning_notitle(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("제목을 입력해주세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 내용 미입력시 안내
+	public void warning_nocontents(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("내용을 입력해주세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
 }
