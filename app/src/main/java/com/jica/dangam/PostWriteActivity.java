@@ -150,7 +150,7 @@ public class PostWriteActivity extends AppCompatActivity {
 			postdatas(post, documentUid);
 		} else {
 			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-			StorageReference uploadRef = storageReference.child(documentUid);
+			StorageReference uploadRef = storageReference.child(documentUid + "/" + i);
 			UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
 			uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
 				@Override

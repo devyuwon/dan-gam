@@ -48,7 +48,6 @@ public class PostActivity extends AppCompatActivity {
 
 		sliderViewPager.setOffscreenPageLimit(1);
 		sliderViewPager.setAdapter(new ImageSliderAdapter(this, images));
-
 		sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 			@Override
 			public void onPageSelected(int position) {
@@ -99,6 +98,7 @@ public class PostActivity extends AppCompatActivity {
 		});
 	}
 
+	//
 	private void setupIndicators(int count) {
 		ImageView[] indicators = new ImageView[count];
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
