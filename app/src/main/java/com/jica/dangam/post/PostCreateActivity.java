@@ -1,10 +1,8 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jica.dangam.R;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -19,7 +18,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,7 +36,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostWriteActivity extends AppCompatActivity {
+public class PostCreateActivity extends AppCompatActivity {
 	final int PICTURE_REQUEST_CODE = 100;
 	boolean postKind = true;
 	Button btnIlgam, btnIlgun;
@@ -50,7 +48,7 @@ public class PostWriteActivity extends AppCompatActivity {
 	EditText etPostTitle, etPostContent;
 	ArrayList<Uri> uriList = new ArrayList<>();
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
-	ImageAdapter adapter;
+	PostImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 	FirebaseStorage storage = FirebaseStorage.getInstance();
 	StorageReference storageRef = storage.getReference();
@@ -77,7 +75,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		etPostTitle = findViewById(R.id.etPostTitle);
 		etPostContent = findViewById(R.id.etPostContent);
 
-		adapter = new ImageAdapter(uriList, this); //getApplicationContext()
+		adapter = new PostImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
 		rvPostImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 
@@ -122,7 +120,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		btnPlusGps.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(PostWriteActivity.this, PostGpsActivity.class);
+				Intent intent = new Intent(PostCreateActivity.this, PostGpsActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -136,7 +134,7 @@ public class PostWriteActivity extends AppCompatActivity {
 				} else if (String.valueOf(etPostContent.getText()).equals("")) {
 					warning_nocontents(contents);    //내용 미입력시 안내 토스트
 				} else {
-					PostProfile post = new PostProfile(title.getText().toString(), contents.getText().toString());
+					PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
 					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
 					post.setTitle(String.valueOf(etPostTitle.getText()));
 					post.setContents(String.valueOf(etPostContent.getText()));
@@ -155,7 +153,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		});
 	}
 
-	private void getImgUri(PostProfile post, String documentUid, Integer i) {
+	private void getImgUri(PostModel post, String documentUid, Integer i) {
 		if (uriList.size() == 0) {
 			//이미지 없으면 바로 db에 저장해보시죠
 			postdatas(post, documentUid);
@@ -194,15 +192,15 @@ public class PostWriteActivity extends AppCompatActivity {
 		}
 	}
 
-	private void postdatas(PostProfile post, String documentUid) {
+	private void postdatas(PostModel post, String documentUid) {
 		if (postKind) {
 			db.collection("post_gam").document(documentUid).set(post);
-			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 		} else {
 			db.collection("post_ggun").document(documentUid).set(post);
-			Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 		}

@@ -1,6 +1,7 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
 
 import com.bumptech.glide.Glide;
+import com.jica.dangam.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,11 +11,11 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder> {
+public class PostItemImageSliderAdapter extends RecyclerView.Adapter<PostItemImageSliderAdapter.MyViewHolder> {
 	private Context context;
 	private String[] sliderImage;
 
-	public ImageSliderAdapter(Context context, String[] sliderImage) {
+	public PostItemImageSliderAdapter(Context context, String[] sliderImage) {
 		this.context = context;
 		this.sliderImage = sliderImage;
 	}

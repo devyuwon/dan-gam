@@ -1,8 +1,9 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
 
 import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
+import com.jica.dangam.R;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,28 +16,28 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.ViewHolder> {
 	private ArrayList<Uri> mData = null;
-	private PostWriteActivity mContext;
+	private PostCreateActivity mContext;
 
-	ImageAdapter(ArrayList<Uri> list, PostWriteActivity context) {
+	PostImageAdapter(ArrayList<Uri> list, PostCreateActivity context) {
 		mData = list;
 		mContext = context;
 	}
 
 	@NonNull
 	@Override
-	public ImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+	public PostImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		Context context = parent.getContext();
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.recyclerview_post_write_image, parent, false);
-		ImageAdapter.ViewHolder vh = new ImageAdapter.ViewHolder(view);
+		PostImageAdapter.ViewHolder vh = new PostImageAdapter.ViewHolder(view);
 
 		return vh;
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull ImageAdapter.ViewHolder holder, int position) {
+	public void onBindViewHolder(@NonNull PostImageAdapter.ViewHolder holder, int position) {
 		Uri img_uri = mData.get(position);
 		Glide.with(mContext)
 			.load(img_uri)

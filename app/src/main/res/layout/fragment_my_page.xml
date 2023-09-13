@@ -310,7 +310,7 @@
                             android:textStyle="bold"
                             android:textSize="16sp"
                             android:gravity="left|center_vertical"
-                            app:icon="@drawable/icon_delete"
+                            app:icon="@drawable/icon_delete02"
                             app:iconTint="@color/black"
                             app:iconSize="23dp"
                             app:iconPadding="15dp" />

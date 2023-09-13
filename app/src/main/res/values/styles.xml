@@ -19,7 +19,7 @@
         <item name="android:fontFamily">@font/pretendard_variable</item>
     </style>
 
-    //스타일추가
+    <!-- 스타일추가 -->
     <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/orange_secondary</item>
         <item name="colorControlNormal">@color/grey_500</item>

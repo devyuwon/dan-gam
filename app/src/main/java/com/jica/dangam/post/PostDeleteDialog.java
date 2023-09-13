@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
+
+import com.jica.dangam.R;
 
 import android.app.Dialog;
 import android.content.Context;

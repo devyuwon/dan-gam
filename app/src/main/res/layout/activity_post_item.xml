@@ -338,7 +338,7 @@
         <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                app:srcCompat="@drawable/icon_delete"
+                app:srcCompat="@drawable/icon_delete01"
                 android:id="@+id/btnPostDelete"
                 android:backgroundTint="#ffff"
                 app:layout_constraintStart_toEndOf="@+id/view5"

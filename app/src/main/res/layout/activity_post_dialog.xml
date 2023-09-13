@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="340dp"
         android:layout_height="200dp"
-        tools:context=".PostDeleteDialog"
+        tools:context=".post.PostDeleteDialog"
         android:orientation="vertical"
         android:background="@drawable/custom_round_nocolor_btn">
 

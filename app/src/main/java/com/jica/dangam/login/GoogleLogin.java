@@ -83,7 +83,7 @@ public class GoogleLogin extends Activity {
 				firebaseAuthWithGoogle(account);
 			} else {
 				Intent intent = new Intent(GoogleLogin.this, LoginActivity.class);
-				Toasty.error(this, "로그인 실패", Toast.LENGTH_SHORT, true).show();
+				// Toasty.error(this, "로그인 실패", Toast.LENGTH_SHORT, true).show();
 				startActivity(intent);
 				finish();
 			}
@@ -110,12 +110,12 @@ public class GoogleLogin extends Activity {
 
 							GoogleAccountHelper.setGoogleUserLoginInfo(userInfo);
 							Intent intent = new Intent(GoogleLogin.this, MainActivity.class);
-							Toasty.success(getApplicationContext(), "어서오세요 단감입니다!", Toast.LENGTH_SHORT, true).show();
+							// Toasty.success(getApplicationContext(), "어서오세요 단감입니다!", Toast.LENGTH_SHORT, true).show();
 							startActivity(intent);
 							finish();
 						}
 					} else {
-						Toasty.error(getApplicationContext(), "Google Authentication Failed", Toast.LENGTH_SHORT, true).show();
+						// Toasty.error(getApplicationContext(), "Google Authentication Failed", Toast.LENGTH_SHORT, true).show();
 					}
 				}
 			});

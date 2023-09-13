@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
+
+import com.jica.dangam.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-public class PostActivity extends AppCompatActivity {
+public class PostItemActivity extends AppCompatActivity {
 
 	Button btn_post_modify;
 	ImageButton btn_post_delete;
@@ -29,7 +31,7 @@ public class PostActivity extends AppCompatActivity {
 
 	private String[] images = new String[] {
 		"https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-		"gs://dangam-6489e.appspot.com/00000000Tue Sep 12 07:10:02 GMT 20230",
+		"https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
 		"https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
 		"https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
 		"https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
@@ -38,16 +40,16 @@ public class PostActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_post);
+		setContentView(R.layout.activity_post_item);
 
 		Intent intent = getIntent();
-		PostProfile post = (PostProfile)intent.getSerializableExtra("post");
+		PostModel post = (PostModel)intent.getSerializableExtra("post");
 
 		sliderViewPager = findViewById(R.id.vpPhoto);
 		layoutIndicator = findViewById(R.id.layoutIndicators);
 
 		sliderViewPager.setOffscreenPageLimit(1);
-		sliderViewPager.setAdapter(new ImageSliderAdapter(this, images));
+		sliderViewPager.setAdapter(new PostItemImageSliderAdapter(this, images));
 
 		sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 			@Override
@@ -93,7 +95,7 @@ public class PostActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				//글 수정하기 화면 전환
-				Intent intent = new Intent(PostActivity.this, PostModifyActivity.class);
+				Intent intent = new Intent(PostItemActivity.this, PostModifyActivity.class);
 				startActivity(intent);
 			}
 		});

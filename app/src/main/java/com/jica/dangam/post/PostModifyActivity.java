@@ -1,4 +1,6 @@
-package com.jica.dangam;
+package com.jica.dangam.post;
+
+import com.jica.dangam.R;
 
 import android.content.Intent;
 import android.view.View;
@@ -31,7 +33,7 @@ public class PostModifyActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
-				Intent intent = new Intent(PostModifyActivity.this, PostActivity.class);
+				Intent intent = new Intent(PostModifyActivity.this, PostItemActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -73,7 +75,7 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_post_complete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(PostModifyActivity.this, PostActivity.class);
+				Intent intent = new Intent(PostModifyActivity.this, PostItemActivity.class);
 				startActivity(intent);
 			}
 		});
