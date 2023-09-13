@@ -1,14 +1,14 @@
-package com.jica.dangam.list;
+package com.jica.dangam;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class ListModel implements Serializable {
+public class PostProfile implements Serializable {
 	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid;
 	private Date pdate;
 	private boolean state;
 
-	public ListModel(String uid, String title, String contents, String location, String imageUrl1, String imageUrl2,
+	public PostProfile(String uid, String title, String contents, String location, String imageUrl1, String imageUrl2,
 		String imageUrl3,
 		Date pdate, boolean state) {
 		this.uid = uid;
@@ -22,11 +22,11 @@ public class ListModel implements Serializable {
 		this.state = state;
 	}
 
-	public ListModel() {
+	public PostProfile() {
 	}
 
 	//test용
-	public ListModel(String title, String contents) {
+	public PostProfile(String title, String contents) {
 		this.title = title;
 		this.contents = contents;
 		this.location = "";

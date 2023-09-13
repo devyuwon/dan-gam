@@ -9,11 +9,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jica.dangam.R;
 import com.jica.dangam.list.ListAdapter;
+import com.jica.dangam.mypage.MyPageFragment;
 import com.jica.dangam.list.ListModel;
+import com.jica.dangam.list.ListAdapter;
+import com.jica.dangam.R;
+import com.jica.dangam.login.LoginActivity;
+import com.jica.dangam.util.DatabaseData;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,22 +55,8 @@ public class MainFragment extends Fragment {
 		list = new ArrayList<>();
 		adapter = new ListAdapter(context, list);
 
-		db.collection("post_gam").orderBy("pdate").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-			@Override
-			public void onComplete(@NonNull Task<QuerySnapshot> task) {
-				if (task.isSuccessful()) {
-					for (QueryDocumentSnapshot document : task.getResult()) {
-						ListModel profile = document.toObject(ListModel.class);
-						adapter.addItem(profile);
-						Log.d("firestore", document.getId() + " => " + document.getData());
-						Log.d("object test", profile.getTitle() + " " + profile.getContents());
-					}
-					adapter.notifyDataSetChanged();
-				} else {
-					Log.d("firestore", "Error getting documents: ", task.getException());
-				}
-			}
-		});
+		DatabaseData database = new DatabaseData(adapter);
+		database.downloadDB();
 		recyclerView.setAdapter(adapter);
 
 		fragmentManager = getChildFragmentManager();

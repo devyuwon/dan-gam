@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-	StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
 	private ArrayList<ListModel> items = new ArrayList<>();
 	private Context context;
 
@@ -78,8 +78,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 		public void setItemOnView(ListModel item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
-			if (item.getImage1() != null) {
-				Glide.with(itemView).load(item.getImage1()).into(image);
+			if (item.getImageUrl1() != "") {
+				FirebaseStorage storage = FirebaseStorage.getInstance();
+				StorageReference gsReference = storage.getReferenceFromUrl(item.getImageUrl1());
+				Glide.with(itemView).load(item.getImageUrl1()).into(image);
 				Log.d("TAG", "Glide 작동");
 			}
 		}

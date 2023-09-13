@@ -1,6 +1,8 @@
 package com.jica.dangam.main;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jica.dangam.PostWriteActivity;
+import com.jica.dangam.mypage.MyPageFragment;
 import com.jica.dangam.R;
 import com.jica.dangam.login.LoginActivity;
 import com.jica.dangam.mypage.MyPageFragment;
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
 				transaction.replace(R.id.menuFrameLayout, searchFragment).commitAllowingStateLoss();
 			} else if (itemId == R.id.menu_my_page) {
 				transaction.replace(R.id.menuFrameLayout, myPageFragment).commitAllowingStateLoss();
+			} else if (itemId == R.id.menu_write){
+				Intent intent = new Intent(getApplicationContext(), PostWriteActivity.class);
+				startActivity(intent);
 			}
 			return true;
 		}
