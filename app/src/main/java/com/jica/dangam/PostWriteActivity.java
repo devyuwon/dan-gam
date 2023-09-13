@@ -137,47 +137,49 @@ public class PostWriteActivity extends AppCompatActivity {
 					post.setUid("000000");//default userid
 					//이미지 uri 얻으러 갑시다.
 					documentUid = post.getUid() + now.getTime();
-					getImgUri(post, documentUid);
+					getImgUri(post, documentUid, 0);
 
 				}
 			}
 		});
 	}
 
-	private void getImgUri(PostProfile post, String documentUid) {
-		for (int i = 0; i < uriList.size(); i++) {
-			if ((String.valueOf(uriList.get(i)).equals("null"))) {
-				//이미지 없으면 바로 db에 저장해보시죠
-				postdatas(post, documentUid);
-			} else {
-				StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-				StorageReference uploadRef = storageReference.child(documentUid);
-				UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
-				uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-					@Override
-					public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-						if (!task.isSuccessful()) {
-							throw task.getException();
-						}
-						return uploadRef.getDownloadUrl();
+	private void getImgUri(PostProfile post, String documentUid, Integer i) {
+		if (uriList.size() == 0) {
+			//이미지 없으면 바로 db에 저장해보시죠
+			postdatas(post, documentUid);
+		} else {
+			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+			StorageReference uploadRef = storageReference.child(documentUid);
+			UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
+			uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+				@Override
+				public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+					if (!task.isSuccessful()) {
+						throw task.getException();
 					}
-				}).addOnCompleteListener(new OnCompleteListener<Uri>() {
-					@Override
-					public void onComplete(@NonNull Task<Uri> task) {
-						if (task.isSuccessful()) {
-							Uri uri = task.getResult();
-							if (String.valueOf(post.getImageUrl1()).equals("null")) {
-								post.setImageUrl1(task.getResult().toString());
-							} else if (String.valueOf(post.getImageUrl2()).equals("null")) {
-								post.setImageUrl2(task.getResult().toString());
-							} else {
-								post.setImageUrl3(task.getResult().toString());
-							}
+					return uploadRef.getDownloadUrl();
+				}
+			}).addOnCompleteListener(new OnCompleteListener<Uri>() {
+				@Override
+				public void onComplete(@NonNull Task<Uri> task) {
+					if (task.isSuccessful()) {
+						Uri uri = task.getResult();
+						if (i == 0) {
+							post.setImageUrl1(task.getResult().toString());
+						} else if (i == 1) {
+							post.setImageUrl2(task.getResult().toString());
+						} else if (i == 2) {
+							post.setImageUrl3(task.getResult().toString());
+						}
+						if (i + 1 < uriList.size()) {
+							getImgUri(post, documentUid, i + 1);
+						} else {
 							postdatas(post, documentUid);
 						}
 					}
-				});
-			}
+				}
+			});
 		}
 	}
 
