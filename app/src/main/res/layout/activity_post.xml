@@ -118,7 +118,7 @@
                     <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            app:srcCompat="@drawable/icon_ilgungam"
+                            app:srcCompat="@drawable/img_ilgungam"
                             android:id="@+id/imageView9"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -179,7 +179,7 @@
                     <ImageView
                             android:layout_width="93dp"
                             android:layout_height="93dp"
-                            app:srcCompat="@drawable/icon_profile"
+                            app:srcCompat="@drawable/img_profile"
                             android:id="@+id/imageView10"
                             app:layout_constraintStart_toStartOf="parent"
                             android:layout_marginStart="30dp"

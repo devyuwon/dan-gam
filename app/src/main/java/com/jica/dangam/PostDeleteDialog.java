@@ -12,16 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
-public class CustomDialog extends Dialog {
+public class PostDeleteDialog extends Dialog {
 
-	private static CustomDialog customDialog;
+	private static PostDeleteDialog customDialog;
 
-	private CustomDialog(@NonNull Context context) {
+	private PostDeleteDialog(@NonNull Context context) {
 		super(context);
 	}
 
-	public static CustomDialog getInstance(Context context) {
-		customDialog = new CustomDialog(context);
+	public static PostDeleteDialog getInstance(Context context) {
+		customDialog = new PostDeleteDialog(context);
 
 		return customDialog;
 	}

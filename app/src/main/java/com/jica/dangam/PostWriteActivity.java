@@ -208,6 +208,7 @@ public class PostWriteActivity extends AppCompatActivity {
 		if (data.getClipData() == null) {
 			if (uriList.size() >= 3) {
 				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+
 				onBtn_delete_no2Clicked(contents);
 				return;
 			}
