@@ -2,10 +2,14 @@ package com.jica.dangam.post;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -156,7 +160,7 @@ public class PostCreateActivity extends AppCompatActivity {
 	private void getImgUri(PostModel post, String documentUid, Integer i) {
 		if (uriList.size() == 0) {
 			//이미지 없으면 바로 db에 저장해보시죠
-			postdatas(post, documentUid);
+			postdatas(post);
 		} else {
 			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 			StorageReference uploadRef = storageReference.child(documentUid);
@@ -184,7 +188,7 @@ public class PostCreateActivity extends AppCompatActivity {
 						if (i + 1 < uriList.size()) {
 							getImgUri(post, documentUid, i + 1);
 						} else {
-							postdatas(post, documentUid);
+							postdatas(post);
 						}
 					}
 				}
@@ -192,16 +196,26 @@ public class PostCreateActivity extends AppCompatActivity {
 		}
 	}
 
-	private void postdatas(PostModel post, String documentUid) {
+	private void postdatas(PostModel post) {
 		if (postKind) {
-			db.collection("post_gam").document(documentUid).set(post);
+			DocumentReference addedDocRef = db.collection("post_gam").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("documentID",addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
+			finish();
 			startActivity(intent);
 		} else {
-			db.collection("post_ggun").document(documentUid).set(post);
+			DocumentReference addedDocRef = db.collection("post_ggun").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("documentID",addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
+			finish();
 			startActivity(intent);
 		}
 	}
