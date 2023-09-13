@@ -8,6 +8,7 @@ import com.jica.dangam.R;
 import com.jica.dangam.login.GoogleAccountHelper;
 import com.jica.dangam.login.GoogleAuthHelper;
 import com.jica.dangam.main.MainActivity;
+import com.jica.dangam.map.MapBottomSheetDialog;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -74,7 +75,7 @@ public class MyPageFragment extends Fragment {
 
 	private CircleImageView ivUserProfilePhoto;
 	private TextView tvUserName;
-	private Button btnLogout, btnDelete;
+	private Button btnLogout, btnDelete, btnLocation;
 	private List<String> userInfo = new ArrayList<>();
 
 	@Nullable
@@ -87,11 +88,20 @@ public class MyPageFragment extends Fragment {
 		tvUserName = view.findViewById(R.id.tvUserName);
 		btnLogout = view.findViewById(R.id.btnLogout);
 		btnDelete = view.findViewById(R.id.btnDelete);
+		btnLocation = view.findViewById(R.id.btnLocation);
 
 		initView();
 
 		btnLogout.setOnClickListener(logoutListener);
 		btnDelete.setOnClickListener(deleteListener);
+
+		btnLocation.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				MapBottomSheetDialog bottomSheet = new MapBottomSheetDialog();
+				bottomSheet.show(getFragmentManager(), bottomSheet.getTag());
+			}
+		});
 
 		return view;
 	}

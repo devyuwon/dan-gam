@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".map.MapBottomSheetDialog"
+        android:orientation="vertical"
+        android:background="@drawable/custom_round_top_border_20">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Button
+                android:text="현재 위치 찾기"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnGetLocation"
+                style="@style/PretendardButtonStyle"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="left|center_vertical"
+                app:icon="@drawable/icon_location"
+                app:iconTint="@color/black"
+                app:iconSize="23dp"
+                app:iconPadding="15dp"
+                android:layout_marginTop="60dp" />
+    </LinearLayout>
+
+</LinearLayout>
