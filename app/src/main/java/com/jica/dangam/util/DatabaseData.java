@@ -25,9 +25,15 @@ public class DatabaseData {
 	}
 	private int completeCount = 0;
 
-	public void downloadDB() {
+	public void downloadDB(boolean mod) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		db.collection("post_gam").orderBy("pdate")
+		String modString;
+		if(mod){
+			modString = "post_gam";
+		}else {
+			modString = "post_ggun";
+		}
+		db.collection(modString).orderBy("pdate")
 			.get()
 			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 				@Override

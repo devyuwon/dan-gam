@@ -3,6 +3,8 @@ package com.jica.dangam.post;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.jica.dangam.list.ListModel;
+
 public class PostModel implements Serializable {
 	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid;
 	private Date pdate;
@@ -20,6 +22,17 @@ public class PostModel implements Serializable {
 		this.imageUrl3 = imageUrl3;
 		this.pdate = pdate;
 		this.state = state;
+	}
+
+	public PostModel(ListModel listModel){
+		this.uid=listModel.getUid();
+		this.title=listModel.getTitle();
+		this.contents=listModel.getContents();
+		this.imageUrl1=listModel.getImageUrl1();
+		this.imageUrl2=listModel.getImageUrl2();
+		this.imageUrl3=listModel.getImageUrl3();
+		this.pdate=listModel.getPdate();
+		this.state=listModel.getState();
 	}
 
 	public PostModel() {
