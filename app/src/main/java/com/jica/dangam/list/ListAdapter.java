@@ -52,8 +52,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 	@Override
 	public int getItemCount() {
-		int size = items != null ? items.size() : 0;
-		Log.d("TAG", "PostProfileAdapter에서 현재 데이타의 갯수 :" + size);
+		int size = items.size();
 		return size;
 	}
 
@@ -98,12 +97,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 				FirebaseStorage storage = FirebaseStorage.getInstance();
 				StorageReference gsReference = storage.getReferenceFromUrl(item.getImageUrl1());
 				Glide.with(itemView).load(item.getImageUrl1()).into(image);
-
-				Log.d("TAG", "Glide 작동");
 			}
 		}
 	}
 	public void clearData(){
 		items.clear();
 	}
+
 }
