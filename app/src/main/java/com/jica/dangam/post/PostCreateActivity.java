@@ -15,7 +15,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
-import com.jica.dangam.main.MainActivity;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -32,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -78,12 +76,10 @@ public class PostCreateActivity extends AppCompatActivity {
 		btnPostComplete = findViewById(R.id.btnPostComplete);
 		btnPostPicture = findViewById(R.id.btnPostPicture);
 		rvPostImage = findViewById(R.id.rvPostImage);
-		title = findViewById(R.id.etPostTitle);
+		title = findViewById(R.id.etPostModifyTitle);
 		contents = findViewById(R.id.etPostContent);
-		etPostTitle = findViewById(R.id.etPostTitle);
+		etPostTitle = findViewById(R.id.etPostModifyTitle);
 		etPostContent = findViewById(R.id.etPostContent);
-		rbRewardNo = findViewById(R.id.rbRewardNo);
-		rbRewardYes = findViewById(R.id.rbRewardYes);
 		etReward = findViewById(R.id.etReward);
 		btnPostBack = findViewById(R.id.btnPostBack);
 

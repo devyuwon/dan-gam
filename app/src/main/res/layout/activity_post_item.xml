@@ -17,12 +17,13 @@
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="60dp"
                 android:layout_height="80dp"
-                android:id="@+id/btn_post_menu"
+                android:id="@+id/btnPostMenu"
                 android:background="@drawable/icon_dots"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="해당 view에 대한 설명" />
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
 
         <TextView
                 android:text="일꾼  모집"
@@ -348,31 +349,34 @@
                 android:scaleType="centerCrop"
                 android:layout_marginBottom="15dp"
                 android:onClick="show_default_dialog"
-                android:contentDescription="해당 view에 대한 설명" />
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
 
         <TextView
                 android:text="삭제"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:id="@+id/tvDelete"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view5"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:visibility="gone" />
 
         <TextView
                 android:text="수정"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
+                android:id="@+id/tvPostModify"
                 android:textSize="13sp"
                 app:layout_constraintTop_toBottomOf="@+id/btnPostModify"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="3dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="30dp"
@@ -384,7 +388,8 @@
                 android:background="@drawable/icon_modify"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintEnd_toStartOf="@+id/view3"
-                android:contentDescription="해당 view에 대한 설명" />
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

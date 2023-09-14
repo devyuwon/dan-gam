@@ -1,12 +1,16 @@
 package com.jica.dangam.post;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.jica.dangam.R;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -17,13 +21,15 @@ public class PostModifyActivity extends AppCompatActivity {
 	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
 	Button btn_post_complete;
-	EditText etPostTitle;
+	EditText etPostModifyTitle;
 	EditText etPostContent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_modify);
+
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
@@ -34,12 +40,18 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_ilgun = findViewById(R.id.btnIlgun);
 		btn_plus_gps = findViewById(R.id.btnPlusGps);
 		btn_post_complete = findViewById(R.id.btnPostComplete);
-		etPostTitle = findViewById(R.id.etPostTitle);
+		etPostModifyTitle = findViewById(R.id.etPostModifyTitle);
 		etPostContent = findViewById(R.id.etPostContent);
 
 		//글정보 뿌려주기
-		etPostTitle.setText(post.getTitle());
-		etPostContent.setText(post.getContents());
+		/*
+		db.document(String.valueOf(post.getContents())).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+			@Override
+			public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+			}
+		});
+*/
 
 		//뒤로가기 버튼
 		btn_post_back.setOnClickListener(new View.OnClickListener() {
