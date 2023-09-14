@@ -11,6 +11,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
+import com.jica.dangam.main.MainActivity;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -46,6 +47,7 @@ public class PostCreateActivity extends AppCompatActivity {
 	EditText etReward;
 	Button btnPostComplete;
 	Button btnPostPicture;
+	Button btnPostBack;
 	EditText title, contents;
 	EditText etPostTitle, etPostContent;
 	ArrayList<Uri> uriList = new ArrayList<>();
@@ -79,6 +81,7 @@ public class PostCreateActivity extends AppCompatActivity {
 		rbRewardNo = findViewById(R.id.rbRewardNo);
 		rbRewardYes = findViewById(R.id.rbRewardYes);
 		etReward = findViewById(R.id.etReward);
+		btnPostBack = findViewById(R.id.btnPostBack);
 
 		adapter = new PostImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
@@ -169,6 +172,16 @@ public class PostCreateActivity extends AppCompatActivity {
 					getImgUri(post, documentUid, 0);
 
 				}
+			}
+		});
+
+		//뒤로 가기
+		btnPostBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+				//Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+				//startActivity(intent);
 			}
 		});
 	}

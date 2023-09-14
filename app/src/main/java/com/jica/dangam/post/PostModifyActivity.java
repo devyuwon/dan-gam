@@ -5,6 +5,8 @@ import com.jica.dangam.R;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -15,11 +17,16 @@ public class PostModifyActivity extends AppCompatActivity {
 	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
 	Button btn_post_complete;
+	EditText etPostTitle;
+	EditText etPostContent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_modify);
+
+		Intent intent = getIntent();
+		PostModel post = (PostModel)intent.getSerializableExtra("post");
 
 		//UI객체찾기
 		btn_post_back = findViewById(R.id.btnPostBack);
@@ -27,6 +34,12 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_ilgun = findViewById(R.id.btnIlgun);
 		btn_plus_gps = findViewById(R.id.btnPlusGps);
 		btn_post_complete = findViewById(R.id.btnPostComplete);
+		etPostTitle = findViewById(R.id.etPostTitle);
+		etPostContent = findViewById(R.id.etPostContent);
+
+		//글정보 뿌려주기
+		etPostTitle.setText(post.getTitle());
+		etPostContent.setText(post.getContents());
 
 		//뒤로가기 버튼
 		btn_post_back.setOnClickListener(new View.OnClickListener() {
@@ -79,5 +92,7 @@ public class PostModifyActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+
 	}
+
 }
