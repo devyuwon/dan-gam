@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,8 @@ public class PostCreateActivity extends AppCompatActivity {
 	boolean postKind = true;
 	Button btnIlgam, btnIlgun;
 	Button btnPlusGps;
-	RadioGroup rg_post_state_modify;
+	RadioButton rbRewardNo, rbRewardYes;
+	EditText etReward;
 	Button btnPostComplete;
 	Button btnPostPicture;
 	EditText title, contents;
@@ -74,6 +76,9 @@ public class PostCreateActivity extends AppCompatActivity {
 		contents = findViewById(R.id.etPostContent);
 		etPostTitle = findViewById(R.id.etPostTitle);
 		etPostContent = findViewById(R.id.etPostContent);
+		rbRewardNo = findViewById(R.id.rbRewardNo);
+		rbRewardYes = findViewById(R.id.rbRewardYes);
+		etReward = findViewById(R.id.etReward);
 
 		adapter = new PostImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
@@ -113,6 +118,21 @@ public class PostCreateActivity extends AppCompatActivity {
 				intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, PICTURE_REQUEST_CODE);
 				rvPostImage.setVisibility(view.VISIBLE);
+			}
+		});
+
+		//수행비
+		rbRewardNo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		rbRewardYes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.VISIBLE);
 			}
 		});
 
