@@ -1,9 +1,18 @@
 package com.jica.dangam.post;
 
+import static android.content.Intent.*;
+import static androidx.concurrent.futures.AbstractResolvableFuture.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
 import com.jica.dangam.R;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import android.util.Log;
 
 public class PostDeleteDialog extends Dialog {
 
@@ -30,19 +40,23 @@ public class PostDeleteDialog extends Dialog {
 
 	//다이얼로그 생성하기
 	public void showDefaultDialog() {
+
 		//참조할 다이얼로그 화면을 연결한다.
 		customDialog.setContentView(R.layout.activity_post_dialog);
 
 		//다이얼로그의 구성요소들이 동작할 코드작성
 
-		Button btn_delete_yes3 = customDialog.findViewById(R.id.btnDeleteYes);
-		btn_delete_yes3.setOnClickListener(new View.OnClickListener() {
+		//삭제 버튼
+		Button btn_delete_yes = customDialog.findViewById(R.id.btnDeleteYes);
+		Button btn_delete_no = customDialog.findViewById(R.id.btnDeleteNo);
+		btn_delete_yes.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 			}
 		});
-		Button btn_delete_no2 = customDialog.findViewById(R.id.btnDeleteNo);
-		btn_delete_no2.setOnClickListener(clickCancel);
+
+		btn_delete_no.setOnClickListener(clickCancel);
 		customDialog.show();
 	}
 
@@ -50,6 +64,8 @@ public class PostDeleteDialog extends Dialog {
 	View.OnClickListener clickCancel = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+
+			//토스트
 			onBtn_delete_no2Clicked(v);
 			customDialog.dismiss();
 		}
