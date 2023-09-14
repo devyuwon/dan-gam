@@ -54,7 +54,7 @@ public class PostCreateActivity extends AppCompatActivity {
 	StorageReference storageRef = storage.getReference();
 	int completeCount = 0;
 	int uploadCount = 0;
-	int i =0;
+	int i = 0;
 	ProgressDialog progressDialog = null;
 	String documentUid;
 
@@ -159,7 +159,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			postdatas(post, documentUid);
 		} else {
 			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-			StorageReference uploadRef = storageReference.child(documentUid);
+			StorageReference uploadRef = storageReference.child(documentUid + "/" + i);
 			UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
 			uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
 				@Override
