@@ -76,6 +76,9 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-storage:20.2.1")
 
+    //당겨서 새로고침 종속성 추가
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     // Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 

@@ -52,13 +52,19 @@
                 android:layout_marginRight="20dp" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_recyclerview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/mainRefresh"
             android:layout_width="match_parent"
-            android:layout_height="686dp"
-            android:scrollbars="vertical"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:layout_weight="1" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
             app:menu="@menu/common_bottom_nav"
             android:layout_width="match_parent"
