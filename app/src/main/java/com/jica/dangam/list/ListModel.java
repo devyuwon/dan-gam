@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ListModel implements Serializable {
-	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid;
+	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id;
 	private Date pdate;
 	private boolean state;
 
 	public ListModel(String uid, String title, String contents, String location, String imageUrl1, String imageUrl2,
-		String imageUrl3,
+		String imageUrl3, String id,
 		Date pdate, boolean state) {
 		this.uid = uid;
 		this.title = title;
@@ -20,6 +20,7 @@ public class ListModel implements Serializable {
 		this.imageUrl3 = imageUrl3;
 		this.pdate = pdate;
 		this.state = state;
+		this.id = id;
 	}
 
 	public ListModel() {
@@ -34,8 +35,9 @@ public class ListModel implements Serializable {
 		this.imageUrl2 = "";
 		this.imageUrl3 = "";
 		this.pdate = new Date();
-		this.uid = "00000000";
+		this.uid = "";
 		this.state = true;
+		this.id = "";
 	}
 
 	public String getTitle() {
@@ -108,5 +110,13 @@ public class ListModel implements Serializable {
 
 	public void setState(boolean state) {
 		this.state = state;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

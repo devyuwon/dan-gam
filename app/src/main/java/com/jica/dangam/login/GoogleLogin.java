@@ -51,7 +51,7 @@ public class GoogleLogin extends Activity {
 			List<String> userInfo = new ArrayList<>();
 			GoogleAccountHelper mGoogleAccountHelper = (GoogleAccountHelper)getApplication();
 
-			userInfo.add(String.format("%s-%s", "GOOGLE", mAuth.getCurrentUser().getUid()));
+			userInfo.add(mAuth.getCurrentUser().getUid());
 			userInfo.add(mAuth.getCurrentUser().getDisplayName());
 
 			if (mAuth.getCurrentUser().getPhotoUrl() != null) {

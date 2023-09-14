@@ -2,7 +2,6 @@ package com.jica.dangam.post;
 
 import com.jica.dangam.R;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
