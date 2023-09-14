@@ -43,14 +43,6 @@ public class SearchResultFragment extends Fragment {
 		adapter = new ListAdapter(getActivity(), list);  //list는 데이타가 없다.
 
 		recyclerView.setAdapter(adapter);
-
-		// Inflate the layout for this fragment
-		return view;
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
 		Log.d("TAG", "SearchListFragment()..onStart().");
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -60,6 +52,15 @@ public class SearchResultFragment extends Fragment {
 		Log.d("TAG", searchWord);
 		DatabaseData database = new DatabaseData(adapter);
 		database.searchDB(searchWord,1);
+
+
+		// Inflate the layout for this fragment
+		return view;
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
 
 	}
 
