@@ -6,13 +6,13 @@ import java.util.Date;
 import com.jica.dangam.list.ListModel;
 
 public class PostModel implements Serializable {
-	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id;
+	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id, reward;
 	private Date pdate;
-	private boolean state;
+	private boolean state, deleted;
 
 	public PostModel(String uid, String title, String contents, String location, String imageUrl1, String imageUrl2,
-		String imageUrl3, String id,
-		Date pdate, boolean state) {
+		String imageUrl3, String id, String reward,
+		Date pdate, boolean state, boolean deleted) {
 		this.uid = uid;
 		this.title = title;
 		this.contents = contents;
@@ -23,6 +23,8 @@ public class PostModel implements Serializable {
 		this.pdate = pdate;
 		this.state = state;
 		this.id = id;
+		this.reward = reward;
+		this.deleted = deleted;
 	}
 
 	public PostModel(ListModel listModel) {
@@ -35,6 +37,8 @@ public class PostModel implements Serializable {
 		this.pdate = listModel.getPdate();
 		this.state = listModel.getState();
 		this.id = listModel.getId();
+		this.reward = listModel.getReward();
+		this.deleted = listModel.isDeleted();
 	}
 
 	public PostModel() {
@@ -52,6 +56,8 @@ public class PostModel implements Serializable {
 		this.uid = "";
 		this.state = true;
 		this.id = "";
+		this.reward = "";
+		this.deleted = false;
 	}
 
 	public String getTitle() {
@@ -132,5 +138,21 @@ public class PostModel implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getReward() {
+		return reward;
+	}
+
+	public void setReward(String reward) {
+		this.reward = reward;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }
