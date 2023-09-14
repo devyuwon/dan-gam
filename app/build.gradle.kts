@@ -82,8 +82,9 @@ dependencies {
     // Toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
 
-    // Kakao map SDK
-    implementation("com.kakao.maps.open:android:2.6.0")
+    // Naver map SDK
+    implementation("com.naver.maps:map-sdk:3.17.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
     modules {
         module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
