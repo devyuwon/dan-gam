@@ -240,8 +240,8 @@ public class PostCreateActivity extends AppCompatActivity {
 			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
-			finish();
 			startActivity(intent);
+			finish();
 		} else {
 			DocumentReference addedDocRef = db.collection("post_ggun").document();
 			Map<String, Object> data = new HashMap<>();
@@ -250,8 +250,8 @@ public class PostCreateActivity extends AppCompatActivity {
 			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
-			finish();
 			startActivity(intent);
+			finish();
 		}
 	}
 
