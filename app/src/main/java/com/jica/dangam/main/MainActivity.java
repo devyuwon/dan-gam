@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 	private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -34,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 		bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListner());
 
-		Toasty.Config.getInstance()
+		/*Toasty.Config.getInstance()
 			.tintIcon(true)
 			.setTextSize(14)
 			.allowQueue(true)
-			.apply();
+			.apply();*/
 	}
 
 	public void logoutToLoginActivity(Boolean result) {

@@ -28,14 +28,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 	private ViewPager2 sliderViewPager;
 	private LinearLayout layoutIndicator;
-
-	private String[] images = new String[] {
-		"https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-		"https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-		"https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
-		"https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
-		"https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
-	};
+	private String[] images = new String[3];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +38,22 @@ public class PostItemActivity extends AppCompatActivity {
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
 
+		images[0] = post.getImageUrl1();
+		images[1] = post.getImageUrl2();
+		images[2] = post.getImageUrl3();
+
 		sliderViewPager = findViewById(R.id.vpPhoto);
 		layoutIndicator = findViewById(R.id.layoutIndicators);
 
 		sliderViewPager.setOffscreenPageLimit(1);
-		sliderViewPager.setAdapter(new PostItemImageSliderAdapter(this, images));
+		PostItemImageSliderAdapter postItemImageSliderAdapter = new PostItemImageSliderAdapter(this);
+
+		for (int i = 0; i < 3; i++) {
+			if (!images[i].equals("")) {
+				postItemImageSliderAdapter.addItem(images[i]);
+			}
+		}
+		sliderViewPager.setAdapter(postItemImageSliderAdapter);
 
 		sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 			@Override
@@ -101,6 +105,7 @@ public class PostItemActivity extends AppCompatActivity {
 		});
 	}
 
+	//슬라이더 인디케이터
 	private void setupIndicators(int count) {
 		ImageView[] indicators = new ImageView[count];
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

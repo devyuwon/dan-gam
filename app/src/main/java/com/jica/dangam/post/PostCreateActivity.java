@@ -2,15 +2,20 @@ package com.jica.dangam.post;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
+import com.jica.dangam.main.MainActivity;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -26,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +47,11 @@ public class PostCreateActivity extends AppCompatActivity {
 	boolean postKind = true;
 	Button btnIlgam, btnIlgun;
 	Button btnPlusGps;
-	RadioGroup rg_post_state_modify;
+	RadioButton rbRewardNo, rbRewardYes;
+	EditText etReward;
 	Button btnPostComplete;
 	Button btnPostPicture;
+	Button btnPostBack;
 	EditText title, contents;
 	EditText etPostTitle, etPostContent;
 	ArrayList<Uri> uriList = new ArrayList<>();
@@ -54,7 +62,7 @@ public class PostCreateActivity extends AppCompatActivity {
 	StorageReference storageRef = storage.getReference();
 	int completeCount = 0;
 	int uploadCount = 0;
-	int i =0;
+	int i = 0;
 	ProgressDialog progressDialog = null;
 	String documentUid;
 
@@ -74,6 +82,10 @@ public class PostCreateActivity extends AppCompatActivity {
 		contents = findViewById(R.id.etPostContent);
 		etPostTitle = findViewById(R.id.etPostTitle);
 		etPostContent = findViewById(R.id.etPostContent);
+		rbRewardNo = findViewById(R.id.rbRewardNo);
+		rbRewardYes = findViewById(R.id.rbRewardYes);
+		etReward = findViewById(R.id.etReward);
+		btnPostBack = findViewById(R.id.btnPostBack);
 
 		adapter = new PostImageAdapter(uriList, this); //getApplicationContext()
 		rvPostImage.setAdapter(adapter);
@@ -116,6 +128,21 @@ public class PostCreateActivity extends AppCompatActivity {
 			}
 		});
 
+		//수행비
+		rbRewardNo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		rbRewardYes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.VISIBLE);
+			}
+		});
+
 		//모집 희망 장소
 		btnPlusGps.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -142,13 +169,25 @@ public class PostCreateActivity extends AppCompatActivity {
 					//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
 					Date now = new Date();
 					post.setPdate(now);
-					//모집상태 패스
-					post.setUid("000000");//default userid
+					// User uid
+					FirebaseAuth mAuth = FirebaseAuth.getInstance();
+					if (mAuth.getCurrentUser() != null) {
+						post.setUid(mAuth.getCurrentUser().getUid());
+					}
 					//이미지 uri 얻으러 갑시다.
 					documentUid = post.getUid() + now.getTime();
 					getImgUri(post, documentUid, 0);
-
 				}
+			}
+		});
+
+		//뒤로 가기
+		btnPostBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+				//Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+				//startActivity(intent);
 			}
 		});
 	}
@@ -156,10 +195,10 @@ public class PostCreateActivity extends AppCompatActivity {
 	private void getImgUri(PostModel post, String documentUid, Integer i) {
 		if (uriList.size() == 0) {
 			//이미지 없으면 바로 db에 저장해보시죠
-			postdatas(post, documentUid);
+			postdatas(post);
 		} else {
 			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-			StorageReference uploadRef = storageReference.child(documentUid);
+			StorageReference uploadRef = storageReference.child(documentUid + "/" + i);
 			UploadTask uploadTask = uploadRef.putFile(uriList.get(i));
 			uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
 				@Override
@@ -184,7 +223,7 @@ public class PostCreateActivity extends AppCompatActivity {
 						if (i + 1 < uriList.size()) {
 							getImgUri(post, documentUid, i + 1);
 						} else {
-							postdatas(post, documentUid);
+							postdatas(post);
 						}
 					}
 				}
@@ -192,16 +231,26 @@ public class PostCreateActivity extends AppCompatActivity {
 		}
 	}
 
-	private void postdatas(PostModel post, String documentUid) {
+	private void postdatas(PostModel post) {
 		if (postKind) {
-			db.collection("post_gam").document(documentUid).set(post);
+			DocumentReference addedDocRef = db.collection("post_gam").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("id", addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
+			finish();
 			startActivity(intent);
 		} else {
-			db.collection("post_ggun").document(documentUid).set(post);
+			DocumentReference addedDocRef = db.collection("post_ggun").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("id", addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
+			finish();
 			startActivity(intent);
 		}
 	}

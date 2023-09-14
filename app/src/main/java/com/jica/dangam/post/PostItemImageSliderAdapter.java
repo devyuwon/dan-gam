@@ -1,5 +1,7 @@
 package com.jica.dangam.post;
 
+import java.util.ArrayList;
+
 import com.bumptech.glide.Glide;
 import com.jica.dangam.R;
 
@@ -13,9 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostItemImageSliderAdapter extends RecyclerView.Adapter<PostItemImageSliderAdapter.MyViewHolder> {
 	private Context context;
-	private String[] sliderImage;
 
-	public PostItemImageSliderAdapter(Context context, String[] sliderImage) {
+	private ArrayList<String> sliderImage = new ArrayList<>();
+	// private String[] sliderImage;
+
+	public PostItemImageSliderAdapter(Context context) {
+		this.context = context;
+	}
+
+	public PostItemImageSliderAdapter(Context context, ArrayList<String> sliderImage) {
 		this.context = context;
 		this.sliderImage = sliderImage;
 	}
@@ -30,12 +38,12 @@ public class PostItemImageSliderAdapter extends RecyclerView.Adapter<PostItemIma
 
 	@Override
 	public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-		holder.bindSliderImage(sliderImage[position]);
+		holder.bindSliderImage(sliderImage.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return sliderImage.length;
+		return sliderImage.size();
 	}
 
 	public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -52,5 +60,9 @@ public class PostItemImageSliderAdapter extends RecyclerView.Adapter<PostItemIma
 				.load(imageURL)
 				.into(mImageView);
 		}
+	}
+
+	public void addItem(String url) {
+		sliderImage.add(url);
 	}
 }

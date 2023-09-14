@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -80,6 +81,9 @@ dependencies {
 
     // Toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
+
+    // Kakao map SDK
+    implementation("com.kakao.maps.open:android:2.6.0")
 
     modules {
         module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {

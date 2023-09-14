@@ -23,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,8 @@ public class MainFragment extends Fragment {
 	Context context;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 	private FragmentManager fragmentManager;
+	ToggleButton toggleButton;
+	boolean mod = true;
 
 	@Nullable
 	@Override
@@ -56,10 +60,25 @@ public class MainFragment extends Fragment {
 		adapter = new ListAdapter(context, list);
 
 		DatabaseData database = new DatabaseData(adapter);
-		database.downloadDB();
+		database.downloadDB(mod);
 		recyclerView.setAdapter(adapter);
 
 		fragmentManager = getChildFragmentManager();
+		toggleButton = (ToggleButton) view.findViewById(R.id.toggleButton);
+		toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+				if (b) {
+					mod = false;
+					adapter.clearData();
+					database.downloadDB(b);
+				} else {
+					mod = true;
+					adapter.clearData();
+					database.downloadDB(b);
+				}
+			}
+		});
 
 		return view;
 	}
@@ -68,5 +87,11 @@ public class MainFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.common_toolbar, menu);
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
 	}
 }
