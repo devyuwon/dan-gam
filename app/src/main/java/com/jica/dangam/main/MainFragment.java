@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
@@ -44,6 +45,9 @@ public class MainFragment extends Fragment {
 	String modString = "post_gam";
 	Date lastDoc;
 	Query next;
+	Button btnGam;
+	Button btnGgun;
+
 
 	@Nullable
 	@Override
@@ -59,11 +63,8 @@ public class MainFragment extends Fragment {
 		list = new ArrayList<>();
 		adapter = new ListAdapter(context, list);
 		loadList();
-
 		recyclerView.setAdapter(adapter);
-
 		fragmentManager = getChildFragmentManager();
-
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
 			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -84,6 +85,11 @@ public class MainFragment extends Fragment {
 				scroll.setRefreshing(false);
 			}
 		});
+
+		btnGam = view.findViewById(R.id.btnMainGam);
+		btnGgun = view.findViewById(R.id.btnMainGgun);
+
+
 
 
 		return view;

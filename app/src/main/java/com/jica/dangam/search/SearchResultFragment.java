@@ -15,6 +15,7 @@ import com.jica.dangam.list.ListAdapter;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class SearchResultFragment extends Fragment {
 	Date lastDoc;
 	Query next;
 	SwipeRefreshLayout scroll;
+	Button btnGam;
+	Button btnGgun;
 
 	public SearchResultFragment() {
 		Log.d("TAG", "SearchListFragment()...");
@@ -61,6 +64,9 @@ public class SearchResultFragment extends Fragment {
 		String searchWord;
 		searchWord = bundle.getString("SearchWord");
 		loadResult(searchWord);
+
+		btnGam = view.findViewById(R.id.btnSearchResultGam);
+		btnGgun = view.findViewById(R.id.btnSearchResultGgun);
 
 		scroll.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
