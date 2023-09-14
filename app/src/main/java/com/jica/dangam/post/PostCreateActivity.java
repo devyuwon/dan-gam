@@ -174,6 +174,16 @@ public class PostCreateActivity extends AppCompatActivity {
 					if (mAuth.getCurrentUser() != null) {
 						post.setUid(mAuth.getCurrentUser().getUid());
 					}
+
+					// Reward
+					if (etReward.getText().toString().equals("")) {
+						post.setReward("협의");
+					} else {
+						post.setReward(String.valueOf(etReward.getText()));
+					}
+
+					post.setDeleted(false);
+
 					//이미지 uri 얻으러 갑시다.
 					documentUid = post.getUid() + now.getTime();
 					getImgUri(post, documentUid, 0);
