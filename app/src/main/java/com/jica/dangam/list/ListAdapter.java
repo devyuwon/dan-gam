@@ -90,13 +90,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 			});
 		}
 
-		public void setItemOnView(ListModel item) {
+		public void setItemOnView(@NonNull ListModel item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
-			if (item.getImageUrl1() != "") {
+			if (item.getImageUrl1() != null && !item.getImageUrl1().isEmpty()) {
 				FirebaseStorage storage = FirebaseStorage.getInstance();
 				StorageReference gsReference = storage.getReferenceFromUrl(item.getImageUrl1());
 				Glide.with(itemView).load(item.getImageUrl1()).into(image);
+			} else {
+				// 이미지 URL이 null 또는 빈 문자열인 경우에 대한 처리
+				// 예를 들어 기본 이미지를 표시하거나 다른 작업을 수행할 수 있습니다.
 			}
 		}
 	}
