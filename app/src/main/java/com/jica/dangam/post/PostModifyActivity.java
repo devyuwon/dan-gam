@@ -54,7 +54,6 @@ public class PostModifyActivity extends AppCompatActivity {
 		String modifyContents = intent.getStringExtra("contents");
 		String modifyReward = intent.getStringExtra("reward");
 		String modifyId = intent.getStringExtra("id");
-		//Boolean modifyState = intent.getBooleanExtra("state");
 
 		etPostModifyTitle.setText(modifyTitle);    //제목
 		etPostContent.setText(modifyContents);    //내용
@@ -136,9 +135,11 @@ public class PostModifyActivity extends AppCompatActivity {
 
 		if (subject.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
+			return;
 		}
 		if (content.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "글 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+			return;
 		}
 		Map<String, Object> updatePost = new HashMap<>();
 		updatePost.put("title", subject);
