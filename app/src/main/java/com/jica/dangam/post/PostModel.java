@@ -42,6 +42,18 @@ public class PostModel implements Serializable {
 	}
 
 	public PostModel() {
+		this.title = "";
+		this.contents = "";
+		this.location = "";
+		this.imageUrl1 = "";
+		this.imageUrl2 = "";
+		this.imageUrl3 = "";
+		this.pdate = new Date();
+		this.uid = "";
+		this.state = true;
+		this.id = "";
+		this.reward = "";
+		this.deleted = false;
 	}
 
 	//test용
