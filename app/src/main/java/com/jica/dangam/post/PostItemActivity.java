@@ -148,7 +148,6 @@ public class PostItemActivity extends AppCompatActivity {
 				intent.putExtra("reward", post.getReward());    //수행비
 				intent.putExtra("state", post.getState());    //모집 상태
 				intent.putExtra("id", post.getId());
-				//intent.putExtra("postkind", db.collection
 
 				startActivity(intent);
 			}
