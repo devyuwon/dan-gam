@@ -4,6 +4,7 @@ import com.jica.dangam.R;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,22 +12,27 @@ import android.view.ViewGroup;
 
 public class SearchHistoryFragment extends Fragment {
 
+
+	String[] history;
+	TextView history1;
+	TextView history2;
+	TextView history3;
+	TextView history4;
+	TextView history5;
+
+
 	public SearchHistoryFragment() {
-		// Required empty public constructor
-		Log.d("TAG", "SearchHistoryFragment()...");
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("TAG", "SearchHistoryFragment(). onCreate()..");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
-		Log.d("TAG", "SearchHistoryFragment(). onCreateView()..");
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_search_history, container, false);
+		View view = inflater.inflate(R.layout.fragment_search_history, container, false);
+		return view;
 	}
 }

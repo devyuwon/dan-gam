@@ -13,6 +13,8 @@ import com.jica.dangam.R;
 import com.jica.dangam.list.ListModel;
 import com.jica.dangam.list.ListAdapter;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -68,6 +70,27 @@ public class SearchResultFragment extends Fragment {
 		btnGam = view.findViewById(R.id.btnSearchResultGam);
 		btnGgun = view.findViewById(R.id.btnSearchResultGgun);
 
+		btnGam.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				modString = "post_gam";
+				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
+				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
+				adapter.clearData();
+				loadResult(searchWord);
+			}
+		});
+		btnGgun.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				modString = "post_ggun";
+				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
+				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
+				adapter.clearData();
+				loadResult(searchWord);
+			}
+		});
+
 		scroll.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -103,7 +126,7 @@ public class SearchResultFragment extends Fragment {
 	}
 
 	public void loadResult(String keyWord){
-		db.collection(modString).orderBy("pdate").limit(10)
+		db.collection(modString).orderBy("pdate", Query.Direction.DESCENDING).limit(10)
 			.get()
 			.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 				@Override
@@ -120,7 +143,7 @@ public class SearchResultFragment extends Fragment {
 					}
 				}
 			});
-		next = db.collection(modString).orderBy("pdate").startAfter(lastDoc).limit(10);
+		next = db.collection(modString).orderBy("pdate", Query.Direction.DESCENDING).startAfter(lastDoc).limit(10);
 
 	}
 

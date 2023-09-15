@@ -56,12 +56,6 @@ public class PostCreateActivity extends AppCompatActivity {
 	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
 	PostImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
-	FirebaseStorage storage = FirebaseStorage.getInstance();
-	StorageReference storageRef = storage.getReference();
-	int completeCount = 0;
-	int uploadCount = 0;
-	int i = 0;
-	ProgressDialog progressDialog = null;
 	String documentUid;
 
 	@Override
