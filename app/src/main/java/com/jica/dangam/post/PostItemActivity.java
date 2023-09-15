@@ -35,7 +35,7 @@ public class PostItemActivity extends AppCompatActivity {
 	Button btnPostMenu;
 	RadioGroup rg_post_state_modify;
 	Button rg_post_close;
-	TextView tv_post_title;
+	TextView tv_post_title, tvPostType;
 	TextView tv_post_content, postState, tvReward;
 	Button btnPostBack;
 	Button btnStateIng, btnStateDone;
@@ -57,7 +57,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
-
+		//Toast.makeText(getApplicationContext(), post.getPosttype() + "", Toast.LENGTH_SHORT).show();
 		images[0] = post.getImageUrl1();
 		images[1] = post.getImageUrl2();
 		images[2] = post.getImageUrl3();
@@ -100,11 +100,17 @@ public class PostItemActivity extends AppCompatActivity {
 		btnStateDone = findViewById(R.id.btnStateDone);
 		btnStateIng = findViewById(R.id.btnStateIng);
 		tvReward = findViewById(R.id.tvReward);
+		tvPostType = findViewById(R.id.tvPostType);
 
 		//글정보 뿌려주기
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
+		//String posttype = intent.getStringExtra("posttype");
+
+		//if (posttype != null && posttype.equals("post_ggun")) {
+		//	tvPostType.setText("일감 구함");
+		//}
 
 		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
 
@@ -126,6 +132,7 @@ public class PostItemActivity extends AppCompatActivity {
 			btnStateDone.setVisibility(View.GONE);
 			btnStateIng.setVisibility(View.VISIBLE);
 		}
+
 		//메뉴버튼
 		btnPostMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -148,7 +155,7 @@ public class PostItemActivity extends AppCompatActivity {
 				btnStateDone.setVisibility(View.GONE);
 				btnStateIng.setVisibility(View.VISIBLE);
 				changeStateTrue(post.getId());
-				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -158,7 +165,7 @@ public class PostItemActivity extends AppCompatActivity {
 				btnStateDone.setVisibility(View.VISIBLE);
 				btnStateIng.setVisibility(View.GONE);
 				changeStateFalse(post.getId());
-				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -175,6 +182,7 @@ public class PostItemActivity extends AppCompatActivity {
 				intent.putExtra("reward", post.getReward());    //수행비
 				intent.putExtra("state", post.getState());    //모집 상태
 				intent.putExtra("id", post.getId());
+				intent.putExtra("posttype", post.getPosttype());
 
 				startActivity(intent);
 			}
@@ -202,7 +210,7 @@ public class PostItemActivity extends AppCompatActivity {
 				builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
-						db.collection("post_gam").document(String.valueOf(post.getId())).update(delete)
+						db.collection(post.getPosttype()).document(String.valueOf(post.getId())).update(delete)
 							.addOnCompleteListener(task -> {
 								if (task.isSuccessful()) {
 
@@ -210,11 +218,7 @@ public class PostItemActivity extends AppCompatActivity {
 									//etTitle = settext.
 								}
 							});
-						db.collection("post_ggun").document(String.valueOf(post.getId())).update(delete)
-							.addOnCompleteListener(task -> {
-								if (task.isSuccessful()) {
-								}
-							});
+
 						Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 						startActivity(intent);
 					}

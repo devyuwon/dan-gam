@@ -130,6 +130,7 @@ public class PostCreateActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
 				// EditText에서 값을 가져옵니다.
 				String titleText = title.getText().toString();
 				String contentText = contents.getText().toString();
@@ -178,6 +179,7 @@ public class PostCreateActivity extends AppCompatActivity {
 				//이미지 uri 얻으러 갑시다.
 				documentUid = post.getUid() + now.getTime();
 				getImgUri(post, documentUid, 0);
+
 			}
 
 		});
@@ -237,6 +239,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			DocumentReference addedDocRef = db.collection("post_gam").document();
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
+			data.put("posttype", "post_gam");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
@@ -247,6 +250,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			DocumentReference addedDocRef = db.collection("post_ggun").document();
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
+			data.put("posttype", "post_ggun");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);

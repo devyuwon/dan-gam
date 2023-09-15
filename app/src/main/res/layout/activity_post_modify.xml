@@ -87,7 +87,8 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         app:layout_constraintTop_toTopOf="@+id/btnIlgam"
-                        android:background="@drawable/custom_round_100dp_btn" />
+                        android:background="@drawable/custom_round_100dp_btn"
+                        android:visibility="invisible" />
 
                 <TextView
                         android:text="유형"

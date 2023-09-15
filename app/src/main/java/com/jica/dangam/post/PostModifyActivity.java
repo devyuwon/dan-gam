@@ -57,10 +57,18 @@ public class PostModifyActivity extends AppCompatActivity {
 		String modifyContents = intent.getStringExtra("contents");
 		String modifyReward = intent.getStringExtra("reward");
 		String modifyId = intent.getStringExtra("id");
+		String posttype = intent.getStringExtra("posttype");
+		Toast.makeText(getApplicationContext(), posttype + "", Toast.LENGTH_SHORT).show();
 
 		etPostModifyTitle.setText(modifyTitle);    //제목
 		etPostContent.setText(modifyContents);    //내용
 		etReward.setText(modifyReward);    //수행비
+
+		if (posttype.equals("post_ggun")) {
+			btn_ilgam.setText("일꾼");
+			btn_ilgam.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+		}
 
 
 
@@ -123,7 +131,7 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_post_complete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				modifyPostgam(modifyId);
+				modifyPostgam(modifyId, posttype);
 
 				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
@@ -157,7 +165,7 @@ public class PostModifyActivity extends AppCompatActivity {
 		}
 	}
 
-	public void modifyPostgam(String modifyId) {
+	public void modifyPostgam(String modifyId, String Collection) {
 		String subject = etPostModifyTitle.getText().toString();
 		String content = etPostContent.getText().toString();
 		String reward = etReward.getText().toString();
@@ -178,9 +186,8 @@ public class PostModifyActivity extends AppCompatActivity {
 		updatePost.put("contents", content);
 		updatePost.put("reward", reward);
 		//
-		updatePost.put("postgam", postgam);
 
-		db.collection("post_gam")
+		db.collection(Collection)
 			.document(documentId)
 			.update(updatePost)
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
