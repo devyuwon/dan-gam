@@ -36,7 +36,7 @@ public class PostItemActivity extends AppCompatActivity {
 	RadioGroup rg_post_state_modify;
 	Button rg_post_close;
 	TextView tv_post_title;
-	TextView tv_post_content, postState;
+	TextView tv_post_content, postState, tvReward;
 	Button btnPostBack;
 	Button btnStateIng, btnStateDone;
 
@@ -99,12 +99,12 @@ public class PostItemActivity extends AppCompatActivity {
 		postState = findViewById(R.id.postState);
 		btnStateDone = findViewById(R.id.btnStateDone);
 		btnStateIng = findViewById(R.id.btnStateIng);
-
-		//DB 연결
+		tvReward = findViewById(R.id.tvReward);
 
 		//글정보 뿌려주기
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
+		tvReward.setText(post.getReward());
 
 		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
 
@@ -273,6 +273,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 	 */
 
+	//모집 상태변경
 	public void changeStateFalse(String documentId) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		Map<String, Object> updatePost = new HashMap<>();
@@ -318,6 +319,7 @@ public class PostItemActivity extends AppCompatActivity {
 				}
 			});
 	}
+
 }
 
 
