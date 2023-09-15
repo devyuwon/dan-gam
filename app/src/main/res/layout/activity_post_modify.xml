@@ -28,7 +28,7 @@
                 android:text="글 수정하기"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/textView2"
+                android:id="@+id/tvDelete"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView10"
-                        app:layout_constraintTop_toBottomOf="@+id/etPostTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/etPostModifyTitle"
                         app:layout_constraintStart_toStartOf="parent"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -138,8 +138,8 @@
                         android:textColor="#404040"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11"
-                        android:layout_marginTop="110dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/etReward"
+                        android:layout_marginTop="20dp" />
 
 
                 <TextView
@@ -206,7 +206,7 @@
                         android:layout_height="50dp"
                         android:inputType="text"
                         android:ems="10"
-                        android:id="@+id/etPostTitle"
+                        android:id="@+id/etPostModifyTitle"
                         app:layout_constraintTop_toBottomOf="@+id/textView9"
                         android:layout_marginTop="10dp"
                         android:hint="ex. 매장 청소 도와주실 분 구합니다."
@@ -220,12 +220,12 @@
 
                 <EditText
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         android:inputType="text"
                         android:ems="10"
                         android:id="@+id/etReward"
                         app:layout_constraintTop_toBottomOf="@+id/textView11"
-                        android:hint="숫자로만 입력 가능합니다."
+                        android:hint="미입력 시 상의 후 결정으로 입력됩니다."
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="20dp"
@@ -233,9 +233,9 @@
                         android:background="@drawable/custom_round_btn"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="15dp"
                         android:textAlignment="viewStart"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                 <EditText
                         android:layout_width="0dp"
@@ -277,33 +277,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView16"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="10dp" />
-
-                <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:theme="@style/CustomRadioButton"
-                        android:id="@+id/rgReward"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                    <RadioButton
-                            android:text="상의 후 결정"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rbRewardNo"
-                            android:layout_marginRight="30dp"
-                            android:textSize="18sp" />
-
-                    <RadioButton
-                            android:text="직접 입력"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rbRewardYes"
-                            android:textSize="18sp" />
-                </RadioGroup>
 
                 <RadioGroup
                         android:layout_width="0dp"

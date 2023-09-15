@@ -25,7 +25,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 	static private ArrayList<ListModel> items;
 	static private Context context;
 
-
 	public ListAdapter(Context context, ArrayList<ListModel> list) {
 		this.context = context;
 		this.items = list;
@@ -80,10 +79,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 				@Override
 				public void onClick(View view) {
 					int position = getAdapterPosition();
-					if(position != RecyclerView.NO_POSITION){
+					if (position != RecyclerView.NO_POSITION) {
 						Intent intent = new Intent(context, PostItemActivity.class);
 						PostModel post = new PostModel(items.get(position));
-						intent.putExtra("post",post);
+						intent.putExtra("post", post);
 						context.startActivity(intent);
 					}
 
@@ -94,16 +93,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 		public void setItemOnView(ListModel item) {
 			title.setText(item.getTitle());
 			content.setText(item.getContents());
-			if (item.getImageUrl1() != "") {
+
+			String imageUrl = item.getImageUrl1(); // 이미지 URL 가져오기
+			if (imageUrl != null && !imageUrl.isEmpty()) {
 				FirebaseStorage storage = FirebaseStorage.getInstance();
-				StorageReference gsReference = storage.getReferenceFromUrl(item.getImageUrl1());
-				Glide.with(itemView).load(item.getImageUrl1()).into(image);
+				StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
+				Glide.with(itemView).load(imageUrl).into(image);
 
 				Log.d("TAG", "Glide 작동");
+			} else {
+				// 이미지 URL이 null 또는 빈 문자열인 경우에 대한 처리
+				// 예를 들어 기본 이미지를 표시하거나 다른 작업을 수행할 수 있습니다.
 			}
 		}
 	}
-	public void clearData(){
+
+	public void clearData() {
 		items.clear();
 	}
 }
