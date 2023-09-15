@@ -68,7 +68,7 @@ public class PostItemActivity extends AppCompatActivity {
 		PostItemImageSliderAdapter postItemImageSliderAdapter = new PostItemImageSliderAdapter(this);
 
 		for (int i = 0; i < 3; i++) {
-			if (!images[i].equals("")) {
+			if (images[i] != null && !images[i].isEmpty()) {
 				postItemImageSliderAdapter.addItem(images[i]);
 			}
 		}
@@ -139,8 +139,17 @@ public class PostItemActivity extends AppCompatActivity {
 		btnPostModify.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//수정하기
+
 				Intent intent = new Intent(PostItemActivity.this, PostModifyActivity.class);
+				//글정보 넘겨주기
+
+				intent.putExtra("title", post.getTitle());    //제목
+				intent.putExtra("contents", post.getContents());    //내용
+				intent.putExtra("reward", post.getReward());    //수행비
+				intent.putExtra("state", post.getState());    //모집 상태
+				intent.putExtra("id", post.getId());
+				//intent.putExtra("postkind", db.collection
+
 				startActivity(intent);
 			}
 		});
@@ -168,6 +177,14 @@ public class PostItemActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
 						db.collection("post_gam").document(String.valueOf(post.getId())).update(delete)
+							.addOnCompleteListener(task -> {
+								if (task.isSuccessful()) {
+
+									//데이터 초기화
+									//etTitle = settext.
+								}
+							});
+						db.collection("post_ggun").document(String.valueOf(post.getId())).update(delete)
 							.addOnCompleteListener(task -> {
 								if (task.isSuccessful()) {
 								}

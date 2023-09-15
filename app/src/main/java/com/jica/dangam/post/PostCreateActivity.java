@@ -124,21 +124,6 @@ public class PostCreateActivity extends AppCompatActivity {
 			}
 		});
 
-		//수행비
-		rbRewardNo.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				etReward.setVisibility(View.INVISIBLE);
-			}
-		});
-
-		rbRewardYes.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				etReward.setVisibility(View.VISIBLE);
-			}
-		});
-
 		//모집 희망 장소
 		btnPlusGps.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -157,7 +142,11 @@ public class PostCreateActivity extends AppCompatActivity {
 				} else if (String.valueOf(etPostContent.getText()).equals("")) {
 					warning_nocontents(contents);    //내용 미입력시 안내 토스트
 				} else {
-					PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
+					PostModel post = new PostModel();
+					post.setTitle(title.getText().toString());
+					post.setContents(contents.getText().toString());
+
+					//PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
 					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
 					post.setTitle(String.valueOf(etPostTitle.getText()));
 					post.setContents(String.valueOf(etPostContent.getText()));
@@ -253,7 +242,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
 			addedDocRef.set(post);
-			addedDocRef.update(data);
+			//addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
