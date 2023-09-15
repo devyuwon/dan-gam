@@ -15,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
+import com.jica.dangam.main.MainActivity;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -31,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -76,10 +78,12 @@ public class PostCreateActivity extends AppCompatActivity {
 		btnPostComplete = findViewById(R.id.btnPostComplete);
 		btnPostPicture = findViewById(R.id.btnPostPicture);
 		rvPostImage = findViewById(R.id.rvPostImage);
-		title = findViewById(R.id.etPostModifyTitle);
+		title = findViewById(R.id.etPostTitle);
 		contents = findViewById(R.id.etPostContent);
-		etPostTitle = findViewById(R.id.etPostModifyTitle);
+		etPostTitle = findViewById(R.id.etPostTitle);
 		etPostContent = findViewById(R.id.etPostContent);
+		rbRewardNo = findViewById(R.id.rbRewardNo);
+		rbRewardYes = findViewById(R.id.rbRewardYes);
 		etReward = findViewById(R.id.etReward);
 		btnPostBack = findViewById(R.id.btnPostBack);
 
@@ -124,6 +128,21 @@ public class PostCreateActivity extends AppCompatActivity {
 			}
 		});
 
+		//수행비
+		rbRewardNo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		rbRewardYes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				etReward.setVisibility(View.VISIBLE);
+			}
+		});
+
 		//모집 희망 장소
 		btnPlusGps.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -142,11 +161,7 @@ public class PostCreateActivity extends AppCompatActivity {
 				} else if (String.valueOf(etPostContent.getText()).equals("")) {
 					warning_nocontents(contents);    //내용 미입력시 안내 토스트
 				} else {
-					PostModel post = new PostModel();
-					post.setTitle(title.getText().toString());
-					post.setContents(contents.getText().toString());
-
-					//PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
+					PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
 					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
 					post.setTitle(String.valueOf(etPostTitle.getText()));
 					post.setContents(String.valueOf(etPostContent.getText()));
@@ -242,7 +257,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
 			addedDocRef.set(post);
-			//addedDocRef.update(data);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);

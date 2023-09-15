@@ -1,22 +1,14 @@
 package com.jica.dangam.post;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.jica.dangam.R;
-import com.jica.dangam.main.MainActivity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 import androidx.appcompat.content.res.AppCompatResources;
 
 public class PostModifyActivity extends AppCompatActivity {
@@ -25,16 +17,13 @@ public class PostModifyActivity extends AppCompatActivity {
 	Button btn_ilgam, btn_ilgun;
 	Button btn_plus_gps;
 	Button btn_post_complete;
-	EditText etPostModifyTitle;
-	EditText etPostContent, etReward;
-	private FirebaseFirestore db;
+	EditText etPostTitle;
+	EditText etPostContent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_modify);
-
-		db = FirebaseFirestore.getInstance();
 
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
@@ -45,30 +34,12 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_ilgun = findViewById(R.id.btnIlgun);
 		btn_plus_gps = findViewById(R.id.btnPlusGps);
 		btn_post_complete = findViewById(R.id.btnPostComplete);
-		etPostModifyTitle = findViewById(R.id.etPostModifyTitle);
+		etPostTitle = findViewById(R.id.etPostTitle);
 		etPostContent = findViewById(R.id.etPostContent);
-		etReward = findViewById(R.id.etReward);
 
 		//글정보 뿌려주기
-		String modifyTitle = intent.getStringExtra("title");
-		String modifyContents = intent.getStringExtra("contents");
-		String modifyReward = intent.getStringExtra("reward");
-		String modifyId = intent.getStringExtra("id");
-
-		etPostModifyTitle.setText(modifyTitle);    //제목
-		etPostContent.setText(modifyContents);    //내용
-		etReward.setText(modifyReward);    //수행비
-
-
-
-		/*
-		db.document(String.valueOf(post.getContents())).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-			@Override
-			public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-			}
-		});
-*/
+		etPostTitle.setText(post.getTitle());
+		etPostContent.setText(post.getContents());
 
 		//뒤로가기 버튼
 		btn_post_back.setOnClickListener(new View.OnClickListener() {
@@ -113,57 +84,15 @@ public class PostModifyActivity extends AppCompatActivity {
 			}
 		});
 
-		//작성완료
-
+		//작성완료 버튼
 		btn_post_complete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				modifyPost(modifyId);
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
+				Intent intent = new Intent(PostModifyActivity.this, PostItemActivity.class);
 				startActivity(intent);
 			}
 		});
 
 	}
 
-	public void modifyPost(String modifyId) {
-		String subject = etPostModifyTitle.getText().toString();
-		String content = etPostContent.getText().toString();
-		String reward = etReward.getText().toString();
-		String documentId = modifyId;
-
-		if (subject.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
-			return;
-		}
-		if (content.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "글 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
-			return;
-		}
-		Map<String, Object> updatePost = new HashMap<>();
-		updatePost.put("title", subject);
-		updatePost.put("contents", content);
-		updatePost.put("reward", reward);
-
-		db.collection("post_gam")
-			.document(documentId)
-			.update(updatePost)
-			.addOnSuccessListener(new OnSuccessListener<Void>() {
-				@Override
-				public void onSuccess(Void unused) {
-					etPostModifyTitle.setText("");
-					etPostContent.setText("");
-					etReward.setText("");
-					Toast.makeText(getApplicationContext(), "수정을 완료했습니다", Toast.LENGTH_SHORT).show();
-
-				}
-			})
-			.addOnFailureListener(new OnFailureListener() {
-				@Override
-				public void onFailure(@NonNull Exception e) {
-					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
-				}
-			});
-	}
 }
