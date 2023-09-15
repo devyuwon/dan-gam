@@ -3,18 +3,16 @@ package com.jica.dangam.post;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.ktx.Firebase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.protobuf.Value;
 import com.jica.dangam.R;
 import com.jica.dangam.main.MainActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -36,8 +36,9 @@ public class PostItemActivity extends AppCompatActivity {
 	RadioGroup rg_post_state_modify;
 	Button rg_post_close;
 	TextView tv_post_title;
-	TextView tv_post_content;
+	TextView tv_post_content, postState;
 	Button btnPostBack;
+	Button btnStateIng, btnStateDone;
 
 	TextView tvDelete, tvPostModify;
 
@@ -95,6 +96,9 @@ public class PostItemActivity extends AppCompatActivity {
 		btnPostBack = findViewById(R.id.btnPostBack);
 		tvDelete = findViewById(R.id.tvDelete);
 		tvPostModify = findViewById(R.id.tvPostModify);
+		postState = findViewById(R.id.postState);
+		btnStateDone = findViewById(R.id.btnStateDone);
+		btnStateIng = findViewById(R.id.btnStateIng);
 
 		//DB 연결
 
@@ -117,7 +121,11 @@ public class PostItemActivity extends AppCompatActivity {
 			btnPostMenu.setVisibility(View.VISIBLE);
 
 		}
-
+		if (post.getState() == true) {
+			postState.setText("모집완료");
+			btnStateDone.setVisibility(View.GONE);
+			btnStateIng.setVisibility(View.VISIBLE);
+		}
 		//메뉴버튼
 		btnPostMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -134,7 +142,26 @@ public class PostItemActivity extends AppCompatActivity {
 
 			}
 		});
-
+		btnStateDone.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				btnStateDone.setVisibility(View.GONE);
+				btnStateIng.setVisibility(View.VISIBLE);
+				changeStateTrue(post.getId());
+				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				startActivity(intent);
+			}
+		});
+		btnStateIng.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				btnStateDone.setVisibility(View.VISIBLE);
+				btnStateIng.setVisibility(View.GONE);
+				changeStateFalse(post.getId());
+				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				startActivity(intent);
+			}
+		});
 		//수정 버튼
 		btnPostModify.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -246,6 +273,52 @@ public class PostItemActivity extends AppCompatActivity {
 	}
 
 	 */
+
+	public void changeStateFalse(String documentId) {
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		Map<String, Object> updatePost = new HashMap<>();
+		updatePost.put("state", false);
+
+		db.collection("post_gam")
+			.document(documentId)
+			.update(updatePost)
+			.addOnSuccessListener(new OnSuccessListener<Void>() {
+				@Override
+				public void onSuccess(Void unused) {
+					Toast.makeText(getApplicationContext(), "상태를 모집중으로 변경했습니다", Toast.LENGTH_SHORT).show();
+
+				}
+			})
+			.addOnFailureListener(new OnFailureListener() {
+				@Override
+				public void onFailure(@NonNull Exception e) {
+					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
+				}
+			});
+	}
+
+	public void changeStateTrue(String documentId) {
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		Map<String, Object> updatePost = new HashMap<>();
+		updatePost.put("state", true);
+
+		db.collection("post_gam")
+			.document(documentId)
+			.update(updatePost)
+			.addOnSuccessListener(new OnSuccessListener<Void>() {
+				@Override
+				public void onSuccess(Void unused) {
+					Toast.makeText(getApplicationContext(), "상태를 모집중으로 변경했습니다", Toast.LENGTH_SHORT).show();
+
+				}
+			})
+			.addOnFailureListener(new OnFailureListener() {
+				@Override
+				public void onFailure(@NonNull Exception e) {
+					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
+				}
+			});
+	}
 }
 
 

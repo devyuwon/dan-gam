@@ -128,19 +128,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp" />
 
-                <TextView
-                        android:text="모집 상태"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView21"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#404040"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/etReward"
-                        android:layout_marginTop="20dp" />
-
 
                 <TextView
                         android:text="모집 희망 장소"
@@ -152,8 +139,8 @@
                         android:textColor="#404040"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/rgState"
-                        android:layout_marginTop="10dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/etReward"
+                        android:layout_marginTop="15dp" />
 
                 <TextView
                         android:text="제목"
@@ -277,33 +264,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView16"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="10dp" />
-
-                <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="70dp"
-                        app:layout_constraintTop_toBottomOf="@+id/textView21"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:theme="@style/CustomRadioButton"
-                        android:id="@+id/rgState"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                    <RadioButton
-                            android:text="모집중"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rbStateIng"
-                            android:layout_marginRight="30dp"
-                            android:textSize="18sp" />
-
-                    <RadioButton
-                            android:text="모집완료"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rbStateDone"
-                            android:textSize="18sp" />
-                </RadioGroup>
 
                 <TextView
                         android:text="수행비"
