@@ -64,10 +64,10 @@ public class PostItemActivity extends AppCompatActivity {
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
 		//Toast.makeText(getApplicationContext(), post.getPosttype() + "", Toast.LENGTH_SHORT).show();
 		if (post == null) {
-			// post 객체가 null인 경우에 대한 처리
-			// 예를 들어, Toast 메시지를 표시하거나 다른 작업을 수행할 수 있습니다.
-			Toast.makeText(getApplicationContext(), "포스트 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+
+			//Toast.makeText(getApplicationContext(), "포스트 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
 			finish(); // 액티비티 종료
+
 			return;
 		}
 
@@ -123,25 +123,6 @@ public class PostItemActivity extends AppCompatActivity {
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
-
-		/*
-		String posttype = intent.getStringExtra("posttype");
-
-		if (posttype != null && posttype.equals("post_ggun")) {
-			tvPostType.setText("일감 구함");
-		}
-
-		 */
-		if (post.getPosttype().equals("post_ggun")) {
-			tvPostType.setText("일감 구함");
-			lyPostTopbar.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-			postLineColor.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-			ivPostIlgam.setVisibility(View.INVISIBLE);
-			ivPostIlggun.setVisibility(View.VISIBLE);
-
-		}
 
 		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
 
@@ -269,6 +250,27 @@ public class PostItemActivity extends AppCompatActivity {
 
 			}
 		});
+
+		if (post.getPosttype().equals("post_ggun")) {
+			tvPostType.setText("일감 구함");
+			lyPostTopbar.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+			postLineColor.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+			ivPostIlgam.setVisibility(View.INVISIBLE);
+			ivPostIlggun.setVisibility(View.VISIBLE);
+
+		} else if (post.getPosttype().equals("post_gam")) {
+			tvPostType.setText("일꾼 모집");
+			lyPostTopbar.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
+			postLineColor.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
+			ivPostIlgam.setVisibility(View.VISIBLE);
+			ivPostIlggun.setVisibility(View.INVISIBLE);
+		} else {
+
+		}
 
 	}
 

@@ -15,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
+import com.jica.dangam.main.MainActivity;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -180,7 +181,7 @@ public class PostCreateActivity extends AppCompatActivity {
 				documentUid = post.getUid() + now.getTime();
 				getImgUri(post, documentUid, 0);
 
-				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 				intent.putExtra("posttype", post.getPosttype());
 				startActivity(intent);
 			}
