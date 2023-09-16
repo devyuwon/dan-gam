@@ -1,17 +1,28 @@
 package com.jica.dangam.post;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jica.dangam.R;
+import com.jica.dangam.login.GoogleAccountHelper;
+import com.jica.dangam.login.GoogleLogin;
 import com.jica.dangam.main.MainActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,19 +54,25 @@ public class PostItemActivity extends AppCompatActivity {
 	Button btnStateIng, btnStateDone;
 	ConstraintLayout lyPostTopbar;
 	View postLineColor;
-	ImageView ivPostIlgam, ivPostIlggun;
+	ImageView ivPostIlgam, ivPostIlggun, ivPostProfile;
 
-	TextView tvDelete, tvPostModify;
+	TextView tvDelete, tvPostModify, tvPostProfileID;
 
 	private ViewPager2 sliderViewPager;
 	private LinearLayout layoutIndicator;
 	private String[] images = new String[3];
+
+	private static final int RC_SIGN_IN = 9001;
+	private GoogleSignInClient mGoogleSignInClient;
+	private List<String> userInfo = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post_item);
 
+		tvPostProfileID = findViewById(R.id.tvPostProfileID);
+		ivPostProfile = findViewById(R.id.ivPostProfile);
 		FirebaseAuth mAuth = FirebaseAuth.getInstance();
 		//FirebaseStorage db = FirebaseStorage.getInstance();
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -93,10 +110,11 @@ public class PostItemActivity extends AppCompatActivity {
 			public void onPageSelected(int position) {
 				super.onPageSelected(position);
 				setCurrentIndicator(position);
+				;
 			}
 		});
 
-		setupIndicators(images.length);
+		setupIndicators(postItemImageSliderAdapter.getItemCount());
 
 		//UI객체 찾기
 		btnPostModify = findViewById(R.id.btnPostModify);
@@ -118,14 +136,48 @@ public class PostItemActivity extends AppCompatActivity {
 		postLineColor = findViewById(R.id.postLineColor);
 		ivPostIlgam = findViewById(R.id.ivPostIlggun);
 		ivPostIlggun = findViewById(R.id.ivPostIlggun);
+		tvPostProfileID = findViewById(R.id.tvPostProfileID);
+		ivPostProfile = findViewById(R.id.ivPostProfile);
 
 		//글정보 뿌려주기
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
 
-		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
+		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+			.requestIdToken(getString(R.string.default_web_client_id))
+			.requestEmail()
+			.build();
+		mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
 
+		// 현재 로그인한 사용자 정보 가져오기
+		FirebaseUser currentUser = mAuth.getCurrentUser();
+
+		if (currentUser != null) {
+			String displayName = currentUser.getDisplayName();
+			Uri photoUrl = currentUser.getPhotoUrl(); // 프로필 이미지 URL
+
+			// displayName을 tvPostProfileID TextView에 설정
+			if (displayName != null && !displayName.isEmpty()) {
+				tvPostProfileID.setText(displayName);
+			}
+
+			// photoUrl을 ivPostProfile ImageView에 로드 (Glide 사용)
+			if (photoUrl != null) {
+				Glide.with(this)
+					.load(photoUrl)
+					.error(R.drawable.img_fubao) // 로드 실패 시 기본 이미지 설정
+					.into(ivPostProfile);
+			}
+		}
+		if (!post.getUid().equals(mAuth.getCurrentUser().getUid())) {
+
+			Glide.with(this)
+				.load(R.drawable.img_fubao).into(ivPostProfile);
+			tvPostProfileID.setText("Fubao");
+		}
+
+		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
 		if (post.getUid().equals(mAuth.getCurrentUser().getUid())) {
 			//삭제
 			btnPostDelete.setVisibility(View.VISIBLE);
@@ -251,31 +303,33 @@ public class PostItemActivity extends AppCompatActivity {
 
 			}
 		});
+		if (post.getPosttype() != null) {
+			if (post.getPosttype().equals("post_ggun")) {
+				tvPostType.setText("일감 구함");
+				lyPostTopbar.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+				postLineColor.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+				ivPostIlgam.setVisibility(View.INVISIBLE);
+				ivPostIlggun.setVisibility(View.VISIBLE);
 
-		if (post.getPosttype().equals("post_ggun")) {
-			tvPostType.setText("일감 구함");
-			lyPostTopbar.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-			postLineColor.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
-			ivPostIlgam.setVisibility(View.INVISIBLE);
-			ivPostIlggun.setVisibility(View.VISIBLE);
+			} else if (post.getPosttype().equals("post_gam")) {
+				tvPostType.setText("일꾼 모집");
+				lyPostTopbar.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
+				postLineColor.setBackgroundTintList(
+					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
+				ivPostIlgam.setVisibility(View.VISIBLE);
+				ivPostIlggun.setVisibility(View.INVISIBLE);
+			} else {
 
-		} else if (post.getPosttype().equals("post_gam")) {
-			tvPostType.setText("일꾼 모집");
-			lyPostTopbar.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
-			postLineColor.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
-			ivPostIlgam.setVisibility(View.VISIBLE);
-			ivPostIlggun.setVisibility(View.INVISIBLE);
-		} else {
-
+			}
 		}
 
 	}
 
 	//슬라이더 인디케이터
+
 	private void setupIndicators(int count) {
 
 		ImageView[] indicators = new ImageView[count];
@@ -306,6 +360,9 @@ public class PostItemActivity extends AppCompatActivity {
 			}
 		}
 	}
+
+
+
 	/*
 	//activity_post.xml 에서 show_dialog_btn 의 onclick 메소드
 	public void show_default_dialog(View v) {
