@@ -22,8 +22,11 @@ import com.jica.dangam.main.MainActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,26 +46,17 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class PostItemActivity extends AppCompatActivity {
 
-	Button btnPostModify;
+	Button btnPostModify, btnPostMenu, rg_post_close, btnPostBack, btnStateIng, btnStateDone;
 	ImageButton btnPostDelete;
-	Button btnPostMenu;
 	RadioGroup rg_post_state_modify;
-	Button rg_post_close;
-	TextView tv_post_title, tvPostType;
-	TextView tv_post_content, postState, tvReward;
-	Button btnPostBack;
-	Button btnStateIng, btnStateDone;
+	TextView tv_post_title, tvPostType, tv_post_content, postState, tvReward, tvDelete, tvPostModify, tvPostProfileID;
 	ConstraintLayout lyPostTopbar;
 	View postLineColor;
 	ImageView ivPostIlgam, ivPostIlggun, ivPostProfile;
 
-	TextView tvDelete, tvPostModify, tvPostProfileID;
-
 	private ViewPager2 sliderViewPager;
 	private LinearLayout layoutIndicator;
 	private String[] images = new String[3];
-
-	private static final int RC_SIGN_IN = 9001;
 	private GoogleSignInClient mGoogleSignInClient;
 	private List<String> userInfo = new ArrayList<>();
 
@@ -74,20 +68,40 @@ public class PostItemActivity extends AppCompatActivity {
 		tvPostProfileID = findViewById(R.id.tvPostProfileID);
 		ivPostProfile = findViewById(R.id.ivPostProfile);
 		FirebaseAuth mAuth = FirebaseAuth.getInstance();
-		//FirebaseStorage db = FirebaseStorage.getInstance();
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
-		//Toast.makeText(getApplicationContext(), post.getPosttype() + "", Toast.LENGTH_SHORT).show();
+
 		if (post == null) {
-
-			//Toast.makeText(getApplicationContext(), "포스트 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
-			finish(); // 액티비티 종료
-
+			finish();
 			return;
 		}
 
+		//UI객체 찾기
+		btnPostModify = findViewById(R.id.btnPostModify);
+		btnPostDelete = findViewById(R.id.btnPostDelete);
+		btnPostMenu = findViewById(R.id.btnPostMenu);
+		rg_post_state_modify = findViewById(R.id.rgPostStateModify);
+		rg_post_close = findViewById(R.id.rgPostClose);
+		tv_post_title = findViewById(R.id.tvPostTitle);
+		tv_post_content = findViewById(R.id.tv_post_content);
+		btnPostBack = findViewById(R.id.btnPostBack);
+		tvDelete = findViewById(R.id.tvDelete);
+		tvPostModify = findViewById(R.id.tvPostModify);
+		postState = findViewById(R.id.postState);
+		btnStateDone = findViewById(R.id.btnStateDone);
+		btnStateIng = findViewById(R.id.btnStateIng);
+		tvReward = findViewById(R.id.tvReward);
+		tvPostType = findViewById(R.id.tvPostType);
+		lyPostTopbar = findViewById(R.id.lyPostTopbar);
+		postLineColor = findViewById(R.id.postLineColor);
+		ivPostIlgam = findViewById(R.id.ivPostIlggun);
+		ivPostIlggun = findViewById(R.id.ivPostIlggun);
+		tvPostProfileID = findViewById(R.id.tvPostProfileID);
+		ivPostProfile = findViewById(R.id.ivPostProfile);
+
+		//이미지 정보 가져오기
 		images[0] = post.getImageUrl1();
 		images[1] = post.getImageUrl2();
 		images[2] = post.getImageUrl3();
@@ -113,37 +127,14 @@ public class PostItemActivity extends AppCompatActivity {
 				;
 			}
 		});
-
 		setupIndicators(postItemImageSliderAdapter.getItemCount());
 
-		//UI객체 찾기
-		btnPostModify = findViewById(R.id.btnPostModify);
-		btnPostDelete = findViewById(R.id.btnPostDelete);
-		btnPostMenu = findViewById(R.id.btnPostMenu);
-		rg_post_state_modify = findViewById(R.id.rgPostStateModify);
-		rg_post_close = findViewById(R.id.rgPostClose);
-		tv_post_title = findViewById(R.id.tvPostTitle);
-		tv_post_content = findViewById(R.id.tv_post_content);
-		btnPostBack = findViewById(R.id.btnPostBack);
-		tvDelete = findViewById(R.id.tvDelete);
-		tvPostModify = findViewById(R.id.tvPostModify);
-		postState = findViewById(R.id.postState);
-		btnStateDone = findViewById(R.id.btnStateDone);
-		btnStateIng = findViewById(R.id.btnStateIng);
-		tvReward = findViewById(R.id.tvReward);
-		tvPostType = findViewById(R.id.tvPostType);
-		lyPostTopbar = findViewById(R.id.lyPostTopbar);
-		postLineColor = findViewById(R.id.postLineColor);
-		ivPostIlgam = findViewById(R.id.ivPostIlggun);
-		ivPostIlggun = findViewById(R.id.ivPostIlggun);
-		tvPostProfileID = findViewById(R.id.tvPostProfileID);
-		ivPostProfile = findViewById(R.id.ivPostProfile);
-
-		//글정보 뿌려주기
+		//글정보 가져오기
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
 
+		//사용자 프로필 가져오기
 		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestIdToken(getString(R.string.default_web_client_id))
 			.requestEmail()
@@ -177,19 +168,16 @@ public class PostItemActivity extends AppCompatActivity {
 			tvPostProfileID.setText("Fubao");
 		}
 
-		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
+		//현재 로그인 Uid와 글작성 Uid가 같을 시 수정,삭제버튼 생성
 		if (post.getUid().equals(mAuth.getCurrentUser().getUid())) {
 			//삭제
 			btnPostDelete.setVisibility(View.VISIBLE);
 			tvDelete.setVisibility(View.VISIBLE);
-
 			//수정
 			btnPostModify.setVisibility(View.VISIBLE);
 			tvPostModify.setVisibility(View.VISIBLE);
-
 			//라디오버튼
 			btnPostMenu.setVisibility(View.VISIBLE);
-
 		}
 
 		if (post.getState() == true) {
@@ -203,7 +191,6 @@ public class PostItemActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				rg_post_state_modify.setVisibility(view.VISIBLE);
-
 			}
 		});
 		//라디오 그룹 닫기
@@ -211,7 +198,6 @@ public class PostItemActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				rg_post_state_modify.setVisibility(view.INVISIBLE);
-
 			}
 		});
 
@@ -242,8 +228,7 @@ public class PostItemActivity extends AppCompatActivity {
 			public void onClick(View view) {
 
 				Intent intent = new Intent(PostItemActivity.this, PostModifyActivity.class);
-				//글정보 넘겨주기
-
+				//글정보 넘겨주기 - 수정화면
 				intent.putExtra("title", post.getTitle());    //제목
 				intent.putExtra("contents", post.getContents());    //내용
 				intent.putExtra("reward", post.getReward());    //수행비
@@ -281,28 +266,20 @@ public class PostItemActivity extends AppCompatActivity {
 							.addOnCompleteListener(task -> {
 								if (task.isSuccessful()) {
 
-									//데이터 초기화
-									//etTitle = settext.
 								}
 							});
-
 						Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 						startActivity(intent);
 					}
 				});
-				//부정적 성격의 버튼                ButtonNegative(-2)
 				builder.setNegativeButton("아니오", null);
-				// true일 경우  : 대화상자 버튼이 아닌 배경 및 back 버튼 눌렀을때도 종료하도록 하는 기능
-				// false일 경우 : 대화상자의 버튼으로만 대화상자가 종료하도록 하는 기능
 				builder.setCancelable(false);
-
-				//대화상자 만들기
-				//주의사항 : 대화상자가 보여진 이후의 코드가 실행된다.
 				AlertDialog alertDialog = builder.create();
-				alertDialog.show(); //대화상자 보이기
-
+				alertDialog.show();
 			}
 		});
+
+		//일감 일꾼 구별
 		if (post.getPosttype() != null) {
 			if (post.getPosttype().equals("post_ggun")) {
 				tvPostType.setText("일감 구함");
@@ -328,8 +305,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 	}
 
-	//슬라이더 인디케이터
-
+	//이미지 슬라이더 인디케이터
 	private void setupIndicators(int count) {
 
 		ImageView[] indicators = new ImageView[count];
@@ -337,7 +313,6 @@ public class PostItemActivity extends AppCompatActivity {
 			ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		params.setMargins(16, 8, 16, 8);
-
 		for (int i = 0; i < indicators.length; i++) {
 			indicators[i] = new ImageView(this);
 			indicators[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.custom_bg_indicator_inactive));
@@ -345,7 +320,6 @@ public class PostItemActivity extends AppCompatActivity {
 			layoutIndicator.addView(indicators[i]);
 		}
 		setCurrentIndicator(0);
-
 	}
 
 	private void setCurrentIndicator(int position) {
@@ -361,18 +335,7 @@ public class PostItemActivity extends AppCompatActivity {
 		}
 	}
 
-
-
-	/*
-	//activity_post.xml 에서 show_dialog_btn 의 onclick 메소드
-	public void show_default_dialog(View v) {
-		//클릭시 defaultDialog 를 띄워준다
-		PostDeleteDialog.getInstance(this).showDefaultDialog();
-	}
-
-	 */
-
-	//모집 상태변경
+	//모집 상태변경 모집완료 -> 모집중으로 변경
 	public void changeStateFalse(String documentId) {
 
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -388,8 +351,7 @@ public class PostItemActivity extends AppCompatActivity {
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void unused) {
-					Toast.makeText(getApplicationContext(), "상태를 모집중으로 변경했습니다", Toast.LENGTH_SHORT).show();
-
+					modify_state_done(tvPostModify);
 				}
 			})
 			.addOnFailureListener(new OnFailureListener() {
@@ -400,6 +362,7 @@ public class PostItemActivity extends AppCompatActivity {
 			});
 	}
 
+	//모집중 -> 모집완료로 변경
 	public void changeStateTrue(String documentId) {
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
@@ -414,8 +377,7 @@ public class PostItemActivity extends AppCompatActivity {
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void unused) {
-					Toast.makeText(getApplicationContext(), "상태를 모집완료로 변경했습니다", Toast.LENGTH_SHORT).show();
-
+					modify_state_ing(tvPostModify);
 				}
 			})
 			.addOnFailureListener(new OnFailureListener() {
@@ -424,6 +386,44 @@ public class PostItemActivity extends AppCompatActivity {
 					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
 				}
 			});
+	}
+
+	//커스텀 토스트 -모집중 -> 모집완료 안내
+	public void modify_state_ing(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("모집완료로 변경됐습니다.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 모집완료 -> 모집집 안내
+	public void modify_state_done(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("모집중으로 변경됐습니다.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
 	}
 
 }
