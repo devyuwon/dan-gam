@@ -262,8 +262,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:layout_marginTop="10dp"
-                        android:foregroundGravity="left">
+                        android:layout_marginTop="10dp">
 
                     <TextView
                             android:text="날짜 : 2023년 8월 4일 (금) 오후 2시  \n예상 수행 시간 : 2시간 \n필요 인원 : 3명 \n\n 큰 물건은 별로 없어요. 가까운 곳으로 이사 하는데 \n주변에 지인이 없어서 단감에 글 올립니다. \n평일에 이사를 꼭 해야 하는  상황입니다. \n\n죄송하지만 미성년자분은 지원 불가합니다.\n"
@@ -279,8 +278,8 @@
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:textColor="@color/black"
-                            android:textAlignment="textStart"
-                            android:gravity="left" />
+                            
+                            />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -295,7 +294,7 @@
                 android:background="@drawable/custom_half_round_btn"
                 android:paddingLeft="15dp"
                 android:elevation="50dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/rgPostStateModify">
 
             <androidx.appcompat.widget.AppCompatButton
