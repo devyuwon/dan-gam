@@ -114,7 +114,8 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="#404040"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone" />
 
                 <TextView
                         android:text="내용"
@@ -162,7 +163,8 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView7"
                         android:layout_marginTop="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:id="@+id/svPicture">
+                        android:id="@+id/svPicture"
+                        android:visibility="gone">
 
                     <LinearLayout
                             android:layout_width="match_parent"

@@ -139,6 +139,7 @@ public class PostItemActivity extends AppCompatActivity {
 			btnPostMenu.setVisibility(View.VISIBLE);
 
 		}
+
 		if (post.getState() == true) {
 			postState.setText("모집완료");
 			btnStateDone.setVisibility(View.GONE);
@@ -265,7 +266,7 @@ public class PostItemActivity extends AppCompatActivity {
 			lyPostTopbar.setBackgroundTintList(
 				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
 			postLineColor.setBackgroundTintList(
-				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_30));
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
 			ivPostIlgam.setVisibility(View.VISIBLE);
 			ivPostIlggun.setVisibility(View.INVISIBLE);
 		} else {
@@ -356,7 +357,7 @@ public class PostItemActivity extends AppCompatActivity {
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void unused) {
-					Toast.makeText(getApplicationContext(), "상태를 모집중으로 변경했습니다", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "상태를 모집완료로 변경했습니다", Toast.LENGTH_SHORT).show();
 
 				}
 			})
