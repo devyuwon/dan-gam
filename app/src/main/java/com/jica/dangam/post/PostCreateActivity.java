@@ -16,7 +16,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
 
-import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -72,8 +71,8 @@ public class PostCreateActivity extends AppCompatActivity {
 		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostModifyTitle);
 		contents = findViewById(R.id.etPostContent);
-		etPostTitle = findViewById(R.id.etPostModifyTitle);
-		etPostContent = findViewById(R.id.etPostContent);
+		//etPostTitle = findViewById(R.id.etPostModifyTitle);
+		//etPostContent = findViewById(R.id.etPostContent);
 		etReward = findViewById(R.id.etReward);
 		btnPostBack = findViewById(R.id.btnPostBack);
 
@@ -131,43 +130,56 @@ public class PostCreateActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (String.valueOf(etPostTitle.getText()).equals("")) {
+				// EditText에서 값을 가져옵니다.
+				String titleText = title.getText().toString();
+				String contentText = contents.getText().toString();
+				String rewardText = etReward.getText().toString();
+
+				// 값이 비어 있는지 확인합니다.
+				if (titleText.isEmpty()) {
+					// 제목 또는 내용이 비어 있는 경우 토스트 메시지를 표시하고 메서드를 실행하지 않습니다.
 					warning_notitle(contents);    //제목 미입력시 안내 토스트
-				} else if (String.valueOf(etPostContent.getText()).equals("")) {
-					warning_nocontents(contents);    //내용 미입력시 안내 토스트
-				} else {
-					PostModel post = new PostModel();
-					post.setTitle(title.getText().toString());
-					post.setContents(contents.getText().toString());
-
-					//PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
-					//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
-					post.setTitle(String.valueOf(etPostTitle.getText()));
-					post.setContents(String.valueOf(etPostContent.getText()));
-					//장소 일단 패스
-					//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
-					Date now = new Date();
-					post.setPdate(now);
-					// User uid
-					FirebaseAuth mAuth = FirebaseAuth.getInstance();
-					if (mAuth.getCurrentUser() != null) {
-						post.setUid(mAuth.getCurrentUser().getUid());
-					}
-
-					// Reward
-					if (etReward.getText().toString().equals("")) {
-						post.setReward("협의");
-					} else {
-						post.setReward(String.valueOf(etReward.getText()));
-					}
-
-					post.setDeleted(false);
-
-					//이미지 uri 얻으러 갑시다.
-					documentUid = post.getUid() + now.getTime();
-					getImgUri(post, documentUid, 0);
+					//Toast.makeText(getApplicationContext(), "제목과 내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+					return;
 				}
+
+				if (contentText.isEmpty()) {
+					// 제목 또는 내용이 비어 있는 경우 토스트 메시지를 표시하고 메서드를 실행하지 않습니다.
+					warning_nocontents(contents);    //제목 미입력시 안내 토스트
+					//Toast.makeText(getApplicationContext(), "제목과 내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				PostModel post = new PostModel();
+				post.setTitle(title.getText().toString());
+				post.setContents(contents.getText().toString());
+
+				//PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
+				//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
+				//post.setTitle(String.valueOf(etPostTitle.getText()));
+				//post.setContents(String.valueOf(etPostContent.getText()));
+				//장소 일단 패스
+				//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
+				Date now = new Date();
+				post.setPdate(now);
+				// User uid
+				FirebaseAuth mAuth = FirebaseAuth.getInstance();
+				if (mAuth.getCurrentUser() != null) {
+					post.setUid(mAuth.getCurrentUser().getUid());
+				}
+
+				// Reward
+				if (rewardText.isEmpty()) {
+					post.setReward("상의 후 결정");
+				} else {
+					post.setReward(etReward.getText().toString());
+				}
+				post.setDeleted(false);
+
+				//이미지 uri 얻으러 갑시다.
+				documentUid = post.getUid() + now.getTime();
+				getImgUri(post, documentUid, 0);
 			}
+
 		});
 
 		//뒤로 가기
@@ -236,7 +248,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
 			addedDocRef.set(post);
-			//addedDocRef.update(data);
+			addedDocRef.update(data);
 			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
