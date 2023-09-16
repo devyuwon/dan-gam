@@ -86,8 +86,7 @@ public class PostModifyActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 
-				Intent intent = new Intent(PostModifyActivity.this, PostItemActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		});
 
@@ -141,37 +140,11 @@ public class PostModifyActivity extends AppCompatActivity {
 
 	}
 
-	private void postdatas(PostModel post) {
-		if (postKind) {
-			DocumentReference addedDocRef = db.collection("post_gam").document();
-			Map<String, Object> data = new HashMap<>();
-			data.put("id", addedDocRef.getId());
-			addedDocRef.set(post);
-			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
-			intent.putExtra("post", post);
-			startActivity(intent);
-			finish();
-		} else {
-			DocumentReference addedDocRef = db.collection("post_ggun").document();
-			Map<String, Object> data = new HashMap<>();
-			data.put("id", addedDocRef.getId());
-			addedDocRef.set(post);
-			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
-			intent.putExtra("post", post);
-			startActivity(intent);
-			finish();
-		}
-	}
-
 	public void modifyPostgam(String modifyId, String Collection) {
 		String subject = etPostModifyTitle.getText().toString();
 		String content = etPostContent.getText().toString();
 		String reward = etReward.getText().toString();
 		String documentId = modifyId;
-		//
-		Boolean postgam = postKind;
 
 		if (subject.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();

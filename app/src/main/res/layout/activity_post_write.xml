@@ -228,7 +228,7 @@
                 <EditText
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:inputType="text"
+                        android:inputType="textMultiLine"
                         android:ems="10"
                         android:id="@+id/etPostContent"
                         android:hint="\n ex.  \n -업무 내용 : \n -경력 여부 : \n -나이제한 : \n -자격요건 : \n -모집인원 :\n\n"

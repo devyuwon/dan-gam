@@ -25,6 +25,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -39,6 +41,9 @@ public class PostItemActivity extends AppCompatActivity {
 	TextView tv_post_content, postState, tvReward;
 	Button btnPostBack;
 	Button btnStateIng, btnStateDone;
+	ConstraintLayout lyPostTopbar;
+	View postLineColor;
+	ImageView ivPostIlgam, ivPostIlggun;
 
 	TextView tvDelete, tvPostModify;
 
@@ -58,6 +63,14 @@ public class PostItemActivity extends AppCompatActivity {
 		Intent intent = getIntent();
 		PostModel post = (PostModel)intent.getSerializableExtra("post");
 		//Toast.makeText(getApplicationContext(), post.getPosttype() + "", Toast.LENGTH_SHORT).show();
+		if (post == null) {
+			// post 객체가 null인 경우에 대한 처리
+			// 예를 들어, Toast 메시지를 표시하거나 다른 작업을 수행할 수 있습니다.
+			Toast.makeText(getApplicationContext(), "포스트 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+			finish(); // 액티비티 종료
+			return;
+		}
+
 		images[0] = post.getImageUrl1();
 		images[1] = post.getImageUrl2();
 		images[2] = post.getImageUrl3();
@@ -101,16 +114,34 @@ public class PostItemActivity extends AppCompatActivity {
 		btnStateIng = findViewById(R.id.btnStateIng);
 		tvReward = findViewById(R.id.tvReward);
 		tvPostType = findViewById(R.id.tvPostType);
+		lyPostTopbar = findViewById(R.id.lyPostTopbar);
+		postLineColor = findViewById(R.id.postLineColor);
+		ivPostIlgam = findViewById(R.id.ivPostIlggun);
+		ivPostIlggun = findViewById(R.id.ivPostIlggun);
 
 		//글정보 뿌려주기
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
-		//String posttype = intent.getStringExtra("posttype");
 
-		//if (posttype != null && posttype.equals("post_ggun")) {
-		//	tvPostType.setText("일감 구함");
-		//}
+		/*
+		String posttype = intent.getStringExtra("posttype");
+
+		if (posttype != null && posttype.equals("post_ggun")) {
+			tvPostType.setText("일감 구함");
+		}
+
+		 */
+		if (post.getPosttype().equals("post_ggun")) {
+			tvPostType.setText("일감 구함");
+			lyPostTopbar.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+			postLineColor.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+			ivPostIlgam.setVisibility(View.INVISIBLE);
+			ivPostIlggun.setVisibility(View.VISIBLE);
+
+		}
 
 		//현재 로그인 Uid와 글작성 Uid가 같을 시 delete 버튼 생성
 
@@ -149,6 +180,8 @@ public class PostItemActivity extends AppCompatActivity {
 
 			}
 		});
+
+		//모집 상태변경
 		btnStateDone.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -241,6 +274,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 	//슬라이더 인디케이터
 	private void setupIndicators(int count) {
+
 		ImageView[] indicators = new ImageView[count];
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 			ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -258,6 +292,7 @@ public class PostItemActivity extends AppCompatActivity {
 	}
 
 	private void setCurrentIndicator(int position) {
+
 		int childCount = layoutIndicator.getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			ImageView imageView = (ImageView)layoutIndicator.getChildAt(i);
@@ -279,11 +314,15 @@ public class PostItemActivity extends AppCompatActivity {
 
 	//모집 상태변경
 	public void changeStateFalse(String documentId) {
+
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		Map<String, Object> updatePost = new HashMap<>();
 		updatePost.put("state", false);
 
-		db.collection("post_gam")
+		Intent intent = getIntent();
+		PostModel post = (PostModel)intent.getSerializableExtra("post");
+
+		db.collection(post.getPosttype())
 			.document(documentId)
 			.update(updatePost)
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -302,11 +341,14 @@ public class PostItemActivity extends AppCompatActivity {
 	}
 
 	public void changeStateTrue(String documentId) {
+		Intent intent = getIntent();
+		PostModel post = (PostModel)intent.getSerializableExtra("post");
+
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		Map<String, Object> updatePost = new HashMap<>();
 		updatePost.put("state", true);
 
-		db.collection("post_gam")
+		db.collection(post.getPosttype())
 			.document(documentId)
 			.update(updatePost)
 			.addOnSuccessListener(new OnSuccessListener<Void>() {

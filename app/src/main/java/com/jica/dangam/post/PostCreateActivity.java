@@ -180,6 +180,9 @@ public class PostCreateActivity extends AppCompatActivity {
 				documentUid = post.getUid() + now.getTime();
 				getImgUri(post, documentUid, 0);
 
+				Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+				intent.putExtra("posttype", post.getPosttype());
+				startActivity(intent);
 			}
 
 		});

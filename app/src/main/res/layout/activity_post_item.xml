@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:background="#FFEFDE">
+            android:background="#FFEFDE"
+            android:id="@+id/lyPostTopbar">
 
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="60dp"
@@ -26,7 +27,7 @@
                 android:visibility="gone" />
 
         <TextView
-                android:text="일꾼"
+                android:text="모집 공고"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPostType"
@@ -49,7 +50,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/tvPostType"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="10dp"
+                android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="12dp"
@@ -120,8 +122,8 @@
 
                     <View
                             android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:id="@+id/view"
+                            android:layout_height="2dp"
+                            android:id="@+id/postLineColor"
                             android:background="#FF8000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -133,10 +135,22 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:srcCompat="@drawable/img_ilgungam"
-                            android:id="@+id/imageView9"
+                            android:id="@+id/ivPostIlgam"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginStart="30dp" />
+                            android:layout_marginStart="30dp"
+                            android:visibility="visible" />
+
+                    <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/img_post_ilggun"
+                            android:id="@+id/ivPostIlggun"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp"
+                            android:visibility="invisible" />
+
 
                     <TextView
                             android:text="이삿짐 옮겨 주실 분 구합니다."
@@ -145,7 +159,7 @@
                             android:id="@+id/tvPostTitle"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            app:layout_constraintStart_toEndOf="@+id/imageView9"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostIlgam"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:textColor="@color/black"
@@ -163,28 +177,31 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginStart="15dp"
                             android:textStyle="bold"
-                            android:layout_marginTop="15dp" />
+                            android:layout_marginTop="15dp"
+                            android:visibility="invisible" />
 
                     <TextView
                             android:text="모집중"
-                            android:layout_width="50dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:id="@+id/postState"
                             android:textColor="@color/black"
                             android:textSize="12sp"
-                            app:layout_constraintStart_toEndOf="@+id/imageView9"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostIlgam"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintVertical_bias="0.0"
                             android:background="@drawable/custom_round_orange_btn"
                             android:layout_marginTop="5dp"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="93dp"
+                        android:layout_height="91dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
