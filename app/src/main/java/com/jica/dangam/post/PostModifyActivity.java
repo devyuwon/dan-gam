@@ -58,7 +58,6 @@ public class PostModifyActivity extends AppCompatActivity {
 		String modifyReward = intent.getStringExtra("reward");
 		String modifyId = intent.getStringExtra("id");
 		String posttype = intent.getStringExtra("posttype");
-		Toast.makeText(getApplicationContext(), posttype + "", Toast.LENGTH_SHORT).show();
 
 		etPostModifyTitle.setText(modifyTitle);    //제목
 		etPostContent.setText(modifyContents);    //내용
@@ -132,11 +131,11 @@ public class PostModifyActivity extends AppCompatActivity {
 		String documentId = modifyId;
 
 		if (subject.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
+			waring_title(etPostContent);    // 제목 미입력 안내토스트
 			return;
 		}
 		if (content.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "글 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+			waring_contents(etPostContent);        //내용 미입력 안내토스트
 			return;
 		}
 		Map<String, Object> updatePost = new HashMap<>();
@@ -162,6 +161,44 @@ public class PostModifyActivity extends AppCompatActivity {
 				public void onFailure(@NonNull Exception e) {
 				}
 			});
+	}
+
+	//커스텀 토스트 - 수정완료 안내
+	public void waring_title(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("제목을 입력하세요");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 수정완료 안내
+	public void waring_contents(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("내용을 입력하세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
 	}
 
 	//커스텀 토스트 - 수정완료 안내

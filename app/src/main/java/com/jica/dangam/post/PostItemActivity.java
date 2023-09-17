@@ -181,9 +181,9 @@ public class PostItemActivity extends AppCompatActivity {
 		}
 
 		if (post.getState() == true) {
-			postState.setText("모집완료");
-			btnStateDone.setVisibility(View.GONE);
-			btnStateIng.setVisibility(View.VISIBLE);
+			postState.setText("모집중");
+			btnStateDone.setVisibility(View.VISIBLE);
+			btnStateIng.setVisibility(View.INVISIBLE);
 		}
 
 		//메뉴버튼

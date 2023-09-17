@@ -223,7 +223,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			data.put("posttype", "post_gam");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 			finish();
@@ -234,7 +234,7 @@ public class PostCreateActivity extends AppCompatActivity {
 			data.put("posttype", "post_ggun");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 			finish();
