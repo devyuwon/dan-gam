@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jica.dangam.R;
 import com.jica.dangam.main.MainActivity;
@@ -28,6 +29,8 @@ public class PostModifyActivity extends AppCompatActivity {
 	EditText etPostModifyTitle;
 	EditText etPostContent, etReward;
 	private FirebaseFirestore db;
+
+	boolean postKind;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class PostModifyActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.orange_secondary));
 				btn_ilgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
+				postKind = true;
 			}
 		});
 
@@ -101,6 +105,7 @@ public class PostModifyActivity extends AppCompatActivity {
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.grey_10));
 				btn_ilgun.setBackgroundTintList(
 					AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+				postKind = false;
 			}
 		});
 
@@ -118,7 +123,8 @@ public class PostModifyActivity extends AppCompatActivity {
 		btn_post_complete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				modifyPost(modifyId);
+				modifyPostgam(modifyId);
+
 				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
 				startActivity(intent);
@@ -127,11 +133,37 @@ public class PostModifyActivity extends AppCompatActivity {
 
 	}
 
-	public void modifyPost(String modifyId) {
+	private void postdatas(PostModel post) {
+		if (postKind) {
+			DocumentReference addedDocRef = db.collection("post_gam").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("id", addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
+			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+			finish();
+		} else {
+			DocumentReference addedDocRef = db.collection("post_ggun").document();
+			Map<String, Object> data = new HashMap<>();
+			data.put("id", addedDocRef.getId());
+			addedDocRef.set(post);
+			addedDocRef.update(data);
+			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			intent.putExtra("post", post);
+			startActivity(intent);
+			finish();
+		}
+	}
+
+	public void modifyPostgam(String modifyId) {
 		String subject = etPostModifyTitle.getText().toString();
 		String content = etPostContent.getText().toString();
 		String reward = etReward.getText().toString();
 		String documentId = modifyId;
+		//
+		Boolean postgam = postKind;
 
 		if (subject.isEmpty()) {
 			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
@@ -145,6 +177,8 @@ public class PostModifyActivity extends AppCompatActivity {
 		updatePost.put("title", subject);
 		updatePost.put("contents", content);
 		updatePost.put("reward", reward);
+		//
+		updatePost.put("postgam", postgam);
 
 		db.collection("post_gam")
 			.document(documentId)
@@ -165,5 +199,7 @@ public class PostModifyActivity extends AppCompatActivity {
 					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
 				}
 			});
+
 	}
+
 }
