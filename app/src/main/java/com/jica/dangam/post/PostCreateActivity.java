@@ -256,7 +256,7 @@ public class PostCreateActivity extends AppCompatActivity {
 				onBtn_delete_no2Clicked(contents);
 				return;
 			}
-			Log.e("Single Choice: ", String.valueOf(data.getData()));
+			
 			Uri imageUri = data.getData();
 			uriList.add(imageUri);
 

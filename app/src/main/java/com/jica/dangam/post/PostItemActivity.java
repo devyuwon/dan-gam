@@ -133,7 +133,11 @@ public class PostItemActivity extends AppCompatActivity {
 		tv_post_title.setText(post.getTitle());
 		tv_post_content.setText(post.getContents());
 		tvReward.setText(post.getReward());
-
+		if (post.getState() == true) {
+			postState.setText("모집중");
+		} else {
+			postState.setText("모집완료");
+		}
 		//사용자 프로필 가져오기
 		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestIdToken(getString(R.string.default_web_client_id))
@@ -143,7 +147,6 @@ public class PostItemActivity extends AppCompatActivity {
 
 		// 현재 로그인한 사용자 정보 가져오기
 		FirebaseUser currentUser = mAuth.getCurrentUser();
-
 		if (currentUser != null) {
 			String displayName = currentUser.getDisplayName();
 			Uri photoUrl = currentUser.getPhotoUrl(); // 프로필 이미지 URL
@@ -180,11 +183,12 @@ public class PostItemActivity extends AppCompatActivity {
 			btnPostMenu.setVisibility(View.VISIBLE);
 		}
 
-		if (post.getState() == true) {
+		/*if (post.getState() == true) {
+			Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
 			postState.setText("모집중");
 			btnStateDone.setVisibility(View.VISIBLE);
 			btnStateIng.setVisibility(View.INVISIBLE);
-		}
+		}*/
 
 		//메뉴버튼
 		btnPostMenu.setOnClickListener(new View.OnClickListener() {
@@ -202,14 +206,24 @@ public class PostItemActivity extends AppCompatActivity {
 		});
 
 		//모집 상태변경
+
 		btnStateDone.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				btnStateDone.setVisibility(View.GONE);
-				btnStateIng.setVisibility(View.VISIBLE);
-				changeStateTrue(post.getId());
+				if (post.getState() != true) {
+					changeStateTrue(post.getId());
+					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(intent);
+				} else {
+					changeStateFalse(post.getId());
+					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(intent);
+				}
+			/*	btnStateDone.setVisibility(View.GONE);
+				btnStateIng.setVisibility(View.VISIBLE);*/
+				/*changeStateTrue(post.getId());
 				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(intent);
+				startActivity(intent);*/
 			}
 		});
 		btnStateIng.setOnClickListener(new View.OnClickListener() {
@@ -377,7 +391,7 @@ public class PostItemActivity extends AppCompatActivity {
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void unused) {
-					modify_state_ing(tvPostModify);
+					modify_state_ing(tvPostModify);    //토스트
 				}
 			})
 			.addOnFailureListener(new OnFailureListener() {
@@ -398,7 +412,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 		TextView text11 = layout.findViewById(R.id.tvToast);
 		Toast toast = new Toast(getApplicationContext());
-		text11.setText("모집완료로 변경됐습니다.");
+		text11.setText("모집중으로 변경됐습니다.");
 		text11.setTextSize(15);
 		text11.setTextColor(Color.WHITE);
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
@@ -417,7 +431,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 		TextView text11 = layout.findViewById(R.id.tvToast);
 		Toast toast = new Toast(getApplicationContext());
-		text11.setText("모집중으로 변경됐습니다.");
+		text11.setText("모집완료로 변경됐습니다.");
 		text11.setTextSize(15);
 		text11.setTextColor(Color.WHITE);
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
