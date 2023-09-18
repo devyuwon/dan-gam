@@ -57,7 +57,9 @@ public class MainFragment extends Fragment {
 		@Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 		Toolbar tb = view.findViewById(R.id.mainToolbar);
-		((AppCompatActivity)getActivity()).setSupportActionBar(tb);
+		AppCompatActivity activity = ((AppCompatActivity)getActivity());
+		activity.setSupportActionBar(tb);
+		activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		recyclerView = view.findViewById(R.id.main_recyclerview);
 		linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -159,11 +161,13 @@ public class MainFragment extends Fragment {
 				@Override
 				public void onComplete(@NonNull Task<QuerySnapshot> task) {
 					if (task.isSuccessful()) {
+						ArrayList<ListModel> list = new ArrayList<>();
 						for (QueryDocumentSnapshot document : task.getResult()) {
 							ListModel profile = document.toObject(ListModel.class);
-							adapter.addItem(profile);
+							list.add(profile);
 							lastDoc = profile.getPdate();
 						}
+						adapter.addItems(list);
 						adapter.notifyDataSetChanged();
 					} else {
 						Log.d("DB", "Error getting documents: ", task.getException());
