@@ -44,8 +44,6 @@ public class PostDeleteDialog extends Dialog {
 		//참조할 다이얼로그 화면을 연결한다.
 		customDialog.setContentView(R.layout.activity_post_dialog);
 
-		//다이얼로그의 구성요소들이 동작할 코드작성
-
 		//삭제 버튼
 		Button btn_delete_yes = customDialog.findViewById(R.id.btnDeleteYes);
 		Button btn_delete_no = customDialog.findViewById(R.id.btnDeleteNo);

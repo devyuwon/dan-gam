@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ListModel implements Serializable {
-	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id, reward;
+	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id, reward, posttype;
 	private Date pdate;
 	private boolean state, deleted;
 
@@ -138,5 +138,13 @@ public class ListModel implements Serializable {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public String getPosttype() {
+		return posttype;
+	}
+
+	public void setPosttype(String posttype) {
+		this.posttype = posttype;
 	}
 }
