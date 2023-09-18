@@ -59,6 +59,7 @@ public class SearchResultFragment extends Fragment {
 
 		// 어탭터 생성
 		adapter = new ListAdapter(getActivity(), list);
+		adapter.setKind(modString);
 
 		recyclerView.setAdapter(adapter);
 
@@ -77,6 +78,7 @@ public class SearchResultFragment extends Fragment {
 				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
 				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
 				adapter.clearData();
+				adapter.setKind(modString);
 				loadResult(searchWord);
 			}
 		});
@@ -87,6 +89,7 @@ public class SearchResultFragment extends Fragment {
 				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
 				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
 				adapter.clearData();
+				adapter.setKind(modString);
 				loadResult(searchWord);
 			}
 		});

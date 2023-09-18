@@ -1,6 +1,8 @@
 package com.jica.dangam.list;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,7 +26,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 	static private ArrayList<ListModel> items;
 	static private Context context;
-	private String kindString = "일감";
+	static private String kindString = "일감";
 
 	public ListAdapter(Context context, ArrayList<ListModel> list) {
 		this.context = context;
@@ -69,11 +71,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 	}
 
 	static public class ViewHolder extends RecyclerView.ViewHolder {
-		private TextView title;
-		private TextView sal;
-		private ImageView image;
-		private TextView kind;
-		private TextView time;
+		TextView title;
+		TextView sal;
+		ImageView image;
+		TextView kind;
+		TextView time;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -102,6 +104,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 			title.setText(item.getTitle());
 			sal.setText(item.getReward());
 
+
 			String imageUrl = item.getImageUrl1(); // 이미지 URL 가져오기
 			if (imageUrl != null && !imageUrl.isEmpty()) {
 				FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -110,6 +113,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 			} else {
 				Glide.with(itemView).load(R.drawable.img_symbol02).into(image);
 			}
+			if(kindString == "post_gam"){
+				kind.setText("일감");
+			}else {
+				kind.setText("일꾼");
+			}
+
 		}
 	}
 
