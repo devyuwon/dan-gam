@@ -9,10 +9,17 @@
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:background="?attr/colorPrimary"
+            android:background="#FFFFFF"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
-            android:id="@+id/searchToolbar" />
+            android:id="@+id/searchToolbar" >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="검색"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <SearchView
             android:layout_width="400dp"

@@ -73,7 +73,8 @@
                         android:layout_weight="1"
                         android:gravity="right"
                         android:textSize="12sp"
-                        android:textColor="#7C7C7C" />
+                        android:textColor="#7C7C7C"
+                        android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

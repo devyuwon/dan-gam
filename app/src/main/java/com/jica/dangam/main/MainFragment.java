@@ -57,7 +57,9 @@ public class MainFragment extends Fragment {
 		@Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 		Toolbar tb = view.findViewById(R.id.mainToolbar);
-		((AppCompatActivity)getActivity()).setSupportActionBar(tb);
+		AppCompatActivity activity = ((AppCompatActivity)getActivity());
+		activity.setSupportActionBar(tb);
+		activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		recyclerView = view.findViewById(R.id.main_recyclerview);
 		linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
