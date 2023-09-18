@@ -66,6 +66,7 @@ public class MainFragment extends Fragment {
 		recyclerView.setLayoutManager(linearLayoutManager);
 		list = new ArrayList<>();
 		adapter = new ListAdapter(context, list);
+		adapter.setKind(modString);
 		loadList();
 		recyclerView.setAdapter(adapter);
 		fragmentManager = getChildFragmentManager();
@@ -102,6 +103,7 @@ public class MainFragment extends Fragment {
 				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
 				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
 				adapter.clearData();
+				adapter.setKind(modString);
 				loadList();
 			}
 		});
@@ -112,6 +114,7 @@ public class MainFragment extends Fragment {
 				btnGam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DFE2E4")));
 				btnGgun.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF8000")));
 				adapter.clearData();
+				adapter.setKind(modString);
 				loadList();
 			}
 		});
