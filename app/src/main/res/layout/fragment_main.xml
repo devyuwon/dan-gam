@@ -10,11 +10,21 @@
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:background="?attr/colorPrimary"
+            android:background="#FFFFFF"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
-            android:id="@+id/mainToolbar"
-            app:title="Dangam" />
+            android:id="@+id/mainToolbar" >
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_logo"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="Logo" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -35,7 +45,7 @@
                 android:text="전주시 노송동"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:id="@+id/textView"
+                android:id="@+id/tvPostType"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
@@ -77,6 +87,7 @@
                 android:scrollbars="vertical"
                 android:layout_weight="1" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
             app:menu="@menu/common_bottom_nav"
             android:layout_width="match_parent"

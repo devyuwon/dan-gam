@@ -15,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jica.dangam.R;
+import com.jica.dangam.main.MainActivity;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -29,7 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -42,17 +42,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PostCreateActivity extends AppCompatActivity {
 	final int PICTURE_REQUEST_CODE = 100;
 	boolean postKind = true;
-	Button btnIlgam, btnIlgun;
-	Button btnPlusGps;
-	RadioButton rbRewardNo, rbRewardYes;
-	EditText etReward;
-	Button btnPostComplete;
-	Button btnPostPicture;
-	Button btnPostBack;
-	EditText title, contents;
-	EditText etPostTitle, etPostContent;
+	Button btnIlgam, btnIlgun, btnPlusGps, btnPostComplete, btnPostPicture, btnPostBack;
+	EditText etReward, title, contents;
 	ArrayList<Uri> uriList = new ArrayList<>();
-	RecyclerView rvPostImage; // 이미지를 보여줄 리사이클러뷰
+	RecyclerView rvPostImage;
 	PostImageAdapter adapter;
 	FirebaseFirestore db = FirebaseFirestore.getInstance();
 	String documentUid;
@@ -71,14 +64,8 @@ public class PostCreateActivity extends AppCompatActivity {
 		rvPostImage = findViewById(R.id.rvPostImage);
 		title = findViewById(R.id.etPostModifyTitle);
 		contents = findViewById(R.id.etPostContent);
-		//etPostTitle = findViewById(R.id.etPostModifyTitle);
-		//etPostContent = findViewById(R.id.etPostContent);
 		etReward = findViewById(R.id.etReward);
 		btnPostBack = findViewById(R.id.btnPostBack);
-
-		adapter = new PostImageAdapter(uriList, this); //getApplicationContext()
-		rvPostImage.setAdapter(adapter);
-		rvPostImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 
 		// 유형 선택 - 일감
 		btnIlgam.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +92,9 @@ public class PostCreateActivity extends AppCompatActivity {
 		});
 
 		//사진첨부
+		adapter = new PostImageAdapter(uriList, this);
+		rvPostImage.setAdapter(adapter);
+		rvPostImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 		btnPostPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -130,44 +120,34 @@ public class PostCreateActivity extends AppCompatActivity {
 		btnPostComplete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// EditText에서 값을 가져옵니다.
+
 				String titleText = title.getText().toString();
 				String contentText = contents.getText().toString();
 				String rewardText = etReward.getText().toString();
 
-				// 값이 비어 있는지 확인합니다.
 				if (titleText.isEmpty()) {
-					// 제목 또는 내용이 비어 있는 경우 토스트 메시지를 표시하고 메서드를 실행하지 않습니다.
 					warning_notitle(contents);    //제목 미입력시 안내 토스트
-					//Toast.makeText(getApplicationContext(), "제목과 내용을 입력하세요.", Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 				if (contentText.isEmpty()) {
-					// 제목 또는 내용이 비어 있는 경우 토스트 메시지를 표시하고 메서드를 실행하지 않습니다.
 					warning_nocontents(contents);    //제목 미입력시 안내 토스트
-					//Toast.makeText(getApplicationContext(), "제목과 내용을 입력하세요.", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				//post정보를 담을 post 모델 생성
 				PostModel post = new PostModel();
+
+				//post모델에 정보 담기
 				post.setTitle(title.getText().toString());
 				post.setContents(contents.getText().toString());
-
-				//PostModel post = new PostModel(title.getText().toString(), contents.getText().toString());
-				//post객체에 넣어야 할 거: 제목, 내용, 이미지uri3개, 장소, 작성시간, 모집상태, userid
-				//post.setTitle(String.valueOf(etPostTitle.getText()));
-				//post.setContents(String.valueOf(etPostContent.getText()));
-				//장소 일단 패스
-				//작성시간 -- 매핑해서 넣을 거면 servertimestamp 쓰셔도 돼요
 				Date now = new Date();
 				post.setPdate(now);
-				// User uid
+
 				FirebaseAuth mAuth = FirebaseAuth.getInstance();
 				if (mAuth.getCurrentUser() != null) {
 					post.setUid(mAuth.getCurrentUser().getUid());
 				}
 
-				// Reward
 				if (rewardText.isEmpty()) {
 					post.setReward("상의 후 결정");
 				} else {
@@ -175,9 +155,13 @@ public class PostCreateActivity extends AppCompatActivity {
 				}
 				post.setDeleted(false);
 
-				//이미지 uri 얻으러 갑시다.
 				documentUid = post.getUid() + now.getTime();
 				getImgUri(post, documentUid, 0);
+
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+				intent.putExtra("posttype", post.getPosttype());
+				startActivity(intent);
+
 			}
 
 		});
@@ -187,15 +171,13 @@ public class PostCreateActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				finish();
-				//Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-				//startActivity(intent);
 			}
 		});
 	}
 
+	//이미지 storage에 저장하기
 	private void getImgUri(PostModel post, String documentUid, Integer i) {
 		if (uriList.size() == 0) {
-			//이미지 없으면 바로 db에 저장해보시죠
 			postdatas(post);
 		} else {
 			StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -232,14 +214,16 @@ public class PostCreateActivity extends AppCompatActivity {
 		}
 	}
 
+	//일감 일꾼 유형분리
 	private void postdatas(PostModel post) {
 		if (postKind) {
 			DocumentReference addedDocRef = db.collection("post_gam").document();
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
+			data.put("posttype", "post_gam");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 			finish();
@@ -247,9 +231,10 @@ public class PostCreateActivity extends AppCompatActivity {
 			DocumentReference addedDocRef = db.collection("post_ggun").document();
 			Map<String, Object> data = new HashMap<>();
 			data.put("id", addedDocRef.getId());
+			data.put("posttype", "post_ggun");
 			addedDocRef.set(post);
 			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			intent.putExtra("post", post);
 			startActivity(intent);
 			finish();
@@ -268,8 +253,6 @@ public class PostCreateActivity extends AppCompatActivity {
 
 		if (data.getClipData() == null) {
 			if (uriList.size() >= 3) {
-				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
-
 				onBtn_delete_no2Clicked(contents);
 				return;
 			}
@@ -281,10 +264,8 @@ public class PostCreateActivity extends AppCompatActivity {
 			ClipData clipData = data.getClipData();
 			Log.e("clipData", String.valueOf(clipData.getItemCount()));
 
-			if (clipData.getItemCount() + uriList.size() > 3) { // 이미 리스트에 있는 이미지 수를 고려하여 확인
-				//Toast.makeText(getApplicationContext(), "사진은 3장까지 첨부할 수 있습니다.", Toast.LENGTH_SHORT).show();
+			if (clipData.getItemCount() + uriList.size() > 3) {
 				onBtn_delete_no2Clicked(contents);
-				return;
 			} else {
 				Log.e("PostWriteActivity", "Multiple Choice");
 
@@ -293,8 +274,7 @@ public class PostCreateActivity extends AppCompatActivity {
 
 					try {
 						uriList.add(imgUri);
-						//어탭터에서 사용하는 원본데이타를 추가했으므로
-						//어탭터에서 원본데이타의 정보에 맞추어 새로 화면을 뿌려주라고 알려준다.
+						//어탭터에서 사용하는 원본데이타를 추가했으므로 어탭터에서 원본데이타의 정보에 맞추어 새로 화면을 구성하라게함
 						adapter.notifyDataSetChanged();
 						Log.d("TAG", "현재 사진 갯수 : " + uriList.size());
 						if (uriList.size() >= 3) {
@@ -367,5 +347,4 @@ public class PostCreateActivity extends AppCompatActivity {
 		toast.setView(layout);
 		toast.show();
 	}
-
 }

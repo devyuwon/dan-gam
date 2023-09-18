@@ -11,10 +11,15 @@ import com.jica.dangam.R;
 import com.jica.dangam.main.MainActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +27,9 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 public class PostModifyActivity extends AppCompatActivity {
 
-	Button btn_post_back;
-	Button btn_ilgam, btn_ilgun;
-	Button btn_plus_gps;
-	Button btn_post_complete;
-	EditText etPostModifyTitle;
-	EditText etPostContent, etReward;
+	Button btn_post_back, btn_ilgam, btn_ilgun, btn_plus_gps, btn_post_complete;
+	EditText etPostModifyTitle, etPostContent, etReward;
 	private FirebaseFirestore db;
-
 	boolean postKind;
 
 	@Override
@@ -57,29 +57,23 @@ public class PostModifyActivity extends AppCompatActivity {
 		String modifyContents = intent.getStringExtra("contents");
 		String modifyReward = intent.getStringExtra("reward");
 		String modifyId = intent.getStringExtra("id");
+		String posttype = intent.getStringExtra("posttype");
 
 		etPostModifyTitle.setText(modifyTitle);    //제목
 		etPostContent.setText(modifyContents);    //내용
 		etReward.setText(modifyReward);    //수행비
 
-
-
-		/*
-		db.document(String.valueOf(post.getContents())).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-			@Override
-			public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-			}
-		});
-*/
+		if (posttype.equals("post_ggun")) {
+			btn_ilgam.setText("일꾼");
+			btn_ilgam.setBackgroundTintList(
+				AppCompatResources.getColorStateList(getApplicationContext(), R.color.green_light));
+		}
 
 		//뒤로가기 버튼
 		btn_post_back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
-				Intent intent = new Intent(PostModifyActivity.this, PostItemActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		});
 
@@ -119,58 +113,29 @@ public class PostModifyActivity extends AppCompatActivity {
 		});
 
 		//작성완료
-
 		btn_post_complete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				modifyPostgam(modifyId);
+				modifyPostgam(modifyId, posttype);
 
 				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
 				startActivity(intent);
 			}
 		});
-
 	}
 
-	private void postdatas(PostModel post) {
-		if (postKind) {
-			DocumentReference addedDocRef = db.collection("post_gam").document();
-			Map<String, Object> data = new HashMap<>();
-			data.put("id", addedDocRef.getId());
-			addedDocRef.set(post);
-			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
-			intent.putExtra("post", post);
-			startActivity(intent);
-			finish();
-		} else {
-			DocumentReference addedDocRef = db.collection("post_ggun").document();
-			Map<String, Object> data = new HashMap<>();
-			data.put("id", addedDocRef.getId());
-			addedDocRef.set(post);
-			addedDocRef.update(data);
-			Intent intent = new Intent(getApplicationContext(), PostItemActivity.class);
-			intent.putExtra("post", post);
-			startActivity(intent);
-			finish();
-		}
-	}
-
-	public void modifyPostgam(String modifyId) {
+	public void modifyPostgam(String modifyId, String Collection) {
 		String subject = etPostModifyTitle.getText().toString();
 		String content = etPostContent.getText().toString();
 		String reward = etReward.getText().toString();
 		String documentId = modifyId;
-		//
-		Boolean postgam = postKind;
 
 		if (subject.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
+			waring_title(etPostContent);    // 제목 미입력 안내토스트
 			return;
 		}
 		if (content.isEmpty()) {
-			Toast.makeText(getApplicationContext(), "글 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+			waring_contents(etPostContent);        //내용 미입력 안내토스트
 			return;
 		}
 		Map<String, Object> updatePost = new HashMap<>();
@@ -178,9 +143,8 @@ public class PostModifyActivity extends AppCompatActivity {
 		updatePost.put("contents", content);
 		updatePost.put("reward", reward);
 		//
-		updatePost.put("postgam", postgam);
 
-		db.collection("post_gam")
+		db.collection(Collection)
 			.document(documentId)
 			.update(updatePost)
 			.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -189,17 +153,70 @@ public class PostModifyActivity extends AppCompatActivity {
 					etPostModifyTitle.setText("");
 					etPostContent.setText("");
 					etReward.setText("");
-					Toast.makeText(getApplicationContext(), "수정을 완료했습니다", Toast.LENGTH_SHORT).show();
-
+					modify_completed(etPostContent);
 				}
 			})
 			.addOnFailureListener(new OnFailureListener() {
 				@Override
 				public void onFailure(@NonNull Exception e) {
-					Toast.makeText(getApplicationContext(), "수정에 실패했습니다", Toast.LENGTH_SHORT).show();
 				}
 			});
-
 	}
 
+	//커스텀 토스트 - 수정완료 안내
+	public void waring_title(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("제목을 입력하세요");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 수정완료 안내
+	public void waring_contents(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("내용을 입력하세요.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
+
+	//커스텀 토스트 - 수정완료 안내
+	public void modify_completed(View view) {
+		LayoutInflater inflater = getLayoutInflater();
+
+		View layout = inflater.inflate(
+			R.layout.toast_layout,
+			(ViewGroup)findViewById(R.id.toast_layout));
+
+		TextView text11 = layout.findViewById(R.id.tvToast);
+		Toast toast = new Toast(getApplicationContext());
+		text11.setText("수정이엘 완료되었습니다.");
+		text11.setTextSize(15);
+		text11.setTextColor(Color.WHITE);
+		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		toast.setView(layout);
+		toast.show();
+	}
 }

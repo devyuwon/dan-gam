@@ -13,21 +13,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <Button
-                android:text="현재 위치 찾기"
+        <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/map"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:name="com.naver.maps.map.MapFragment"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp" />
+
+        <TextView
+                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnGetLocation"
-                style="@style/PretendardButtonStyle"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:gravity="left|center_vertical"
-                app:icon="@drawable/icon_location"
-                app:iconTint="@color/black"
-                app:iconSize="23dp"
-                app:iconPadding="15dp"
-                android:layout_marginTop="60dp" />
+                android:id="@+id/tvLocation" />
     </LinearLayout>
 
 </LinearLayout>

@@ -76,17 +76,15 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-storage:20.2.1")
 
-    //당겨서 새로고침 종속성 추가
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
     // Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     // Toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
 
-    // Kakao map SDK
-    implementation("com.kakao.maps.open:android:2.6.0")
+    // Naver map SDK
+    implementation("com.naver.maps:map-sdk:3.17.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
     modules {
         module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {

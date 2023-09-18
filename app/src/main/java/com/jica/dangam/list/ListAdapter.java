@@ -24,6 +24,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 	static private ArrayList<ListModel> items;
 	static private Context context;
+	private String kindString = "일감";
 
 	public ListAdapter(Context context, ArrayList<ListModel> list) {
 		this.context = context;
@@ -59,6 +60,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 	public void addItem(ListModel item) {
 		items.add(item);
 	}
+	public void addItems(ArrayList<ListModel> list){
+		items.addAll(list);
+	}
 
 	public ListModel getItem(int index) {
 		return this.items.get(index);
@@ -66,14 +70,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 	static public class ViewHolder extends RecyclerView.ViewHolder {
 		private TextView title;
-		private TextView content;
+		private TextView sal;
 		private ImageView image;
+		private TextView kind;
+		private TextView time;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			title = (TextView)itemView.findViewById(R.id.postTitle);
-			content = (TextView)itemView.findViewById(R.id.postContents);
+			sal = (TextView)itemView.findViewById(R.id.postSale);
 			image = (ImageView)itemView.findViewById(R.id.postImage);
+			kind = (TextView)itemView.findViewById(R.id.postKind);
+			time = (TextView)itemView.findViewById(R.id.postTime);
 			itemView.setClickable(true);
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -92,23 +100,23 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 		public void setItemOnView(ListModel item) {
 			title.setText(item.getTitle());
-			content.setText(item.getContents());
+			sal.setText(item.getReward());
 
 			String imageUrl = item.getImageUrl1(); // 이미지 URL 가져오기
 			if (imageUrl != null && !imageUrl.isEmpty()) {
 				FirebaseStorage storage = FirebaseStorage.getInstance();
 				StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
 				Glide.with(itemView).load(imageUrl).into(image);
-
-				Log.d("TAG", "Glide 작동");
 			} else {
-				// 이미지 URL이 null 또는 빈 문자열인 경우에 대한 처리
-				// 예를 들어 기본 이미지를 표시하거나 다른 작업을 수행할 수 있습니다.
+				Glide.with(itemView).load(R.drawable.img_symbol02).into(image);
 			}
 		}
 	}
 
 	public void clearData() {
 		items.clear();
+	}
+	public void setKind(String kind){
+		this.kindString = kind;
 	}
 }

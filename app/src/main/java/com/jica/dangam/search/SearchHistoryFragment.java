@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 public class SearchHistoryFragment extends Fragment {
 
 
+
 	String[] history;
 	TextView history1;
 	TextView history2;

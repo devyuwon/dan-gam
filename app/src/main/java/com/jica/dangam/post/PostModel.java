@@ -6,7 +6,7 @@ import java.util.Date;
 import com.jica.dangam.list.ListModel;
 
 public class PostModel implements Serializable {
-	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id, reward;
+	private String title, contents, location, imageUrl1, imageUrl2, imageUrl3, uid, id, reward, posttype;
 	private Date pdate;
 	private boolean state, deleted;
 
@@ -39,6 +39,7 @@ public class PostModel implements Serializable {
 		this.id = listModel.getId();
 		this.reward = listModel.getReward();
 		this.deleted = listModel.isDeleted();
+		this.posttype = listModel.getPosttype();
 	}
 
 	public PostModel() {
@@ -167,4 +168,13 @@ public class PostModel implements Serializable {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	public String getPosttype() {
+		return posttype;
+	}
+
+	public void setPosttype(String posttype) {
+		this.posttype = posttype;
+	}
+
 }

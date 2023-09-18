@@ -133,7 +133,7 @@
                         android:text="모집 희망 장소"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView"
+                        android:id="@+id/tvPostType"
                         app:layout_constraintStart_toStartOf="parent"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -228,7 +228,7 @@
                 <EditText
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:inputType="text"
+                        android:inputType="textMultiLine"
                         android:ems="10"
                         android:id="@+id/etPostContent"
                         android:hint="\n ex.  \n -업무 내용 : \n -경력 여부 : \n -나이제한 : \n -자격요건 : \n -모집인원 :\n\n"
@@ -262,7 +262,7 @@
                         android:backgroundTint="#FFAC61"
                         android:background="@drawable/custom_round_100dp_btn"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPostType"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="20dp" />
 
