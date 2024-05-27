@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:elevation="20dp"
+        android:id="@+id/layoutMain"
+        android:background="#00000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="#FFEFDE"
+            android:id="@+id/lyPostTopbar">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:id="@+id/btnPostMenu"
+                android:background="@drawable/icon_dots"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
+
+        <TextView
+                android:text="모집 공고"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostType"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"
+                android:layout_marginStart="165dp" />
+
+        <TextView
+                android:text="모집"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostSubType"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/tvPostType"
+                android:layout_marginStart="10dp"
+                android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="12dp"
+                android:layout_height="23dp"
+                android:id="@+id/btnPostBack"
+                android:background="@drawable/icon_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"
+                android:contentDescription="해당 view에 대한 설명" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="716dp">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <androidx.viewpager2.widget.ViewPager2
+
+                        android:layout_width="340dp"
+                        android:layout_height="262dp"
+                        android:id="@+id/vpPhoto"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:srcCompat="@drawable/custom_round_btn"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/custom_round_btn">
+
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+                <LinearLayout
+                        android:id="@+id/layoutIndicators"
+                        android:gravity="center"
+                        android:paddingBottom="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/vpPhoto"></LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:layout_constraintTop_toBottomOf="@+id/vpPhoto"
+                        android:layout_marginTop="5dp"
+                        tools:layout_editor_absoluteX="15dp"
+                        android:id="@+id/constraintLayout2">
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:id="@+id/postLineColor"
+                            android:background="#FF8000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginEnd="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginStart="20dp" />
+
+                    <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/img_ilgungam"
+                            android:id="@+id/ivPostIlgam"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp"
+                            android:visibility="visible" />
+
+                    <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/img_post_ilggun"
+                            android:id="@+id/ivPostIlggun"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp"
+                            android:visibility="invisible" />
+
+
+                    <TextView
+                            android:text="이삿짐 옮겨 주실 분 구합니다."
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvPostTitle"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostIlgam"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="5dp" />
+
+                    <TextView
+                            android:text="2시간전"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView13"
+                            android:textColor="#8E9192"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@+id/tvPostTitle"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="15dp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            android:visibility="invisible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                        android:id="@+id/constraintLayout3"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        android:layout_marginTop="1dp">
+                    
+                    <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="93dp"
+                            android:layout_height="93dp"
+
+                            android:id="@+id/ivPostProfile"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="30dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:src="@drawable/img_profile_sample"
+                            android:padding="10dp" />
+
+
+                    <TextView
+                            android:text="홍시가 될때까지"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvPostProfileID"
+                            android:textColor="#2E3132"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostProfile"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="20dp" />
+
+                    <TextView
+                            android:text="전주시 덕진구 금암 2동"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView15"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPostProfileID"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostProfile"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginBottom="18dp"
+                            android:layout_marginStart="12dp"
+                            android:textSize="12sp"
+                            android:textColor="#747878"
+                            android:textStyle="bold"
+                            android:textColorHint="@color/black"
+                            android:visibility="gone" />
+
+                    <TextView
+                            android:text="모집중"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:id="@+id/postState"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:background="@drawable/custom_round_orange_btn"
+                            android:textAlignment="center"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            app:layout_constraintStart_toEndOf="@+id/ivPostProfile"
+                            android:layout_marginStart="10dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPostProfileID"
+                            android:layout_marginTop="5dp"
+                            android:visibility="visible" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="10dp">
+
+                    <TextView
+                            android:text="날짜 : 2023년 8월 4일 (금) 오후 2시  \n예상 수행 시간 : 2시간 \n필요 인원 : 3명 \n\n 큰 물건은 별로 없어요. 가까운 곳으로 이사 하는데 \n주변에 지인이 없어서 단감에 글 올립니다. \n평일에 이사를 꼭 해야 하는  상황입니다. \n\n죄송하지만 미성년자분은 지원 불가합니다.\n"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_post_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor="@color/black"
+
+                            />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:theme="@style/CustomRadioButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/custom_half_round_btn"
+                android:paddingLeft="15dp"
+                android:elevation="50dp"
+                android:visibility="gone"
+                android:id="@+id/rgPostStateModify">
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="70dp"
+                    android:layout_height="5dp"
+                    android:id="@+id/rgPostClose"
+                    android:background="@drawable/icon_closebar"
+                    android:layout_marginLeft="150dp"
+                    android:contentDescription="해당 view에 대한 설명"
+                    android:layout_marginTop="20dp" />
+
+            <ImageView
+
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imageView2"
+                    app:srcCompat="@drawable/icon_post_ilgam_state"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="250dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:text="모집완료"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnStateDone"
+                    android:background="@drawable/custom_round_btn"
+                    android:visibility="visible"
+                    android:layout_marginRight="15dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:text="모집중으로 변경"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnStateIng"
+                    android:background="@drawable/custom_round_orange_btn"
+                    android:visibility="gone"
+                    android:layout_marginRight="15dp" />
+
+            <RadioButton
+                    android:text="  공고 진행중"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/radioButton3"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            <RadioButton
+                    android:text="  공고 진행완료"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/radioButton4"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:id="@+id/view5"
+                android:background="#DBDBDB"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="75dp" />
+
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:id="@+id/view4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#DBDBDB" />
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:id="@+id/view3"
+                android:background="#DBDBDB"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+        <TextView
+                android:text="수행비 : 100,000원"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvReward"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black" />
+
+        <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                app:srcCompat="@drawable/icon_delete01"
+                android:id="@+id/btnPostDelete"
+                android:backgroundTint="#ffff"
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="15dp"
+                android:onClick="show_default_dialog"
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
+
+        <TextView
+                android:text="삭제"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDelete"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+        <TextView
+                android:text="수정"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostModify"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@+id/btnPostModify"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="3dp"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btnPostModify"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/icon_modify"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/view3"
+                android:contentDescription="해당 view에 대한 설명"
+                android:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -14,6 +14,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "690547928578-17e1h5c44aqhtdqsrcu5s3gdpt09fl7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "147bed3c27c124a85ff881eb940d76af3420e659"
+          }
+        },
+        {
+          "client_id": "690547928578-4eltuvhstolrm50ov13uvlld51lu0d0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "ed5ccd8d3d36e0e4edecf52d5fd6d31b1a04cb3c"
+          }
+        },
+        {
+          "client_id": "690547928578-5oiqk41plf3d004mnvunguofq6dbi1if.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "84b306d0c4fea4e25544b7d311ef654bfcee5050"
+          }
+        },
+        {
+          "client_id": "690547928578-k6tumc4p8co0fpoldm5t7plavtb3u4vj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jica.dangam",
+            "certificate_hash": "4972e352666cc6c22c96d5121dc99d92c8cb88c3"
+          }
+        },
+        {
           "client_id": "690547928578-uvf14sf33e7stnmedu3ldh47idk18od8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".mypage.MyPageFragment">
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/mainToolbar"
+            app:title="Dangam" />
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="755dp">
+
+        <TextView
+                android:text="내 정보"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:id="@+id/tvPostType"
+                android:textSize="21sp"
+                android:gravity="center"
+                android:background="@color/orange_primary"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_mypage_profile_radius"
+                android:elevation="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivUserProfilePhoto"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/img_profile_sample"
+                    android:padding="10dp" />
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical">
+
+                <TextView
+                        android:text="Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvUserName"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:textColor="#000000"
+                        android:layout_marginBottom="5dp" />
+
+                <TextView
+                        android:text="Address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textStyle="bold"
+                        android:textColor="#7C7C7C"
+                        android:layout_marginBottom="5dp" />
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="Work"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView4"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#7C7C7C"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView5"
+                            android:layout_marginRight="15dp"
+                            android:textColor="#7C7C7C" />
+
+                    <TextView
+                            android:text="Order"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvPostModify"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#7C7C7C"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView7"
+                            android:layout_weight="1"
+                            android:textColor="#7C7C7C" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="일꾼 수행 내역"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnIlggun"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_list01"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="일감 수행 내역"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnIlgam"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_list02"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="내 위치 인증하기"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnLocation"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_location"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="설정"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnSetting"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_setting"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:id="@+id/postLineColor"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#C4C4C4" />
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="공지사항"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnNotice"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_notice"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="로그아웃"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnLogout"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_logout"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                    <Button
+                            android:text="회원 탈퇴"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnDelete"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_delete02"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp">
+
+                    <Button
+                            android:text="개발진"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/btnDeveloper"
+                            style="@style/PretendardButtonStyle"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="left|center_vertical"
+                            app:icon="@drawable/icon_developer"
+                            app:iconTint="@color/black"
+                            app:iconSize="23dp"
+                            app:iconPadding="15dp" />
+
+                </LinearLayout>
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:menu="@menu/common_bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="#fff"
+            app:itemIconSize="25dp"
+            android:id="@+id/bottomNavigationView" />
+</LinearLayout>
